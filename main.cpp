@@ -25,11 +25,13 @@
 #include <string>
 #include <time.h>
 #include <algorithm>
-#include "stack.cpp"
+
 using namespace std;
 #undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 #define DEBUG
+void TestOfStack();
+void TestOfQueue();
 
 int main()
 {
@@ -40,7 +42,13 @@ int main()
 	freopen_s(&input, "in.txt", "r", stdin);
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
-	TestOfStack();
+	try{
+		TestOfStack();
+		TestOfQueue();
+	}
+	catch (const char *a){
+		cout << a << endl;
+	}
 	cout<<"运行时间："<<clock()-BeginTime<<endl;
 #ifndef DEBUG
 	system("pause");
