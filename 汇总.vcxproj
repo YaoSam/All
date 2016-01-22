@@ -69,18 +69,14 @@
     <Text Include="out.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="bstree.cpp" />
     <ClCompile Include="btree.cpp" />
-    <ClCompile Include="list.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="queue.cpp" />
-    <ClCompile Include="stack.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bstree.h" />
     <ClInclude Include="btree.h" />
-    <ClInclude Include="list.h" />
-    <ClInclude Include="queue.h" />
-    <ClInclude Include="Stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

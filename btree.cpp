@@ -6,6 +6,8 @@ TEMP
 btree<T>::btree(btree<T> const & other)
 {
 	data = other.data;
+	nodeNum = other.nodeNum;
+	height = other.height;
 	if (other.left)
 		left = new btree(*other.left);
 	if (other.right)
@@ -34,6 +36,25 @@ btree<T>::~btree()
 	this->del();
 }
 
+TEMP
+unsigned int btree<T>::Height()const
+{
+	unsigned int leftH = 0, rightH = 0;
+	if (left)
+		leftH = left->Height();
+	if (right)
+		rightH = right->Height();
+	return (leftH > rightH ? leftH : rightH) + 1;
+}
+
+TEMP
+unsigned int btree<T>::NodeNum()const
+{
+	if (this == NULL)
+		return 0;
+	else
+		return left->NodeNum() + right->NodeNum() + 1;
+}
 TEMP
 void btree<T>::pre()const
 {
@@ -77,4 +98,30 @@ void btree<T>::print()const
 		std::cout << (temp->data) << " ";
 	}
 	std::cout << std::endl;
+}
+
+TEMP 
+void btree<T>::insert(T const &x)
+{
+	if (nodeNum == 0)
+	{
+		data = x;
+		nodeNum = 1;
+		return;
+	}
+	else if (x > data)
+	{
+		if (right == NULL)
+			right = new btree<T>(x);
+		else
+			right->insert(x);
+	}
+	else
+	{
+		if (left == NULL)
+			left = new btree<T>(x);
+		else
+			left->insert(x);
+	}
+	nodeNum++;
 }
