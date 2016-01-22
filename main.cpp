@@ -32,6 +32,7 @@ using namespace std;
 #define DEBUG
 void TestOfStack();
 void TestOfQueue();
+void TestOfList();
 
 int main()
 {
@@ -43,13 +44,17 @@ int main()
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
 	try{
+		cout << "测试栈" << endl;
 		TestOfStack();
+		cout << "测试堆" << endl;
 		TestOfQueue();
+		cout << "测试链表" << endl;
+		TestOfList();
 	}
 	catch (const char *a){
 		cout << a << endl;
 	}
-	cout<<"运行时间："<<clock()-BeginTime<<endl;
+	cout << endl << "运行时间：" << clock() - BeginTime << endl;
 #ifndef DEBUG
 	system("pause");
 #endif // !DEBUG

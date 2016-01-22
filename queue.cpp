@@ -10,7 +10,6 @@ void queue<T>::push(T const &x)
 	rear = (rear + 1) % QueueSize;
 }
 
-
 TEMP 
 T queue<T>::pop()
 {
@@ -20,5 +19,3 @@ T queue<T>::pop()
 	front = (front + 1) % QueueSize;
 	return data[tempfront];
 }
-
-

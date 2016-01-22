@@ -2,7 +2,7 @@
 #include <iostream>
 #include <time.h>
 #define TEMP template <class T>
-#define re(i,n) for(int i=0;i<n;i++)
+#define re(i,n) for(unsigned int i=0;i<n;i++)
 const int QueueSize = 10000;
 
 TEMP

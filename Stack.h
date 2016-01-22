@@ -3,7 +3,7 @@
 #include <iostream>
 #include <time.h>
 #define TEMP template <class T>
-#define re(i,n) for(int i=0;i<n;i++)
+#define re(i,n) for(unsigned int i=0;i<n;i++)
 const int StackSize = 10000;
 TEMP
 class stack
@@ -19,7 +19,7 @@ public:
 	const T& operator[](unsigned int n)const;
 	friend std::ostream& operator<<(std::ostream &out, stack<T> const & other)
 	{
-		re(i, other.top)
+		re(i, unsigned(other.top))
 			out << other.data[i] << " ";
 		return out << std::endl;
 	}
