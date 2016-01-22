@@ -110,7 +110,7 @@ void TestOfBstree()
 {
 	srand(int(time(NULL)));
 	int a[1000];
-	unsigned int SizeOfTest = 100;
+	unsigned int SizeOfTest = 1000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 1000;
 	//Qsort(a, 0, SizeOfTest - 1);

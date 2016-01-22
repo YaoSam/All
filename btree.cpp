@@ -37,25 +37,6 @@ btree<T>::~btree()
 }
 
 TEMP
-unsigned int btree<T>::Height()const
-{
-	unsigned int leftH = 0, rightH = 0;
-	if (left)
-		leftH = left->Height();
-	if (right)
-		rightH = right->Height();
-	return (leftH > rightH ? leftH : rightH) + 1;
-}
-
-TEMP
-unsigned int btree<T>::NodeNum()const
-{
-	if (this == NULL)
-		return 0;
-	else
-		return left->NodeNum() + right->NodeNum() + 1;
-}
-TEMP
 void btree<T>::pre()const
 {
 	if (this == NULL)return;
@@ -107,6 +88,7 @@ void btree<T>::insert(T const &x)
 	{
 		data = x;
 		nodeNum = 1;
+		height = 1;
 		return;
 	}
 	else if (x > data)
@@ -124,4 +106,6 @@ void btree<T>::insert(T const &x)
 			left->insert(x);
 	}
 	nodeNum++;
+	int rightH = (right ? right->height : 0), leftH = (left ? left->height : 0);
+	height = (leftH > rightH ? leftH : rightH)+1;
 }
