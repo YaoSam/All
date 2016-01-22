@@ -69,6 +69,7 @@
     <Text Include="out.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="btree.cpp" />
     <ClCompile Include="list.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="queue.cpp" />
@@ -76,6 +77,7 @@
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="btree.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="queue.h" />
     <ClInclude Include="Stack.h" />

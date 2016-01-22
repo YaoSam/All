@@ -30,9 +30,7 @@ using namespace std;
 #undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 #define DEBUG
-void TestOfStack();
-void TestOfQueue();
-void TestOfList();
+void Test();
 
 int main()
 {
@@ -43,17 +41,7 @@ int main()
 	freopen_s(&input, "in.txt", "r", stdin);
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
-	try{
-		cout << "²âÊÔÕ»" << endl;
-		TestOfStack();
-		cout << "²âÊÔ¶Ñ" << endl;
-		TestOfQueue();
-		cout << "²âÊÔÁ´±í" << endl;
-		TestOfList();
-	}
-	catch (const char *a){
-		cout << a << endl;
-	}
+	Test();
 	cout << endl << "ÔËĞĞÊ±¼ä£º" << clock() - BeginTime << endl;
 #ifndef DEBUG
 	system("pause");
