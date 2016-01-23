@@ -9,7 +9,7 @@ TEMP class btree;
 TEMP
 class btree
 {
-public: 
+protected: 
 	T data;
 	btree<T> *right,*left;
 	unsigned int nodeNum;
@@ -17,10 +17,6 @@ public:
 	unsigned int CheckHeight()//更新高度
 	{
 		return height = Max((left ? left->height : 0), (right ? right->height : 0)) + 1;
-	}
-	int differ()const//计算左边高度-右边。平衡二叉树用。
-	{
-		return int(left ? left->height : 0) - int(right ? right->height : 0);
 	}
 	//下面为平衡二叉树要用的插入操作
 	friend class btree<T> ;
@@ -37,6 +33,7 @@ public:
 	btree(btree<T> const & other);
 	virtual ~btree();
 	btree<T>& operator=(btree<T> const & other);
+
 	unsigned int Height()const{ return height; }
 	unsigned int NodeNum()const{ return nodeNum; }
 	void pre()const;//前序输出

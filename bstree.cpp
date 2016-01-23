@@ -1,11 +1,5 @@
 #include "bstree.h"
 
-TEMP
-bstree<T>::bstree(T const a[]/* =NULL */, unsigned int n/* =0 */)
-{
-	re(i, n)
-		this->insert(a[i]);
-}
 
 TEMP
 bstree<T>::~bstree()
@@ -16,7 +10,7 @@ bstree<T>::~bstree()
 TEMP
 void bstree<T>::insert(T const &x)
 {
-	bstree<T> *L(reinterpret_cast<bstree<T>*>(left)), *R(reinterpret_cast<bstree<T>*>(right));
+	bstree<T> *L(static_cast<bstree<T>*>(left)), *R(static_cast<bstree<T>*>(right));
 	if (nodeNum == 0)
 	{
 		data = x;
@@ -37,4 +31,24 @@ void bstree<T>::insert(T const &x)
 	}
 	nodeNum++;
 	CheckHeight();
+}
+
+TEMP
+bstree<T>::bstree(T const a[]/* =NULL */, unsigned int n/* =0 */)
+{
+	re(i, n)
+		this->insert(a[i]);
+}
+
+TEMP
+btree<T>* bstree<T>::find(T const &x)
+{
+	bstree<T> *L(static_cast<bstree<T>*>(left)), *R(static_cast<bstree<T>*>(right));
+	if (this == NULL || data == x)
+		return static_cast<bstree<T>*>(this);
+	else
+		if (x < data)
+			return L->find(x);
+		else
+			return R->find(x);
 }

@@ -92,9 +92,9 @@ TEMP void btree<T>::print()const
 TEMP
 const btree<T>* btree<T>::find(T const &x)const
 {
-	const btree<T>* temp;
-	queue<const btree<T>*> Queue;
-	Queue.push(this);
+	btree<T>* temp;
+	queue<btree<T>*> Queue;
+	Queue.push(const_cast<btree*>(this));
 	while (!Queue.isEmpty())
 	{
 		temp = Queue.pop();

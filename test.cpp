@@ -26,8 +26,8 @@ int Fibonacci(int n)
 int maxHeight_bbtree(int n)
 {
 	int height=0;
-	while (Fibonacci(height + 1) < n)	height++;
-	return height;
+	while ((Fibonacci(height + 2)-1) < n)	height++;
+	return height-1;
 }
 
 TEMP
@@ -130,7 +130,7 @@ void TestOfBstree()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 1000;
+	unsigned int SizeOfTest = 100;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	re(i, 100)
@@ -149,12 +149,12 @@ void TestOfBstree()
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
 	Qsort(a, 0, SizeOfTest - 1);
-	//re(i, SizeOfTest)
-	//{
-	//	const btree<int>* temp = one.find(a[i]);
-	//	temp->mid();
-	//	std::cout << std::endl;
-	//}
+	re(i, SizeOfTest)
+	{
+		const btree<int>* temp = one.find(a[i]);
+		if (temp == NULL)
+			std::cout << "无法找到！" << std::endl;
+	}
 	return;
 }
 
@@ -162,7 +162,7 @@ void TestOfBbtree()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 1000;
+	unsigned int SizeOfTest = 100;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	//Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
@@ -176,11 +176,17 @@ void TestOfBbtree()
 	std::cout << std::endl;
 	one.print();
 	std::cout << std::endl;
+	re(i, SizeOfTest)
+	{
+		const btree<int>* temp = one.find(a[i]);
+		if (temp == NULL)
+			std::cout << "无法找到！" << std::endl;
+	}
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "最大高度：" << maxHeight_bbtree(SizeOfTest) << std::endl;
 	std::cout << "最低高度：" << minHeight_bbtree(SizeOfTest) << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
-	std::cout << "当前高度的最少节点：" << Fibonacci(one.Height()) << std::endl;
+	std::cout << "当前高度的最少节点：" << Fibonacci(one.Height()+2)-1 << std::endl;
 	std::cout << std::endl;
 	re(i, SizeOfTest)
 		one.insert(rand() % 10000);
@@ -188,7 +194,7 @@ void TestOfBbtree()
 	std::cout << "最大高度：" << maxHeight_bbtree(SizeOfTest) << std::endl;
 	std::cout << "最低高度：" << minHeight_bbtree(SizeOfTest) << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
-	std::cout << "当前高度的最少节点：" << Fibonacci(one.Height()) << std::endl;
+	std::cout << "当前高度的最少节点：" << Fibonacci(one.Height()+2)-1 << std::endl;
 }
 
 void Test()
