@@ -9,49 +9,43 @@ TEMP class btree;
 TEMP
 class btree
 {
-protected:
+public: 
 	T data;
-	btree<T> *left, *right;
+	btree<T> *right,*left;
 	unsigned int nodeNum;
-	void del();
 	unsigned int height;
-	unsigned int CheckHeight();
-	int differ()const{
+	unsigned int CheckHeight()//更新高度
+	{
+		return height = Max((left ? left->height : 0), (right ? right->height : 0)) + 1;
+	}
+	int differ()const//计算左边高度-右边。平衡二叉树用。
+	{
 		return int(left ? left->height : 0) - int(right ? right->height : 0);
 	}
-	void RotateLL();
-	void RotateRR();
-	void RotateLR();
-	void RotateRL(); 
+	//下面为平衡二叉树要用的插入操作
 	friend class btree<T> ;
 	friend class bbtree<T>;
-public:
-	static T endFlag;
-	unsigned int Hei()const
+	void del();
+	unsigned int OtherHeight()const//递归计算高度。
 	{
-		//TODO
-		int l = 0, r = 0;
-		if (left)
-			l = left->Hei();
-		if (right)
-			r = right->Hei();
-		return Max(l, r) + 1;
+		return Max(left ? left->Hei() : 0, right ? right->Hei() : 0) + 1;
 	}
+public:
+	static T endFlag;//普通二叉树输入时候的结束符。
 	btree() :nodeNum(0),height(0),left(NULL), right(NULL){}
 	btree(T const &x) :data(x),height(1),nodeNum(1),left(NULL), right(NULL){}
 	btree(btree<T> const & other);
-	~btree();
+	virtual ~btree();
+	btree<T>& operator=(btree<T> const & other);
 	unsigned int Height()const{ return height; }
 	unsigned int NodeNum()const{ return nodeNum; }
-	void pre()const;
-	void mid()const;
-	void back()const;
-	void print()const;
-	btree<T>* find(T const &x)const;
+	void pre()const;//前序输出
+	void mid()const;//中序输出
+	void back()const;//后序输出
+	void print()const;//层次遍历输出
+	const btree<T>* find(T const &x)const;//目前是程序遍历查找
 	//virtual void del(T const &x);
-	void insert(T const &x);
-	void RotateInsert(T const & x);
-	friend std::istream& operator>>(std::istream& in, btree<T> &other)
+	friend std::istream& operator>>(std::istream& in, btree<T> &other)//通过endFlag来输入
 	{
 		int leftH = 0, rightH = 0;
 		in >> other.data;
@@ -77,7 +71,6 @@ public:
 		}
 		other.nodeNum = (other.left ? other.left->nodeNum : 0) + (other.right ? other.right->nodeNum : 0) + 1;
 		other.CheckHeight();
-		//other.height += (leftH > rightH ? leftH : rightH);
 		return in;
 	}
 };
