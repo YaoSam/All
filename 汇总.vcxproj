@@ -69,13 +69,13 @@
     <Text Include="out.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bstree.cpp" />
+    <ClCompile Include="bbtree.cpp" />
     <ClCompile Include="btree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bstree.h" />
+    <ClInclude Include="bbtree.h" />
     <ClInclude Include="btree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,5 +1,6 @@
 #include "bstree.h"
 
+
 TEMP
 bstree<T>::bstree(T const a[]/* =NULL */, unsigned int n/* =0 */)
 {

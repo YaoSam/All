@@ -4,11 +4,24 @@
 #include "list.cpp"
 #include "btree.cpp"
 #include "bstree.cpp"
+#include "bbtree.cpp"
 #include <algorithm>
 TEMP void Swap(T & a, T &b)
 {
 	T temp = a; a = b; b = temp;
 }
+
+int two(int n)
+{
+	int i = 0;
+	while (n > 0)
+	{
+		n -= (1<<i);
+		i++;
+	}
+	return i;
+}
+
 
 TEMP
 void Qsort(T a[], int left, int right)
@@ -109,14 +122,11 @@ void TestOfBtree()
 void TestOfBstree()
 {
 	srand(int(time(NULL)));
-	int a[1000];
-	unsigned int SizeOfTest = 1000;
+	int a[10000];
+	unsigned int SizeOfTest = 446;
 	re(i, SizeOfTest)
-		a[i] = rand() % 1000;
+		a[i] = rand() % 10000;
 	//Qsort(a, 0, SizeOfTest - 1);
-	re(i, SizeOfTest)
-		std::cout << a[i] << " ";
-	std::cout << std::endl;
 	bstree<int> one(a, SizeOfTest);
 	std::cout << std::endl;
 	one.pre();
@@ -132,19 +142,46 @@ void TestOfBstree()
 	return;
 }
 
+void TestOfBbtree()
+{
+	srand(int(time(NULL)));
+	int a[10000];
+	unsigned int SizeOfTest = 446;
+	re(i, SizeOfTest)
+		a[i] = rand() % 10000;
+	//Qsort(a, 0, SizeOfTest-1);
+	bbtree<int> one(a, SizeOfTest);
+	std::cout << std::endl;
+	one.pre();
+	std::cout << std::endl;
+	one.mid();
+	std::cout << std::endl;
+	one.back();
+	std::cout << std::endl;
+	one.print();
+	std::cout << std::endl;
+	std::cout << "Ê÷¸ß¶È£º" << one.Hei() << std::endl;
+	std::cout << "ÀíÂÛ¸ß¶È£º" << two(SizeOfTest)<< std::endl;
+	std::cout << "½ÚµãÊý£º" << one.NodeNum() << std::endl;
+	one.printdiffer();
+}
+
+
 void Test()
 {
 	try{
-		std::cout << "²âÊÔÕ»" << std::endl;
-		TestOfStack();
-		std::cout << "²âÊÔ¶Ñ" << std::endl;
-		TestOfQueue();
-		std::cout << "²âÊÔÁ´±í" << std::endl;
-		TestOfList();
-		std::cout << "²âÊÔ¶þ²æÊ÷" << std::endl;
-		TestOfBtree(); 
-		std::cout << "²âÊÔÅÅÐò¶þ²æÊ÷" << std::endl;
-		TestOfBstree();
+		//std::cout << "²âÊÔÕ»" << std::endl;
+		//TestOfStack();
+		//std::cout << "²âÊÔ¶Ñ" << std::endl;
+		//TestOfQueue();
+		//std::cout << "²âÊÔÁ´±í" << std::endl;
+		//TestOfList();
+		//std::cout << "²âÊÔ¶þ²æÊ÷" << std::endl;
+		//TestOfBtree(); 
+		//std::cout << "²âÊÔÅÅÐò¶þ²æÊ÷" << std::endl;
+		//TestOfBstree();
+		std::cout << "²âÊÔÆ½ºâ¶þ²æÊ÷" << std::endl;
+		TestOfBbtree();
 	}
 	catch (const char *a){
 		std::cout << a << std::endl;

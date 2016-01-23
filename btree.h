@@ -1,9 +1,11 @@
 #pragma once
 #include <iostream>
 #include <time.h>
+#include <math.h>
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-
+TEMP class bbtree ;
+TEMP class btree;
 TEMP
 class btree
 {
@@ -13,8 +15,28 @@ protected:
 	unsigned int nodeNum;
 	void del();
 	unsigned int height;
+	unsigned int CheckHeight();
+	int differ()const{
+		return int(left ? left->height : 0) - int(right ? right->height : 0);
+	}
+	void RotateLL();
+	void RotateRR();
+	void RotateLR();
+	void RotateRL(); 
+	friend class btree<T> ;
+	friend class bbtree<T>;
 public:
 	static T endFlag;
+	unsigned int Hei()const
+	{
+		//TODO
+		int l = 0, r = 0;
+		if (left)
+			l = left->Hei();
+		if (right)
+			r = right->Hei();
+		return Max(l, r) + 1;
+	}
 	btree() :nodeNum(0),height(0),left(NULL), right(NULL){}
 	btree(T const &x) :data(x),height(1),nodeNum(1),left(NULL), right(NULL){}
 	btree(btree<T> const & other);
@@ -25,13 +47,14 @@ public:
 	void mid()const;
 	void back()const;
 	void print()const;
-	virtual void insert(T const &x);
+	btree<T>* find(T const &x)const;
+	//virtual void del(T const &x);
+	void insert(T const &x);
+	void RotateInsert(T const & x);
 	friend std::istream& operator>>(std::istream& in, btree<T> &other)
 	{
-		//TODO
 		int leftH = 0, rightH = 0;
 		in >> other.data;
-		other.height++;
 		if (other.data == endFlag) return in;
 		else
 		{
@@ -53,7 +76,8 @@ public:
 			}
 		}
 		other.nodeNum = (other.left ? other.left->nodeNum : 0) + (other.right ? other.right->nodeNum : 0) + 1;
-		other.height += (leftH > rightH ? leftH : rightH);
+		other.CheckHeight();
+		//other.height += (leftH > rightH ? leftH : rightH);
 		return in;
 	}
 };

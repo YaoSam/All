@@ -3,7 +3,7 @@
 #include <time.h>
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-const int QueueSize = 10000;
+const int QueueSize = 100000;
 
 TEMP
 class queue
