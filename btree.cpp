@@ -15,8 +15,10 @@ BTree<T>::BTree(BTree<T> const & other, BTree<T>* P/* =NULL */)
 	data = other.data;
 	height = other.height;
 	parent = P;
-	leftLink(new BTree<T>(*other.left));
-	rightLink(new BTree<T>(*other.right));
+	if (other.left)
+		left = new BTree<T>(*other.left,this);
+	if (other.right)
+		right = new BTree<T>(*other.right,this);
 }
 TEMP
 BTree<T>& BTree<T>::operator=(BTree<T> const & other)
@@ -26,31 +28,31 @@ BTree<T>& BTree<T>::operator=(BTree<T> const & other)
 	data = other.data;
 	height = other.height;
 	parent = NULL;//这里并不是递归进入=，而是复制构造函数。所以这里一直是this
-	leftLink(new BTree<T>(*other.left));
-	rightLink(new BTree<T>(*other.right));
+	if(other.left)leftLink(new BTree<T>(*other.left));
+	if(other.right)rightLink(new BTree<T>(*other.right));
 	return *this;
 }
 
-
+//由于动态绑定。所以函数的调用不能用空指针啊！！！！！！
 TEMP void BTree<T>::pre()const
 {
-	if (this == NULL||height==0)return;
+	if (height==0)return;
 	std::cout << data << " ";
-	left->pre();
-	right->pre();
+	if(left)left->pre();
+	if(right)right->pre();
 }
 TEMP void BTree<T>::mid()const
 {
 	if (this == NULL||height==0)return;
-	left->mid();
+	if(left)left->mid();
 	std::cout << data << " ";
-	right->mid();
+	if(right)right->mid();
 }
 TEMP void BTree<T>::back()const
 {
 	if (this == NULL||height==0)return;
-	left->back();
-	right->back();
+	if(left)left->back();
+	if(right)right->back();
 	std::cout << data << " ";
 }
 TEMP void BTree<T>::print()const

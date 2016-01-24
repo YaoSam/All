@@ -25,7 +25,7 @@ protected:
 	friend class BSTree<T> ;
 	friend class AVLTree<T>;
 public:
-	//virtual ~Tree()=0;
+	virtual ~Tree()=0;
 	Tree() :height(0),parent(NULL),left(NULL), right(NULL){}
 	Tree(T const &x,BTree<T> *P=NULL) :data(x),parent(P),height(1),left(NULL), right(NULL){}
 	unsigned int NodeNum()const;
@@ -60,10 +60,10 @@ class BTree :public Tree < T >
 	friend class AVLTree < T > ;
 public:
 	static T endFlag;//普通二叉树输入时候的结束符。
-	BTree(const T &x) :Tree(x){}
+	BTree() :Tree<T>(){}
+	BTree(const T &x,BTree<T>*P=NULL) :Tree<T>(x,P){}
 	BTree(BTree<T> const & other, BTree<T>* P = NULL);
 	BTree<T>& operator=(BTree<T> const & other);
-	BTree() :Tree(){}
 	virtual ~BTree();
 	void pre()const;//前序输出
 	void mid()const;//中序输出
@@ -83,7 +83,7 @@ public:
 			other.left->parent = other.right->parent = &other;
 			if ((*other.left).data == endFlag)
 			{
-				delete other.left;
+				delete other.left;//在最底层并不会影响深度。
 				other.left = NULL;
 			}
 			if ((*other.right).data == endFlag)

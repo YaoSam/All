@@ -114,9 +114,9 @@ void TestOfBtree()
 	BTree<char> one;
 	std::cin >> one;
 	std::cout << std::endl;
-	one.pre();
-	std::cout << std::endl;
 	one.mid();
+	std::cout << std::endl;
+	one.pre();
 	std::cout << std::endl;
 	one.back();
 	std::cout << std::endl;
@@ -164,16 +164,16 @@ void TestOfBstree()
 	}
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
-	while (std::cin >> SizeOfTest)//测试内存释放
+	std::cin >> SizeOfTest;//测试内存释放
+	re(j, SizeOfTest)
+		a[j] = rand() % 10000;
+	re(j, SizeOfTest)
 	{
-		re(j, SizeOfTest)
-			a[j] = rand() % 10000;
-		re(j, SizeOfTest)
-		{
-			BSTree<int> two(a, SizeOfTest);
-			std::cout << "节点数：" << two.NodeNum() << " ";
-		}
-	}return;
+		BSTree<int> two(a, SizeOfTest);
+		std::cout << "节点数：" << two.NodeNum() << " ";
+	}
+
+	return;
 
 }
 
