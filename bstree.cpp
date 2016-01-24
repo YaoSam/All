@@ -1,14 +1,6 @@
 #include "bstree.h"
 
-
-TEMP
-BSTree<T>::~BSTree()
-{
-	this->del();
-}
-
-TEMP
-void BSTree<T>::insert(T const &x)
+TEMP void BSTree<T>::insert(T const &x)
 {
 	BSTree<T> *L(static_cast<BSTree<T>*>(left)), *R(static_cast<BSTree<T>*>(right));
 	if (height==0)//头节点不用申请内存
@@ -18,23 +10,23 @@ void BSTree<T>::insert(T const &x)
 	else if (x < data)
 	{
 		if (left == NULL)
-			leftLink(new Tree<T>(x));
+			leftLink(new BTree<T>(x));
 		else
 			L->insert(x);
 	}
 	else
 	{
 		if (right == NULL)
-			rightLink(new Tree<T>(x));
-			//right = new Tree<T>(x,this);
+			rightLink(new BTree<T>(x));
 		else
 			R->insert(x);
 	}
 	CheckHeight();
 }
 
+
 TEMP
-BSTree<T>::BSTree(T const a[]/* =NULL */, unsigned int n/* =0 */) :Tree<T>()
+BSTree<T>::BSTree(T const a[]/* =NULL */, unsigned int n/* =0 */) 
 {
 	re(i, n)
 		this->insert(a[i]);
@@ -81,7 +73,26 @@ Tree<T>* BSTree<T>::FindLeftNext()const
 }
 
 TEMP
-void BSTree<T>::delNode(T const &x)
+void BSTree<T>::deleteNode()
+{
+	BTree<T>* P = this->parent;
+	BSTree<T>* BSthis = const_cast<BSTree<T>*>(this);
+	BTree<T>* Bthis = const_cast<BTree<T>*>(static_cast<BTree<T>*>(this));
+	if (P == NULL)//P是头节点，不能删除。
+		throw "Error\n";
+	BSthis->right = NULL;
+	BSthis->left = NULL;
+	delete Bthis;
+	//一直向上维护高度以及节点数目
+	while (P != NULL)
+	{
+		P->CheckHeight();
+		P = P->parent;
+	}
+}
+
+TEMP
+void BSTree<T>::DelNode(T const &x)
 {
 	BSTree<T> *target = static_cast<BSTree<T>*>(find(x));
 	if (target == NULL)return;
@@ -93,7 +104,8 @@ void BSTree<T>::delNode(T const &x)
 			target->rightLink(Next->right);
 		else
 			Next->parent->leftLink(Next->right);
-		Next->deleteNode();
+		BSTree<T>* temp = static_cast<BSTree<T>*>(Next);
+		temp->deleteNode();
 	}
 	else
 	{
@@ -105,7 +117,8 @@ void BSTree<T>::delNode(T const &x)
 				target->leftLink(Next->left);
 			else
 				Next->parent->rightLink(Next->left);
-			Next->deleteNode();
+			BSTree<T>* temp = static_cast<BSTree<T>*>(Next);
+			temp->deleteNode();
 		}
 		else
 		{
@@ -119,9 +132,11 @@ void BSTree<T>::delNode(T const &x)
 					target->parent->left = NULL;
 				else
 					target->parent->right = NULL;
-				target->deleteNode();
+				BSTree<T>* temp = static_cast<BSTree<T>*>(target);
+				temp->deleteNode();
 			}
 		}
 	}
 	return;
 }
+

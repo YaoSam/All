@@ -3,6 +3,7 @@
 #include "stack.cpp"
 #include "list.cpp"
 #include "btree.cpp"
+#include "btree.h"
 #include "bstree.cpp"
 #include "bbtree.cpp"
 #include <algorithm>
@@ -110,7 +111,7 @@ void TestOfBtree()
 {
 	//输入可参考
 	//a b c # # d # # e f # # g # #
-	Tree<char> one;
+	BTree<char> one;
 	std::cin >> one;
 	std::cout << std::endl;
 	one.pre();
@@ -129,10 +130,10 @@ void TestOfBtree()
 void TestOfBstree()
 {
 	srand(int(time(NULL)));
-	int a[10000];
+	int a[100000];
 	unsigned int SizeOfTest = 200;
 	re(i, SizeOfTest)
-		a[i] = rand() % 10000;
+		a[i] = rand() % 100;
 	re(i, SizeOfTest)
 		std::cout << a[i] << " ";
 	std::cout << std::endl;
@@ -156,12 +157,24 @@ void TestOfBstree()
 			std::cout << "无法找到！" << std::endl;
 	}
 	re(i, SizeOfTest)
-		one.delNode(a[i]);
-	one.mid();
-	std::cout << std::endl;
+	{
+		one.DelNode(a[i]);
+		//one.mid();
+		//std::cout << std::endl;
+	}
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
-	return;
+	while (std::cin >> SizeOfTest)//测试内存释放
+	{
+		re(j, SizeOfTest)
+			a[j] = rand() % 10000;
+		re(j, SizeOfTest)
+		{
+			BSTree<int> two(a, SizeOfTest);
+			std::cout << "节点数：" << two.NodeNum() << " ";
+		}
+	}return;
+
 }
 
 void TestOfBbtree()
@@ -216,8 +229,8 @@ void Test()
 		//TestOfQueue();
 		//std::cout << "测试链表" << std::endl;
 		//TestOfList();
-		//std::cout << "测试二叉树" << std::endl;
-		//TestOfBtree(); 
+		std::cout << "测试二叉树" << std::endl;
+		TestOfBtree();
 		std::cout << "测试排序二叉树" << std::endl;
 		TestOfBstree();
 		std::cout << "测试平衡二叉树" << std::endl;

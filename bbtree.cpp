@@ -4,19 +4,15 @@
 TEMP
 void AVLTree<T>::RotateLL()//由于头节点不能动。所以只能通过交换data来替换头节点
 {
-	Tree<T> *templ = left, *tempr = right;
+	BTree<T> *templ = left, *tempr = right;
+	//left现在就是BL
 	leftLink(left->left);
+	//right现在就是B
 	rightLink(templ);
+	//指派B的left和right。现在right->right还没变
 	right->leftLink(right->right);
 	right->rightLink(tempr);
-	////left现在就是BL
-	//left = left->left;
-	////right现在就是B
-	//right = templ;
-	////指派B的left和right。现在right->right还没变
-	//right->left = right->right;
-	//right->right = tempr;
-	////交换A，B数据
+	//交换A，B数据
 	Swap(data, right->data);
 	//更新高度
 	right->CheckHeight();
@@ -26,15 +22,11 @@ void AVLTree<T>::RotateLL()//由于头节点不能动。所以只能通过交换data来替换头节点
 TEMP
 void AVLTree<T>::RotateRR()//跟LL基本一致。只是左右反了
 {
-	Tree<T> *templ = left, *tempr = right;
+	BTree<T> *templ = left, *tempr = right;
 	rightLink(right->right);
 	leftLink(tempr);
 	left->rightLink(left->left);
 	left->leftLink(templ);
-	//right = right->right;
-	//left = tempr;
-	//left->right = left->left;
-	//left->left = templ;
 	Swap(data, left->data);
 	left->CheckHeight();
 	CheckHeight();
@@ -67,7 +59,7 @@ void AVLTree<T>::insert(T const & x)
 	else if (x < data)
 	{
 		if (left == NULL)
-			left = new Tree<T>(x,this);
+			leftLink(new BTree<T>(x));
 		else
 		{
 			L->insert(x);
@@ -83,7 +75,7 @@ void AVLTree<T>::insert(T const & x)
 	else
 	{
 		if (right == NULL)
-			right = new Tree<T>(x,this);
+			rightLink(new BTree<T>(x));
 		else
 		{
 			R->insert(x);
@@ -101,15 +93,49 @@ void AVLTree<T>::insert(T const & x)
 }
 
 TEMP
+void AVLTree<T>::DelNode(T const &x)
+{
+	AVLTree<T>* L = static_cast<AVLTree<T>*>(this->left),*R=static_cast<AVLTree<T>*>(this->right);
+	if (this == NULL)return;
+	if (x > data)
+	{
+		L->DelNode(x);
+		if (differ() < -1)//因为是删除操作，所以基本都是翻过来的。
+		{
+			if (left->right != NULL && ((right->left->height) > (right->right->height)))
+				RotateLR();
+			else
+				RotateLL();
+		}
+	}
+	else if (x < data)
+	{
+		R->DelNode(x);
+		if (differ() >1)
+		{
+			if (left->right != NULL && (left->right->height) > (left->left->height))
+				RotateRL();
+			else
+				RotateRR();
+		}
+	}
+	else//此事要删除该节点了。
+	{
+		if (left&&right)
+		{
+			Tree<T>* temp = FindRightLeft();
+			data = temp->data;
+			right->DelNode(data);//再一次的递归……卧槽……这是所有的点都不能活啊 
+
+		}
+	}
+
+}
+
+TEMP
 AVLTree<T>::AVLTree(T const a[] /* = NULL */, unsigned int n /* = 0 */) :BSTree<T>()
 {
 	re(i, n)
 		insert(a[i]);
 	return;
-}
-
-TEMP
-AVLTree<T>::~AVLTree()
-{
-	this->del();
 }

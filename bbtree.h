@@ -14,6 +14,7 @@ class AVLTree :public BSTree < T >
 	void RotateRL();
 public:
 	void insert(T const & x);
+	void DelNode(T const &x);
 	AVLTree(T const a[] = NULL, unsigned int n = 0);
-	~AVLTree();
+	virtual ~AVLTree(){}
 };

@@ -1,6 +1,7 @@
 #pragma  once
 #include "btree.h"
-char Tree<char>::endFlag = '#';
+#include "queue.cpp"
+char BTree<char>::endFlag = '#';
 
 TEMP inline T Max(T const &a, T const &b)
 {
@@ -8,75 +9,55 @@ TEMP inline T Max(T const &a, T const &b)
 }
 
 TEMP
-Tree<T>::Tree(Tree<T> const & other, Tree<T>* P/* =NULL */) 
+BTree<T>::BTree(BTree<T> const & other, BTree<T>* P/* =NULL */) 
 {
 	if (&other == NULL)return;
 	data = other.data;
 	height = other.height;
 	parent = P;
-	leftLink(new Tree<T>(*other.left));
-	rightLink(new Tree<T>(*other.right));
+	leftLink(new BTree<T>(*other.left));
+	rightLink(new BTree<T>(*other.right));
 }
 TEMP
-Tree<T>& Tree<T>::operator=(Tree<T> const & other)
+BTree<T>& BTree<T>::operator=(BTree<T> const & other)
 {
 	if (this == NULL || this == &other)return *this;
 	this->del();
 	data = other.data;
 	height = other.height;
 	parent = NULL;//这里并不是递归进入=，而是复制构造函数。所以这里一直是this
-	leftLink(new Tree<T>(*other.left));
-	rightLink(new Tree<T>(*other.right));
+	leftLink(new BTree<T>(*other.left));
+	rightLink(new BTree<T>(*other.right));
 	return *this;
 }
 
-TEMP void Tree<T>::del()
-{
-	if (left)
-	{
-		left->del();
-		delete left;
-		left = NULL;
-	}
-	if (right)
-	{
-		right->del();
-		delete right;
-		right = NULL;
-	}
-}
 
-TEMP Tree<T>::~Tree()
-{
-	this->del();
-}
-
-TEMP void Tree<T>::pre()const
+TEMP void BTree<T>::pre()const
 {
 	if (this == NULL||height==0)return;
 	std::cout << data << " ";
 	left->pre();
 	right->pre();
 }
-TEMP void Tree<T>::mid()const
+TEMP void BTree<T>::mid()const
 {
 	if (this == NULL||height==0)return;
 	left->mid();
 	std::cout << data << " ";
 	right->mid();
 }
-TEMP void Tree<T>::back()const
+TEMP void BTree<T>::back()const
 {
 	if (this == NULL||height==0)return;
 	left->back();
 	right->back();
 	std::cout << data << " ";
 }
-TEMP void Tree<T>::print()const
+TEMP void BTree<T>::print()const
 {
 	if (height == 0)return;
-	const Tree<T>* temp;
-	queue<const Tree<T>*> Queue;
+	const BTree<T>* temp;
+	queue<const BTree<T>*> Queue;
 	Queue.push(this);
 	while (!Queue.isEmpty())
 	{
@@ -98,13 +79,16 @@ unsigned int Tree<T>::NodeNum()const
 	return (left ? left->NodeNum() : 0) + (right ? right->NodeNum() : 0) + 1;
 }
 
+/************************************************************************/
+/*                                                                      */
+/************************************************************************/
 TEMP
-Tree<T>* Tree<T>::find(T const &x)const
+BTree<T>* BTree<T>::find(T const &x)const
 {
-	if (height == 0)return;
-	Tree<T>* temp;
-	queue<Tree<T>*> Queue;
-	Queue.push(const_cast<Tree*>(this));
+	if (height == 0)return NULL;
+	BTree<T>* temp;
+	queue<BTree<T>*> Queue;
+	Queue.push(const_cast<BTree*>(this));
 	while (!Queue.isEmpty())
 	{
 		temp = Queue.pop();
@@ -119,19 +103,25 @@ Tree<T>* Tree<T>::find(T const &x)const
 }
 
 TEMP
-void Tree<T>::deleteNode()
+void BTree<T>::del()
 {
-	Tree<T>* P = this->parent;
-	Tree<T>* THIS = const_cast<Tree<T>*>(this);
-	if (P == NULL)//P是头节点，不能删除。
-		throw "Error\n";
-	THIS->right = NULL;
-	THIS->left = NULL;
-	delete THIS;
-	//一直向上维护高度以及节点数目
-	while (P!= NULL)
+	Tree<T>* L = static_cast<Tree<T>*>(left), *R = static_cast<Tree<T>*>(right);
+	if (left)
 	{
-		P->CheckHeight();
-		P = P->parent;
+		left->del();
+		delete L;
+		left = NULL;
 	}
+	if (right)
+	{
+		right->del();
+		delete R;
+		right = NULL;
+	}
+}
+
+TEMP
+BTree<T>::~BTree()
+{
+	this->del();
 }
