@@ -1,6 +1,6 @@
 #pragma  once
 #include "btree.h"
-char btree<char>::endFlag = '#';
+char Tree<char>::endFlag = '#';
 
 TEMP inline T Max(T const &a, T const &b)
 {
@@ -8,29 +8,29 @@ TEMP inline T Max(T const &a, T const &b)
 }
 
 TEMP
-btree<T>::btree(btree<T> const & other)
+Tree<T>::Tree(Tree<T> const & other, Tree<T>* P/* =NULL */) 
 {
-	if (&other == NULL) return;
+	if (&other == NULL)return;
 	data = other.data;
-	nodeNum = other.nodeNum;
 	height = other.height;
-	left = new btree(*other.left);
-	right = new btree(*other.right);
+	parent = P;
+	leftLink(new Tree<T>(*other.left));
+	rightLink(new Tree<T>(*other.right));
 }
-
 TEMP
-btree<T>& btree<T>::operator=(btree<T> const & other)
+Tree<T>& Tree<T>::operator=(Tree<T> const & other)
 {
 	if (this == NULL || this == &other)return *this;
 	this->del();
 	data = other.data;
-	nodeNum = other.nodeNum;
 	height = other.height;
-	left = new btree<T>(*other.left);
-	right = new btree<T>(*other.right);
+	parent = NULL;//这里并不是递归进入=，而是复制构造函数。所以这里一直是this
+	leftLink(new Tree<T>(*other.left));
+	rightLink(new Tree<T>(*other.right));
+	return *this;
 }
 
-TEMP void btree<T>::del()
+TEMP void Tree<T>::del()
 {
 	if (left)
 	{
@@ -46,36 +46,37 @@ TEMP void btree<T>::del()
 	}
 }
 
-TEMP btree<T>::~btree()
+TEMP Tree<T>::~Tree()
 {
 	this->del();
 }
 
-TEMP void btree<T>::pre()const
+TEMP void Tree<T>::pre()const
 {
-	if (this == NULL)return;
+	if (this == NULL||height==0)return;
 	std::cout << data << " ";
 	left->pre();
 	right->pre();
 }
-TEMP void btree<T>::mid()const
+TEMP void Tree<T>::mid()const
 {
-	if (this == NULL)return;
+	if (this == NULL||height==0)return;
 	left->mid();
 	std::cout << data << " ";
 	right->mid();
 }
-TEMP void btree<T>::back()const
+TEMP void Tree<T>::back()const
 {
-	if (this == NULL)return;
+	if (this == NULL||height==0)return;
 	left->back();
 	right->back();
 	std::cout << data << " ";
 }
-TEMP void btree<T>::print()const
+TEMP void Tree<T>::print()const
 {
-	const btree<T>* temp;
-	queue<const btree<T>*> Queue;
+	if (height == 0)return;
+	const Tree<T>* temp;
+	queue<const Tree<T>*> Queue;
 	Queue.push(this);
 	while (!Queue.isEmpty())
 	{
@@ -89,12 +90,21 @@ TEMP void btree<T>::print()const
 	std::cout << std::endl;
 }
 
-TEMP
-const btree<T>* btree<T>::find(T const &x)const
+TEMP 
+unsigned int Tree<T>::NodeNum()const
 {
-	btree<T>* temp;
-	queue<btree<T>*> Queue;
-	Queue.push(const_cast<btree*>(this));
+	if (height == 0)
+		return 0;
+	return (left ? left->NodeNum() : 0) + (right ? right->NodeNum() : 0) + 1;
+}
+
+TEMP
+Tree<T>* Tree<T>::find(T const &x)const
+{
+	if (height == 0)return;
+	Tree<T>* temp;
+	queue<Tree<T>*> Queue;
+	Queue.push(const_cast<Tree*>(this));
 	while (!Queue.isEmpty())
 	{
 		temp = Queue.pop();
@@ -108,3 +118,20 @@ const btree<T>* btree<T>::find(T const &x)const
 	return NULL;
 }
 
+TEMP
+void Tree<T>::deleteNode()
+{
+	Tree<T>* P = this->parent;
+	Tree<T>* THIS = const_cast<Tree<T>*>(this);
+	if (P == NULL)//P是头节点，不能删除。
+		throw "Error\n";
+	THIS->right = NULL;
+	THIS->left = NULL;
+	delete THIS;
+	//一直向上维护高度以及节点数目
+	while (P!= NULL)
+	{
+		P->CheckHeight();
+		P = P->parent;
+	}
+}

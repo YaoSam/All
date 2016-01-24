@@ -2,7 +2,7 @@
 #include "bstree.h"
 
 TEMP
-class bbtree :public bstree < T > 
+class AVLTree :public BSTree < T > 
 {
 	int differ()const//计算左边高度-右边。平衡二叉树用。
 	{
@@ -14,6 +14,6 @@ class bbtree :public bstree < T >
 	void RotateRL();
 public:
 	void insert(T const & x);
-	bbtree(T const a[] = NULL, int n = 0);
-	~bbtree();
+	AVLTree(T const a[] = NULL, unsigned int n = 0);
+	~AVLTree();
 };
