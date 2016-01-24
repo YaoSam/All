@@ -15,5 +15,5 @@ class AVLTree :public BSTree < T >
 public:
 	void insert(T const & x);
 	AVLTree(T const a[] = NULL, unsigned int n = 0);
-	~AVLTree();
+	~AVLTree(){}
 };

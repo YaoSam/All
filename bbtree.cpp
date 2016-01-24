@@ -5,17 +5,13 @@ TEMP
 void AVLTree<T>::RotateLL()//由于头节点不能动。所以只能通过交换data来替换头节点
 {
 	Tree<T> *templ = left, *tempr = right;
+	//left现在就是BL
 	leftLink(left->left);
+	//right现在就是B
 	rightLink(templ);
+	//指派B的left和right。现在right->right还没变
 	right->leftLink(right->right);
 	right->rightLink(tempr);
-	////left现在就是BL
-	//left = left->left;
-	////right现在就是B
-	//right = templ;
-	////指派B的left和right。现在right->right还没变
-	//right->left = right->right;
-	//right->right = tempr;
 	////交换A，B数据
 	Swap(data, right->data);
 	//更新高度
@@ -31,10 +27,6 @@ void AVLTree<T>::RotateRR()//跟LL基本一致。只是左右反了
 	leftLink(tempr);
 	left->rightLink(left->left);
 	left->leftLink(templ);
-	//right = right->right;
-	//left = tempr;
-	//left->right = left->left;
-	//left->left = templ;
 	Swap(data, left->data);
 	left->CheckHeight();
 	CheckHeight();
@@ -108,8 +100,3 @@ AVLTree<T>::AVLTree(T const a[] /* = NULL */, unsigned int n /* = 0 */) :BSTree<
 	return;
 }
 
-TEMP
-AVLTree<T>::~AVLTree()
-{
-	this->del();
-}

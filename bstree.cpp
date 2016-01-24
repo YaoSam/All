@@ -1,5 +1,21 @@
 #include "bstree.h"
 
+TEMP void BSTree<T>::del()
+{
+	BSTree<T> *L(static_cast<BSTree<T>*>(left)), *R(static_cast<BSTree<T>*>(right));
+	if (left)
+	{
+		L->del();
+		delete left;
+		left = NULL;
+	}
+	if (right)
+	{
+		R->del();
+		delete right;
+		right = NULL;
+	}
+}
 
 TEMP
 BSTree<T>::~BSTree()

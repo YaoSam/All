@@ -4,6 +4,7 @@
 TEMP
 class BSTree : public Tree < T >
 {
+	void del();
 	Tree<T>* FindRightNext()const;
 	Tree<T>* FindLeftNext()const;
 public:

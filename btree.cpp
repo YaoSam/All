@@ -1,5 +1,6 @@
 #pragma  once
 #include "btree.h"
+#include "queue.cpp"
 char Tree<char>::endFlag = '#';
 
 TEMP inline T Max(T const &a, T const &b)
@@ -28,27 +29,6 @@ Tree<T>& Tree<T>::operator=(Tree<T> const & other)
 	leftLink(new Tree<T>(*other.left));
 	rightLink(new Tree<T>(*other.right));
 	return *this;
-}
-
-TEMP void Tree<T>::del()
-{
-	if (left)
-	{
-		left->del();
-		delete left;
-		left = NULL;
-	}
-	if (right)
-	{
-		right->del();
-		delete right;
-		right = NULL;
-	}
-}
-
-TEMP Tree<T>::~Tree()
-{
-	this->del();
 }
 
 TEMP void Tree<T>::pre()const
@@ -101,7 +81,7 @@ unsigned int Tree<T>::NodeNum()const
 TEMP
 Tree<T>* Tree<T>::find(T const &x)const
 {
-	if (height == 0)return;
+	if (height == 0)return NULL;
 	Tree<T>* temp;
 	queue<Tree<T>*> Queue;
 	Queue.push(const_cast<Tree*>(this));

@@ -130,7 +130,7 @@ void TestOfBstree()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 200;
+	unsigned int SizeOfTest = 3000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	re(i, SizeOfTest)
@@ -161,6 +161,12 @@ void TestOfBstree()
 	std::cout << std::endl;
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
+	std::cin >> SizeOfTest;
+	re(i, SizeOfTest)
+	{
+		BSTree<int> two(a, SizeOfTest);
+		std::cout << "节点数：" << two.NodeNum() << std::endl;
+	}
 	return;
 }
 

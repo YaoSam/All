@@ -20,7 +20,6 @@ protected:
 	//下面为平衡二叉树要用的插入操作
 	friend class BSTree<T> ;
 	friend class AVLTree<T>;
-	void del();
 	unsigned int Height_()const//递归计算高度。
 	{
 		return Max(left ? left->Hei() : 0, right ? right->Hei() : 0) + 1;
@@ -45,7 +44,7 @@ public:
 	Tree() :height(0),parent(NULL),left(NULL), right(NULL){}
 	Tree(T const &x,Tree<T> *P=NULL) :data(x),parent(P),height(1),left(NULL), right(NULL){}
 	Tree(Tree<T> const & other,Tree<T>* P=NULL);
-	virtual ~Tree();
+	//~Tree();
 	Tree<T>& operator=(Tree<T> const & other);
 	unsigned int NodeNum()const;
 	unsigned int Height()const{ return height; }
@@ -53,7 +52,7 @@ public:
 	void mid()const;//中序输出
 	void back()const;//后序输出
 	void print()const;//层次遍历输出
-	Tree<T>* find(T const &x)const;//目前是程序遍历查找
+	virtual Tree<T>* find(T const &x)const;//目前是程序遍历查找
 	friend std::istream& operator>>(std::istream& in, Tree<T> &other)//通过endFlag来输入
 	{
 		in >> other.data;
