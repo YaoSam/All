@@ -43,14 +43,14 @@ TEMP void BTree<T>::pre()const
 }
 TEMP void BTree<T>::mid()const
 {
-	if (this == NULL||height==0)return;
+	if (height==0)return;
 	if(left)left->mid();
 	std::cout << data << " ";
 	if(right)right->mid();
 }
 TEMP void BTree<T>::back()const
 {
-	if (this == NULL||height==0)return;
+	if (height==0)return;
 	if(left)left->back();
 	if(right)right->back();
 	std::cout << data << " ";
@@ -85,7 +85,7 @@ unsigned int Tree<T>::NodeNum()const
 /*                                                                      */
 /************************************************************************/
 TEMP
-BTree<T>* BTree<T>::find(T const &x)const
+Tree<T>* BTree<T>::find(T const &x)const
 {
 	if (height == 0)return NULL;
 	BTree<T>* temp;

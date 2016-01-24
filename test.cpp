@@ -181,9 +181,9 @@ void TestOfBbtree()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 100;
+	unsigned int SizeOfTest = 1000;
 	re(i, SizeOfTest)
-		a[i] = rand() % 10000;
+		a[i] = rand() % 1000;
 	Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
 	AVLTree<int> one(a, SizeOfTest);
 	//std::cout << std::endl;
@@ -207,11 +207,29 @@ void TestOfBbtree()
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
 	std::cout << "当前高度的最少节点：" << Fibonacci(one.Height()+2)-1 << std::endl;
 	std::cout << std::endl;
-	re(i, SizeOfTest)
-		one.insert(rand() % 10000);
+	//re(i, SizeOfTest)
+	//	one.insert(rand() % 10000);
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
-
+	re(i, SizeOfTest)
+	{
+		if (one.find(a[i])==NULL)
+			std::cout << "无法找到！" << std::endl;
+		one.DelNode(a[i]);
+		//one.mid();
+		//std::cout << "\n";
+		if (one.Height() > maxHeight_bbtree(one.NodeNum()))
+		{
+			std::cout <<i<< "超高！\n";
+		}
+		if (one.NodeNum() != SizeOfTest - i - 1)
+		{
+			std::cout <<"i: "<<i<< " 节点数目不对\n";
+		}
+			//std::cout << "最大高度：" << maxHeight_bbtree(one.NodeNum()) << std::endl;
+			//std::cout << "树高度：" << one.Height() << std::endl;
+			//std::cout << "节点数：" << one.NodeNum() << std::endl;
+	}
 	//re(i, SizeOfTest)
 	//	one.delNode(a[i]);
 	//one.mid();

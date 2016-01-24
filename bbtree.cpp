@@ -35,7 +35,7 @@ void AVLTree<T>::RotateRR()//跟LL基本一致。只是左右反了
 TEMP
 void AVLTree<T>::RotateLR()
 {
-	AVLTree<T>* L(static_cast<AVLTree<T>*>(left)), *R(static_cast<AVLTree<T>*>(right));
+	AVLTree<T>* L(static_cast<AVLTree<T>*>(left));
 	L->RotateRR();
 	RotateLL();
 }
@@ -43,7 +43,7 @@ void AVLTree<T>::RotateLR()
 TEMP
 void AVLTree<T>::RotateRL()
 {
-	AVLTree<T>* L(static_cast<AVLTree<T>*>(left)), *R(static_cast<AVLTree<T>*>(right));
+	AVLTree<T>*R(static_cast<AVLTree<T>*>(right));
 	R->RotateLL();
 	RotateRR();
 }
@@ -95,41 +95,77 @@ void AVLTree<T>::insert(T const & x)
 TEMP
 void AVLTree<T>::DelNode(T const &x)
 {
-	AVLTree<T>* L = static_cast<AVLTree<T>*>(this->left),*R=static_cast<AVLTree<T>*>(this->right);
 	if (this == NULL)return;
-	if (x > data)
+	AVLTree<T>* L = static_cast<AVLTree<T>*>(this->left),*R=static_cast<AVLTree<T>*>(this->right);
+	if (x < data)
 	{
+		if (!left)return;
 		L->DelNode(x);
-		if (differ() < -1)//因为是删除操作，所以基本都是翻过来的。
+		if (differ() < -1)//因为是删除操作，所以基本都是反过来的。左边被删除就右旋
 		{
-			if (left->right != NULL && ((right->left->height) > (right->right->height)))
-				RotateLR();
-			else
-				RotateLL();
-		}
-	}
-	else if (x < data)
-	{
-		R->DelNode(x);
-		if (differ() >1)
-		{
-			if (left->right != NULL && (left->right->height) > (left->left->height))
+			//右边肯定有两层。
+			if (right->left!= NULL && right->right!=NULL&&((right->left->height) > (right->right->height)))
 				RotateRL();
 			else
 				RotateRR();
 		}
 	}
-	else//此事要删除该节点了。
+	else if (x > data)
+	{
+		if (!right)return;
+		R->DelNode(x);
+		if (differ() >1)
+		{
+			if (left->right != NULL&&left->left!=NULL && (left->right->height) > (left->left->height))
+				RotateLR();
+			else
+				RotateLL();
+		}
+	}
+	else//这时要删除该节点了。
 	{
 		if (left&&right)
 		{
-			Tree<T>* temp = FindRightLeft();
+			Tree<T>* temp = FindRightNext();//这里保证了不为空。
 			data = temp->data;
-			right->DelNode(data);//再一次的递归……卧槽……这是所有的点都不能活啊 
-
+			R->DelNode(data);//再一次的递归……卧槽……这是所有的点都不能活啊 
+			if (differ() > 1)//右边的节点被删除。考虑左旋转。照抄上面就好。
+			{
+				if (left->right != NULL &&left->left!=NULL&& (left->right->height) > (left->left->height))
+					RotateLR();
+				else
+					RotateLL();
+			}
 		}
-	}
+		else if (left)
+		{
+			data = left->data;
+			delete left;
+			left = NULL;
+		}
+		else if (right)
+		{
+			data = right->data;
+			delete right;
+			right = NULL;
+		}
+		else
+		{
+			if (parent == NULL)
+			{
+				height = 0;
+				return;
+			}
+			else if (parent->left == this)
+				parent->left = NULL;
+			else
+				parent->right = NULL;
+			delete const_cast<AVLTree<T>*>(this);
+			return;
+		}
 
+	}
+	CheckHeight();
 }
 
 TEMP

@@ -35,17 +35,17 @@ BSTree<T>::BSTree(T const a[]/* =NULL */, unsigned int n/* =0 */)
 TEMP
 Tree<T>* BSTree<T>::find(T const &x)
 {
-	if (this == NULL)return NULL;
 	BSTree<T> *L(static_cast<BSTree<T>*>(left)), *R(static_cast<BSTree<T>*>(right));
-	if (height == 0||this==NULL)
+	if (height == 0)
 		return NULL;
 	if (data == x)
 		return static_cast<Tree<T>*>(this);
-	else
-	if (x < data)
-		return L->find(x);
-	else
+	Tree<T>* LeftAns = NULL;
+	if (x <= data&&left && (LeftAns = L->find(x)))
+		return LeftAns;
+	if (x>=data&&right)
 		return R->find(x);
+	return NULL;
 }
 
 TEMP 

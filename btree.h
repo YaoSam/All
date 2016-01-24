@@ -25,7 +25,7 @@ protected:
 	friend class BSTree<T> ;
 	friend class AVLTree<T>;
 public:
-	virtual ~Tree()=0;
+	~Tree() {};
 	Tree() :height(0),parent(NULL),left(NULL), right(NULL){}
 	Tree(T const &x,BTree<T> *P=NULL) :data(x),parent(P),height(1),left(NULL), right(NULL){}
 	unsigned int NodeNum()const;
@@ -34,7 +34,7 @@ public:
 	virtual void mid()const=0;//中序输出
 	virtual void back()const=0;//后序输出
 	virtual void print()const=0;//层次遍历输出
-	virtual BTree<T>* find(T const &x)const=0;//目前是程序遍历查找
+	virtual Tree<T>* find(T const &x)const=0;//目前是程序遍历查找
 };
 
 TEMP
@@ -69,7 +69,7 @@ public:
 	void mid()const;//中序输出
 	void back()const;//后序输出
 	void print()const;//层次遍历输出
-	BTree<T>* find(T const &x)const;//目前是程序遍历查找
+	virtual Tree<T>* find(T const &x)const;//目前是程序遍历查找
 	Tree<T>* insert(T const &x);
 	friend std::istream& operator>>(std::istream& in, BTree<T> &other)//通过endFlag来输入
 	{

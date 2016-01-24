@@ -29,7 +29,7 @@
 using namespace std;
 #undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-//#define DEBUG
+#define DEBUG
 void Test();
 
 int main()
