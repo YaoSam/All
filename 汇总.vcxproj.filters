@@ -29,12 +29,12 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="list.cpp">
+    <ClCompile Include="heap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="list.h">
+    <ClInclude Include="heap.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

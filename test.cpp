@@ -6,49 +6,11 @@
 #include "btree.h"
 #include "bstree.cpp"
 #include "bbtree.cpp"
+#include "heap.cpp"
+#include "normal.h"
 #include <algorithm>
 #include <math.h>
-TEMP void Swap(T & a, T &b)
-{
-	T temp = a; a = b; b = temp;
-}
-
-int minHeight_bbtree(int n)
-{
-	int i = 0;
-	for (; n > 0;i++)
-		n -= (1<<i);
-	return i;
-}
-long long FIB[100];
-long long Fibonacci(int n)
-{
-	if (FIB[n] > 0) return FIB[n];
-	return FIB[n] = (n == 1 || n == 0) ? n : Fibonacci(n - 1) + Fibonacci(n - 2);
-}
-int maxHeight_bbtree(int n)
-{
-	int height=0;
-	while ((Fibonacci(height + 2)-1) < n)	height++;
-	return height;
-}
-
-TEMP
-void Qsort(T a[], int left, int right)
-{
-	T mid = a[(left + right) / 2];
-	int l = left, r = right;
-	do
-	{
-		while (a[l] > mid)l++;
-		while (a[r] < mid)r--;
-		if (l <= r)
-			Swap(a[l++], a[r--]);
-	} while (l <= r);
-	if (r > left)		Qsort(a, left, r);
-	if (l < right)	Qsort(a, l, right);
-	return;
-}
+using namespace std;
 
 void TestOfQueue()//修改后请通过该函数进行测试。
 {
@@ -66,11 +28,11 @@ void TestOfQueue()//修改后请通过该函数进行测试。
 			a.push(b.pop());
 	}
 	re(i, SizeOfTest)
-		std::cout << a.pop() << " ";
-	std::cout << std::endl;
+		cout << a.pop() << " ";
+	cout << endl;
 	re(i, SizeOfTest)
-		std::cout << c.pop() << " ";
-	std::cout << std::endl;
+		cout << c.pop() << " ";
+	cout << endl;
 }
 
 void TestOfStack()
@@ -80,12 +42,12 @@ void TestOfStack()
 	unsigned int n = 100;
 	re(i, n)
 		a.push(rand() % 1000);
-	std::cout << a;
+	cout << a;
 	while (!a.isEmpty())
 		b.push(a.pop());
 	re(i, n)
-		std::cout << b.pop() << " ";
-	std::cout << std::endl;
+		cout << b.pop() << " ";
+	cout << endl;
 }
 
 void TestOfList()
@@ -100,23 +62,23 @@ void TestOfList()
 	re(i, SizeOfTest)//earse test
 	{
 		one.delNode(a[i]);
-		std::cout << one << std::endl;
+		//cout << one << endl;
 	}
-	std::cout << one;
+	cout << one;
 	re(i, SizeOfTest)
 		one.RearInsert(rand() % 1000);
-	std::cout << one;
+	cout << one;
 	re(i, SizeOfTest)
 		one.HeadInsert(rand() % 1000);
-	std::cout << one;
+	cout << one;
 	list<int> two = one;
-	std::cout << two;
+	cout << two;
 	two = one;
-	std::cout << two<< std::endl;
+	cout << two<< endl;
 	one.resetPointer();
 	while (!one.pointer.isEnd())
 	{
-		std::cout << *one.pointer << " ";
+		cout << *one.pointer << " ";
 		++one.pointer;
 	}
 
@@ -128,18 +90,18 @@ void TestOfBtree()
 	//输入可参考
 	//a b c # # d # # e f # # g # #
 	BTree<char> one; 
-	std::cin >> one;
-	std::cout << std::endl;
+	cin >> one;
+	cout << endl;
 	one.pre();
-	std::cout << std::endl;
+	cout << endl;
 	one.mid();
-	std::cout << std::endl;
+	cout << endl;
 	one.post();
-	std::cout << std::endl;
+	cout << endl;
 	one.print();
-	std::cout << std::endl;
-	std::cout << "树高度：" << one.Height() << std::endl;
-	std::cout << "节点数：" << one.NodeNum() << std::endl;
+	cout << endl;
+	cout << "树高度：" << one.Height() << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
 	return;
 }
 
@@ -151,38 +113,38 @@ void TestOfBstree()
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	//re(i, SizeOfTest)
-	//	std::cout << a[i] << " ";
-	std::cout << std::endl;
+	//	cout << a[i] << " ";
+	cout << endl;
 	BSTree<int> one(a, SizeOfTest);
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.pre();
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.mid();
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.post();
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.print();
-	//std::cout << std::endl;
-	std::cout << "树高度：" << one.Height() << std::endl;
-	std::cout << "节点数：" << one.NodeNum() << std::endl;
+	//cout << endl;
+	cout << "树高度：" << one.Height() << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
 	//Qsort(a, 0, SizeOfTest - 1);
 	re(i, SizeOfTest)
 	{
 		const Tree<int>* temp = one.find(a[i]);
 		if (temp == NULL)
-			std::cout << "无法找到！" << std::endl;
+			cout << "无法找到！" << endl;
 	}
 	re(i, SizeOfTest)
 		one.DelNode(a[i]);
-	std::cout << "树高度：" << one.Height() << std::endl;
-	std::cout << "节点数：" << one.NodeNum() << std::endl;
-	//std::cin >> SizeOfTest;//测试内存释放
+	cout << "树高度：" << one.Height() << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
+	//cin >> SizeOfTest;//测试内存释放
 	//re(j, SizeOfTest)
 	//	a[j] = rand() % 10000;
 	//re(j, SizeOfTest)
 	//{
 	//	BSTree<int> two(a, SizeOfTest);
-	//	std::cout << "节点数：" << two.NodeNum() << " ";
+	//	cout << "节点数：" << two.NodeNum() << " ";
 	//}
 	return;
 
@@ -198,36 +160,36 @@ void TestOfBbtree()
 		a[i] = rand() % 10000;
 	//Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
 	AVLTree<int> one(a, SizeOfTest); Tree<int>* three = &one;
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.pre();
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.mid();
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.post();
-	//std::cout << std::endl;
+	//cout << endl;
 	//one.print();
 	re(i, SizeOfTest)
 	{
 		const Tree<int>* temp = one.find(a[i]);
 		if (temp == NULL)
-			std::cout << "无法找到！" << std::endl;
+			cout << "无法找到！" << endl;
 	}
-	std::cout << "树高度：" << one.Height() << std::endl;
-	std::cout << "最大高度：" << maxHeight_bbtree(SizeOfTest) << std::endl;
-	std::cout << "最低高度：" << minHeight_bbtree(SizeOfTest) << std::endl;
-	std::cout << "节点数：" << one.NodeNum() << std::endl;
-	std::cout << "当前高度的最少节点：" << Fibonacci(one.Height()+2)-1 << std::endl;
-	std::cout << std::endl;
+	cout << "树高度：" << one.Height() << endl;
+	cout << "最大高度：" << maxHeight_bbtree(SizeOfTest) << endl;
+	cout << "最低高度：" << minHeight_bbtree(SizeOfTest) << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
+	cout << "当前高度的最少节点：" << Fibonacci(one.Height()+2)-1 << endl;
+	cout << endl;
 	//re(i, SizeOfTest)
 	//	one.insert(rand() % 10000);
-	std::cout << "树高度：" << one.Height() << std::endl;
-	std::cout << "节点数：" << one.NodeNum() << std::endl;
+	cout << "树高度：" << one.Height() << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
 	re(i, SizeOfTest)
 		one.DelNode(a[i]);
 	one.mid();
-	std::cout << std::endl;
-	std::cout << "树高度：" << one.Height() << std::endl;
-	std::cout << "节点数：" << one.NodeNum() << std::endl;
+	cout << endl;
+	cout << "树高度：" << one.Height() << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
 }
 
 void TestOfIterator()
@@ -240,40 +202,77 @@ void TestOfIterator()
 	BSTree<int> one(a, SizeOfTest);
 	PreOrder_iterator<int> iterA(&one);
 	one.pre();
-	std::cout << std::endl;
+	cout << endl;
 	while (!iterA.isEnd())
 	{
-		std::cout << *iterA << " ";
+		cout << *iterA << " ";
 		++iterA;
 	}
-	std::cout << std::endl;
+	cout << endl;
 	iterA.gotoFirst();
 	while (!iterA.isEnd())
 	{
-		std::cout << *iterA << " ";
+		cout << *iterA << " ";
 		++iterA;
+	}
+}
+
+void TestOfHeap()
+{
+	unsigned int SizeOfTest= 1800;
+	int abc[10000] = { 0 }, bcd[10000] = { 0 };
+	re(i, SizeOfTest)
+	{
+		abc[i] = rand() % 10000;
+		//cout << abc[i] << " ";
+	}
+	cout << endl;
+	memcpy(bcd, abc, SizeOfTest*sizeof(int));
+	heapSort(abc, SizeOfTest);
+	Qsort(bcd, 0, SizeOfTest - 1);
+	re(i, SizeOfTest)
+		cout << abc[i] << ' ';
+	cout << endl;
+	re(i, SizeOfTest)
+		cout << bcd[i] << ' ';
+	cout << endl;
+	re(k, SizeOfTest)
+	{
+		if (bcd[k] != abc[k])
+		{
+			re(i, SizeOfTest)
+				cout << abc[i] << ' ';
+			cout << endl;
+			re(i, SizeOfTest)
+				cout << bcd[i] << ' ';
+			cout << endl;
+			break;
+		}
 	}
 }
 
 void Test()
 {
 	try{
-		//std::cout << "测试栈" << std::endl;
+		//cout << "测试栈" << endl;
 		//TestOfStack();
-		//std::cout << "测试堆" << std::endl;
+		//cout << "测试堆" << endl;
 		//TestOfQueue();
-		std::cout << "测试链表" << std::endl;
-		TestOfList();
-		//std::cout << "\n测试二叉树" << std::endl;
+		//cout << "测试链表" << endl;
+		//TestOfList();
+		//cout << "\n测试二叉树" << endl;
 		//TestOfBtree();
-		//std::cout << "\n测试排序二叉树" << std::endl;
-		//TestOfBstree();
-		//std::cout << "\n测试平衡二叉树" << std::endl;
-		//TestOfBbtree();
-		//std::cout << "\n测试迭代器" << std::endl;
-		//TestOfIterator();
+		cout << "\n测试排序二叉树" << endl;
+		TestOfBstree();
+		cout << "\n测试平衡二叉树" << endl;
+		TestOfBbtree();
+		cout << "\n测试迭代器" << endl;
+		TestOfIterator();
+		cout << "\n测试堆" << endl;
+		TestOfHeap();
+
 	}
 	catch (const char *a){
-		std::cout << a << std::endl;
+		cout << a << endl;
 	}
 }

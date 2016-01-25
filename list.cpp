@@ -118,6 +118,7 @@ void list<T>::delNode(T const &x)
 			delP = temp->next;
 			temp->next = temp->next->next;
 			delete delP;
+			length--;
 			break;//跟下面就一个差别。
 		}
 		else temp = temp->next;
@@ -136,6 +137,7 @@ void list<T>::erase(T const & x)
 			delP = temp->next;
 			temp->next = temp->next->next;
 			delete delP;
+			length--;
 		}
 		else temp = temp->next;
 	}
@@ -143,7 +145,7 @@ void list<T>::erase(T const & x)
 }
 
 TEMP
-node<T>* list<T>::iterator::operator++()
+node<T>* list<T>::list_iterator::operator++()
 {
 	if (P== NULL)
 		throw "List iterator out of range\n";
@@ -151,7 +153,7 @@ node<T>* list<T>::iterator::operator++()
 }
 
 TEMP
-T list<T>::iterator::operator*()const
+T list<T>::list_iterator::operator*()const
 {
 	if (P == NULL)
 		throw "List iterator out of range\n";

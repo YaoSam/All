@@ -109,7 +109,7 @@ TEMP void Tree<T>::print()const
 /************************************************************************/
 
 TEMP
-T iterator<T>::operator*()const
+T tree_iterator<T>::operator*()const
 {
 	if (Pcurrent)
 		return Pcurrent->data;
@@ -118,7 +118,7 @@ T iterator<T>::operator*()const
 }
 
 TEMP
-Tree<T>* iterator<T>::operator()()const
+Tree<T>* tree_iterator<T>::operator()()const
 {
 	if (Pcurrent)
 		return Pcurrent;
@@ -127,7 +127,7 @@ Tree<T>* iterator<T>::operator()()const
 }
 
 TEMP
-iterator<T>& PreOrder_iterator<T>::operator++()
+tree_iterator<T>& PreOrder_iterator<T>::operator++()
 {
 	if (Pcurrent == NULL)	throw "\niterator range erreor\n";
 	Stack.push(Pcurrent);

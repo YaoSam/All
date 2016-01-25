@@ -40,14 +40,14 @@ public:
 		return out << std::endl;
 	}
 	void resetPointer(){ pointer = head->next; }
-	class iterator{
+	class list_iterator{
 	private:
 		node<T>* P;
 		friend list < T > ;
 	public:
-		iterator(node<T>* p) :P(p){}
+		list_iterator(node<T>* p) :P(p){}
 		node<T>* operator++();
-		iterator& operator=(node<T>* p){ P = p; return *this; }
+		list_iterator& operator=(node<T>* p){ P = p; return *this; }
 		T operator*()const;
 		bool isEnd(){ return P == NULL; }
 		void reset(){ P = head; }

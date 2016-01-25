@@ -9,7 +9,7 @@
 TEMP class BTree;
 TEMP class AVLTree ;
 TEMP class BSTree;
-TEMP class iterator;
+TEMP class tree_iterator;
 TEMP class PreOrder_iterator;
 
 TEMP
@@ -18,7 +18,7 @@ class Tree
 	friend class BTree < T > ;
 	friend class BSTree < T > ;
 	friend class AVLTree < T > ; 
-	friend class iterator < T > ;
+	friend class tree_iterator < T > ;
 	friend class PreOrder_iterator<T>;
 protected:
 	T data;
@@ -42,7 +42,7 @@ public:
 };
 
 template <class T>
-class iterator//抽象基类
+class tree_iterator//抽象基类
 {
 protected:
 	Tree<T>* Pcurrent;
@@ -50,15 +50,15 @@ protected:
 	friend class Tree < T > ;
 	friend class PreOrder_iterator<T>;
 public:
-	iterator(Tree<T>* r, Tree<T>* p = NULL) :
+	tree_iterator(Tree<T>* r, Tree<T>* p = NULL) :
 		root(r),
 		Pcurrent(p ? p : r)
 	{}
-	iterator(const iterator & other) :
+	tree_iterator(const tree_iterator & other) :
 		Pcurrent(other.Pcurrent),
 		root(other.root)
 	{}
-	~iterator(){}
+	~tree_iterator(){}
 	T operator*()const;
 	Tree<T>* operator()()const;
 	void gotoFirst(Tree<T>* loca=NULL)
@@ -66,19 +66,19 @@ public:
 		Pcurrent = loca ? loca : root;
 	}
 	bool isEnd(){ return Pcurrent == NULL; }
-	virtual iterator<T>& operator++() = 0;
+	virtual tree_iterator<T>& operator++() = 0;
 };
 TEMP
-class PreOrder_iterator :public iterator < T >
+class PreOrder_iterator :public tree_iterator < T >
 {
 	stack<Tree<T>*> Stack;
 public:
-	PreOrder_iterator(Tree<T> *Pone) :iterator<T>(Pone){}
-	PreOrder_iterator(const iterator<T>& other) :
-		iterator<T>(other.root, other.Pcurrent),
+	PreOrder_iterator(Tree<T> *Pone) :tree_iterator<T>(Pone){}
+	PreOrder_iterator(const tree_iterator<T>& other) :
+		tree_iterator<T>(other.root, other.Pcurrent),
 		Stack(other.Stack)
 	{}
-	iterator<T>&  operator++();
+	tree_iterator<T>&  operator++();
 };
 
 
