@@ -1,6 +1,7 @@
 #pragma  once
 #include "btree.h"
-#include "queue.cpp"
+#include "Stack.h"//前中后序输出
+#include "queue.cpp"//层序遍历
 char BTree<char>::endFlag = '#';
 
 TEMP inline T Max(T const &a, T const &b)
@@ -14,6 +15,94 @@ unsigned int Tree<T>::NodeNum()const
 	if (height == 0)
 		return 0;
 	return (left ? left->NodeNum() : 0) + (right ? right->NodeNum() : 0) + 1;
+}
+
+
+TEMP void Tree<T>::pre()const
+{
+	stack<const Tree<T>*> Stack;
+	const Tree<T>* temp =this;
+	while (temp != NULL || !Stack.isEmpty())
+	{
+		while (temp != NULL)//不断向左遍历，并记录路径
+		{
+			std::cout << (temp->data) << " ";
+			Stack.push(temp);
+			temp = temp->left;
+		}
+		if (!Stack.isEmpty())//往回取一个点。向右走一步。
+		{
+			temp = Stack.pop();
+			temp = temp->right;
+		}
+	}
+	return;
+}
+
+TEMP void Tree<T>::mid()const
+{
+	stack<const Tree<T>*> Stack;
+	const Tree<T>* temp = this;
+	while (temp != NULL || !Stack.isEmpty())
+	{
+		while (temp != NULL)//不断向左走，到尽头了才输出
+		{
+			Stack.push(temp);
+			temp = temp->left;
+		}
+		if (!Stack.isEmpty())//到了中间。输出。然后输出右边。
+		{
+			temp = Stack.pop();
+			std::cout << (temp->data) << " ";
+			temp = temp->right;
+		}
+	}
+	return;
+}
+
+TEMP void Tree<T>::post()const //前序遍历：中左右。左右逆转前序遍历：中右左。后序遍历：左右中。
+{
+	stack<const Tree<T>*> Stack;
+	stack<const T*> OutPut;
+	const Tree<T>* temp = this;
+	while (temp != NULL || !Stack.isEmpty())//左右逆转的前序遍历
+	{
+		while (temp != NULL)
+		{
+			OutPut.push(&(temp->data));
+			Stack.push(temp);
+			temp = temp->right;
+		}
+		if (!Stack.isEmpty())
+		{
+			temp = Stack.pop();
+			temp = temp->left;
+		}
+	}
+	//逆序输出左右逆转的前序遍历
+	while (!OutPut.isEmpty())
+	{
+		std::cout << (*OutPut.pop()) << " ";
+	}
+	return;
+}
+
+TEMP void Tree<T>::print()const
+{
+	if (height == 0)return;
+	const Tree<T>* temp;
+	queue<const Tree<T>*> Queue;
+	Queue.push(this);
+	while (!Queue.isEmpty())
+	{
+		temp = Queue.pop();
+		if (temp->left)
+			Queue.push(temp->left);
+		if (temp->right)
+			Queue.push(temp->right);
+		std::cout << (temp->data) << " ";
+	}
+	std::cout << std::endl;
 }
 
 /************************************************************************/
@@ -43,45 +132,8 @@ BTree<T>& BTree<T>::operator=(BTree<T> const & other)
 	if(other.right)rightLink(new BTree<T>(*other.right));
 	return *this;
 }
-//由于动态绑定。所以函数的调用不能用空指针啊！！！！！！
-TEMP void BTree<T>::pre()const
-{
-	if (height==0)return;
-	std::cout << data << " ";
-	if(left)left->pre();
-	if(right)right->pre();
-}
-TEMP void BTree<T>::mid()const
-{
-	if (height==0)return;
-	if(left)left->mid();
-	std::cout << data << " ";
-	if(right)right->mid();
-}
-TEMP void BTree<T>::back()const
-{
-	if (height==0)return;
-	if(left)left->back();
-	if(right)right->back();
-	std::cout << data << " ";
-}
-TEMP void BTree<T>::print()const
-{
-	if (height == 0)return;
-	const BTree<T>* temp;
-	queue<const BTree<T>*> Queue;
-	Queue.push(this);
-	while (!Queue.isEmpty())
-	{
-		temp = Queue.pop();
-		if (temp->left)
-			Queue.push(temp->left);
-		if (temp->right)
-			Queue.push(temp->right);
-		std::cout << (temp->data) << " ";
-	}
-	std::cout << std::endl;
-}
+
+
 TEMP
 Tree<T>* BTree<T>::find(T const &x)const
 {
@@ -102,8 +154,7 @@ Tree<T>* BTree<T>::find(T const &x)const
 	return NULL;
 }
 
-TEMP
-void BTree<T>::del()
+TEMP void BTree<T>::del()
 {
 	Tree<T>* L = static_cast<Tree<T>*>(left), *R = static_cast<Tree<T>*>(right);
 	if (left)
@@ -119,9 +170,7 @@ void BTree<T>::del()
 		right = NULL;
 	}
 }
-
-TEMP
-BTree<T>::~BTree()
+TEMP BTree<T>::~BTree()
 {
 	this->del();
 }

@@ -4,7 +4,7 @@
 #include <time.h>
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-const int StackSize = 10000;
+const int StackSize = 100000;
 TEMP
 class stack
 {
@@ -14,6 +14,8 @@ public:
 	stack() :top(-1){}
 	void push(T const & x);
 	T pop();
+	T topData()const;
+	int Top()const{ return top; }
 	bool isEmpty()const{ return top < 0; }
 	T& operator[](unsigned int n);
 	const T& operator[](unsigned int n)const;

@@ -20,7 +20,6 @@ protected:
 	{
 		return height = Max((left ? left->height : 0), (right ? right->height : 0)) + 1;
 	}
-	void deleteNode();
 	friend class BTree<T> ;
 	friend class BSTree<T> ;
 	friend class AVLTree<T>;
@@ -30,17 +29,17 @@ public:
 	Tree(T const &x,BTree<T> *P=NULL) :data(x),parent(P),height(1),left(NULL), right(NULL){}
 	unsigned int NodeNum()const;
 	unsigned int Height()const{ return height; }
-	virtual void pre()const=0;//前序输出
-	virtual void mid()const=0;//中序输出
-	virtual void back()const=0;//后序输出
-	virtual void print()const=0;//层次遍历输出
+	void pre()const;//前序输出
+	void mid()const;//中序输出
+	void post()const;//后序输出
+	void print()const;//层次遍历输出
 	virtual Tree<T>* find(T const &x)const=0;//目前是程序遍历查找
 };
 
 TEMP
 class BTree :public Tree < T >
 {
-	void del();
+	void del();//关键！不然无法释放内存。
 	void leftLink(BTree<T>* Left = NULL)
 	{
 		if (Left == this)
@@ -65,10 +64,6 @@ public:
 	BTree(BTree<T> const & other, BTree<T>* P = NULL);
 	BTree<T>& operator=(BTree<T> const & other);
 	virtual ~BTree();
-	virtual void pre()const;//前序输出
-	virtual void mid()const;//中序输出
-	virtual void back()const;//后序输出
-	virtual void print()const;//层次遍历输出
 	virtual Tree<T>* find(T const &x)const;//目前是程序遍历查找
 	friend std::istream& operator>>(std::istream& in, BTree<T> &other)//通过endFlag来输入
 	{

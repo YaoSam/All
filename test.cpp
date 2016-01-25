@@ -113,14 +113,14 @@ void TestOfBtree()
 {
 	//输入可参考
 	//a b c # # d # # e f # # g # #
-	BTree<char> one;
+	BTree<char> one; 
 	std::cin >> one;
-	std::cout << std::endl;
-	one.mid();
 	std::cout << std::endl;
 	one.pre();
 	std::cout << std::endl;
-	one.back();
+	one.mid();
+	std::cout << std::endl;
+	one.post();
 	std::cout << std::endl;
 	one.print();
 	std::cout << std::endl;
@@ -132,8 +132,8 @@ void TestOfBtree()
 void TestOfBstree()
 {
 	srand(int(time(NULL)));
-	int a[100000];
-	unsigned int SizeOfTest = 10000;
+	int a[10000];
+	unsigned int SizeOfTest = 100;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	//re(i, SizeOfTest)
@@ -145,7 +145,7 @@ void TestOfBstree()
 	//std::cout << std::endl;
 	//one.mid();
 	//std::cout << std::endl;
-	//one.back();
+	//one.post();
 	//std::cout << std::endl;
 	//one.print();
 	//std::cout << std::endl;
@@ -159,11 +159,7 @@ void TestOfBstree()
 			std::cout << "无法找到！" << std::endl;
 	}
 	re(i, SizeOfTest)
-	{
 		one.DelNode(a[i]);
-		//one.mid();
-		//std::cout << std::endl;
-	}
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
 	//std::cin >> SizeOfTest;//测试内存释放
@@ -174,7 +170,6 @@ void TestOfBstree()
 	//	BSTree<int> two(a, SizeOfTest);
 	//	std::cout << "节点数：" << two.NodeNum() << " ";
 	//}
-
 	return;
 
 }
@@ -182,22 +177,21 @@ void TestOfBstree()
 void TestOfBbtree()
 {
 	srand(int(time(NULL)));
-	int a[100000];
-	unsigned int SizeOfTest = 100000;
+	int a[10000];
+	unsigned int SizeOfTest = 100;
 	re(i, SizeOfTest)
 		//a[i] = i;
-		a[i] = rand() % 100000;
+		a[i] = rand() % 10000;
 	//Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
-	AVLTree<int> one(a, SizeOfTest);
+	AVLTree<int> one(a, SizeOfTest); Tree<int>* three = &one;
 	//std::cout << std::endl;
 	//one.pre();
 	//std::cout << std::endl;
 	//one.mid();
 	//std::cout << std::endl;
-	//one.back();
+	//one.post();
 	//std::cout << std::endl;
 	//one.print();
-	//std::cout << std::endl;
 	re(i, SizeOfTest)
 	{
 		const Tree<int>* temp = one.find(a[i]);
@@ -215,30 +209,11 @@ void TestOfBbtree()
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
 	re(i, SizeOfTest)
-	{
-		if (one.find(a[SizeOfTest - i - 1]) == NULL)
-			std::cout << "无法找到！" << a[SizeOfTest - i - 1] << std::endl;
-		one.DelNode(a[SizeOfTest-i-1]);
-		//one.mid();
-		//std::cout <<one.Height()<< "\n";
-		//if (one.Height() > maxHeight_bbtree(one.NodeNum()))
-		//{
-		//	std::cout <<i<< "超高！:"<<one.Height()<<"\n";
-		//}
-		//if (one.NodeNum() != SizeOfTest - i - 1)
-		//{
-		//	std::cout <<"i: "<<i<< " 节点数目不对\n";
-		//}
-			//std::cout << "最大高度：" << maxHeight_bbtree(one.NodeNum()) << std::endl;
-			//std::cout << "树高度：" << one.Height() << std::endl;
-			//std::cout << "节点数：" << one.NodeNum() << std::endl;
-	}
-	//re(i, SizeOfTest)
-	//	one.delNode(a[i]);
-	//one.mid();
-	//std::cout << std::endl;
-	//std::cout << "树高度：" << one.Height() << std::endl;
-	//std::cout << "节点数：" << one.NodeNum() << std::endl;
+		one.DelNode(a[i]);
+	one.mid();
+	std::cout << std::endl;
+	std::cout << "树高度：" << one.Height() << std::endl;
+	std::cout << "节点数：" << one.NodeNum() << std::endl;
 }
 
 void Test()
@@ -250,11 +225,11 @@ void Test()
 		//TestOfQueue();
 		//std::cout << "测试链表" << std::endl;
 		//TestOfList();
-		//std::cout << "测试二叉树" << std::endl;
+		//std::cout << "\n测试二叉树" << std::endl;
 		//TestOfBtree();
-		std::cout << "测试排序二叉树" << std::endl;
+		std::cout << "\n测试排序二叉树" << std::endl;
 		TestOfBstree();
-		std::cout << "测试平衡二叉树" << std::endl;
+		std::cout << "\n测试平衡二叉树" << std::endl;
 		TestOfBbtree();
 	}
 	catch (const char *a){

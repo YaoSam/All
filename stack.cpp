@@ -18,6 +18,13 @@ void stack<T>::push(T const & x)
 }
 
 TEMP 
+T stack<T>::topData()const
+{
+	if (top < 0)
+		throw "Empty stack£¬failed stack.topData()";
+	return data[top];
+}
+TEMP 
 T& stack<T>::operator[](unsigned int n)
 {
 	if (int(n) > top)
