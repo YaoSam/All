@@ -4,18 +4,21 @@
 TEMP
 list<T>::list(T const a[] /* = NULL */, unsigned int n /* = 0 */) :
 head(new node<T>),
-length(n)
+length(n),
+pointer(NULL)
 {
 	node<T>* temp=head; 
 	re(i, n)
 		temp = (temp->next = new node<T>(a[i]));
+	if (head->next)pointer.P = head->next;
 	return;
 }
 
 TEMP
 list<T>::list(list<T> const & other):
 head(new node<T>),
-length(other.length)
+length(other.length),
+pointer(head)
 {
 	node<T>* othertemp = other.head->next,*temp=head;
 	while (othertemp != NULL)
@@ -24,6 +27,7 @@ length(other.length)
 		temp = temp->next;
 		othertemp = othertemp->next;
 	}
+	if (head->next)pointer= head->next;
 	return;
 }
 
@@ -59,6 +63,8 @@ list<T>& list<T>::operator=(list<T> const & other)
 		temp->next = new node<T>(othertemp->data);
 		temp = temp->next;
 		othertemp = othertemp->next;
+		if (other.pointer.P == othertemp)
+			pointer = temp;
 	}
 	length = other.length;
 	return *this;
@@ -88,3 +94,67 @@ void list<T>::RearInsert(T const &x)
 	last()->next = new node<T>(x);
 	length++;
 }
+
+TEMP
+node<T>* list<T>::find(T const &x)
+{
+	node<T>* temp=head->next;
+	while (temp!=NULL)
+	{
+		if (temp->data == x)
+			break;
+	}
+	return temp;//找不到的时候就是NULL
+}
+
+TEMP
+void list<T>::delNode(T const &x)
+{
+	node<T>* temp = head, *delP = NULL;
+	while (temp->next)
+	{
+		if (temp->next->data == x)
+		{
+			delP = temp->next;
+			temp->next = temp->next->next;
+			delete delP;
+			break;//跟下面就一个差别。
+		}
+		else temp = temp->next;
+	}
+	return;
+}
+
+TEMP
+void list<T>::erase(T const & x)
+{
+	node<T>* temp = head,*delP=NULL;
+	while (temp->next)
+	{
+		if (temp->next->data == x)
+		{
+			delP = temp->next;
+			temp->next = temp->next->next;
+			delete delP;
+		}
+		else temp = temp->next;
+	}
+	return;
+}
+
+TEMP
+node<T>* list<T>::iterator::operator++()
+{
+	if (P== NULL)
+		throw "List iterator out of range\n";
+	return P = P->next;
+}
+
+TEMP
+T list<T>::iterator::operator*()const
+{
+	if (P == NULL)
+		throw "List iterator out of range\n";
+	return P->data;
+}
+

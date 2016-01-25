@@ -94,8 +94,14 @@ void TestOfList()
 	int a[1000];
 	unsigned int SizeOfTest = 100;
 	re(i, SizeOfTest)
-		a[i] = rand() % 1000;
+		a[i] = rand() % 10;
 	list<int> one(a, SizeOfTest);
+	Qsort(a, 0, SizeOfTest - 1);
+	re(i, SizeOfTest)//earse test
+	{
+		one.delNode(a[i]);
+		std::cout << one << std::endl;
+	}
 	std::cout << one;
 	re(i, SizeOfTest)
 		one.RearInsert(rand() % 1000);
@@ -106,7 +112,15 @@ void TestOfList()
 	list<int> two = one;
 	std::cout << two;
 	two = one;
-	std::cout << one << std::endl;
+	std::cout << two<< std::endl;
+	one.resetPointer();
+	while (!one.pointer.isEnd())
+	{
+		std::cout << *one.pointer << " ";
+		++one.pointer;
+	}
+
+
 }
 
 void TestOfBtree()
@@ -248,16 +262,16 @@ void Test()
 		//TestOfStack();
 		//std::cout << "²âÊÔ¶Ñ" << std::endl;
 		//TestOfQueue();
-		//std::cout << "²âÊÔÁ´±í" << std::endl;
-		//TestOfList();
+		std::cout << "²âÊÔÁ´±í" << std::endl;
+		TestOfList();
 		//std::cout << "\n²âÊÔ¶þ²æÊ÷" << std::endl;
 		//TestOfBtree();
-		std::cout << "\n²âÊÔÅÅÐò¶þ²æÊ÷" << std::endl;
-		TestOfBstree();
-		std::cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << std::endl;
-		TestOfBbtree();
-		std::cout << "\n²âÊÔµü´úÆ÷" << std::endl;
-		TestOfIterator();
+		//std::cout << "\n²âÊÔÅÅÐò¶þ²æÊ÷" << std::endl;
+		//TestOfBstree();
+		//std::cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << std::endl;
+		//TestOfBbtree();
+		//std::cout << "\n²âÊÔµü´úÆ÷" << std::endl;
+		//TestOfIterator();
 	}
 	catch (const char *a){
 		std::cout << a << std::endl;

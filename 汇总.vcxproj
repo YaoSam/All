@@ -69,12 +69,12 @@
     <Text Include="out.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="btree.cpp" />
+    <ClCompile Include="list.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="btree.h" />
+    <ClInclude Include="list.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
