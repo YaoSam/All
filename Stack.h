@@ -4,7 +4,7 @@
 #include <time.h>
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-const int StackSize = 100000;
+const int StackSize = 10000;
 TEMP
 class stack
 {

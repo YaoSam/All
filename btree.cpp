@@ -17,7 +17,6 @@ unsigned int Tree<T>::NodeNum()const
 	return (left ? left->NodeNum() : 0) + (right ? right->NodeNum() : 0) + 1;
 }
 
-
 TEMP void Tree<T>::pre()const
 {
 	stack<const Tree<T>*> Stack;
@@ -108,6 +107,47 @@ TEMP void Tree<T>::print()const
 /************************************************************************/
 /*                                                                      */
 /************************************************************************/
+
+TEMP
+T iterator<T>::operator*()const
+{
+	if (Pcurrent)
+		return Pcurrent->data;
+	else
+		throw "\niterator range erreor\n";
+}
+
+TEMP
+Tree<T>* iterator<T>::operator()()const
+{
+	if (Pcurrent)
+		return Pcurrent;
+	else 
+		throw "\niterator range erreor\n";
+}
+
+TEMP
+iterator<T>& PreOrder_iterator<T>::operator++()
+{
+	if (Pcurrent == NULL)	throw "\niterator range erreor\n";
+	Stack.push(Pcurrent);
+	Pcurrent = Pcurrent->left;
+	if (Pcurrent)//可以向左走。退出
+		return *this;
+	//此时P为空
+	while (Pcurrent == NULL&&!Stack.isEmpty())//能否回去
+	{
+		Pcurrent = Stack.pop();
+		Pcurrent = Pcurrent->right;
+		if (Pcurrent)return *this;
+	}
+	return *this;
+	//此时不能回去且P为空。结束。
+}
+
+/************************************************************************/
+/*                                                                      */
+/************************************************************************/
 TEMP
 BTree<T>::BTree(BTree<T> const & other, BTree<T>* P/* =NULL */) 
 {
@@ -132,6 +172,7 @@ BTree<T>& BTree<T>::operator=(BTree<T> const & other)
 	if(other.right)rightLink(new BTree<T>(*other.right));
 	return *this;
 }
+
 
 
 TEMP
@@ -170,6 +211,7 @@ TEMP void BTree<T>::del()
 		right = NULL;
 	}
 }
+
 TEMP BTree<T>::~BTree()
 {
 	this->del();

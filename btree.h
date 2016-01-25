@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <time.h>
+#include "Stack.h"
 #include <math.h>
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
@@ -8,11 +9,18 @@
 TEMP class BTree;
 TEMP class AVLTree ;
 TEMP class BSTree;
+TEMP class iterator;
+TEMP class PreOrder_iterator;
 
 TEMP
 class Tree
 {
-protected: 
+	friend class BTree < T > ;
+	friend class BSTree < T > ;
+	friend class AVLTree < T > ; 
+	friend class iterator < T > ;
+	friend class PreOrder_iterator<T>;
+protected:
 	T data;
 	BTree<T> *right,*left,*parent;
 	unsigned int height;
@@ -20,9 +28,6 @@ protected:
 	{
 		return height = Max((left ? left->height : 0), (right ? right->height : 0)) + 1;
 	}
-	friend class BTree<T> ;
-	friend class BSTree<T> ;
-	friend class AVLTree<T>;
 public:
 	~Tree() {};
 	Tree() :height(0),parent(NULL),left(NULL), right(NULL){}
@@ -35,6 +40,47 @@ public:
 	void print()const;//层次遍历输出
 	virtual Tree<T>* find(T const &x)const=0;//目前是程序遍历查找
 };
+
+template <class T>
+class iterator//抽象基类
+{
+protected:
+	Tree<T>* Pcurrent;
+	Tree<T>* root;
+	friend class Tree < T > ;
+	friend class PreOrder_iterator<T>;
+public:
+	iterator(Tree<T>* r, Tree<T>* p = NULL) :
+		root(r),
+		Pcurrent(p ? p : r)
+	{}
+	iterator(const iterator & other) :
+		Pcurrent(other.Pcurrent),
+		root(other.root)
+	{}
+	~iterator(){}
+	T operator*()const;
+	Tree<T>* operator()()const;
+	void gotoFirst(Tree<T>* loca=NULL)
+	{
+		Pcurrent = loca ? loca : root;
+	}
+	bool isEnd(){ return Pcurrent == NULL; }
+	virtual iterator<T>& operator++() = 0;
+};
+TEMP
+class PreOrder_iterator :public iterator < T >
+{
+	stack<Tree<T>*> Stack;
+public:
+	PreOrder_iterator(Tree<T> *Pone) :iterator<T>(Pone){}
+	PreOrder_iterator(const iterator<T>& other) :
+		iterator<T>(other.root, other.Pcurrent),
+		Stack(other.Stack)
+	{}
+	iterator<T>&  operator++();
+};
+
 
 TEMP
 class BTree :public Tree < T >
@@ -57,10 +103,11 @@ class BTree :public Tree < T >
 	}
 	friend class BSTree < T > ;
 	friend class AVLTree < T > ;
+	friend class PreOrder_iterator<T>;
 public:
 	static T endFlag;//普通二叉树输入时候的结束符。
 	BTree() :Tree<T>(){}
-	BTree(const T &x,BTree<T>*P=NULL) :Tree<T>(x,P){}
+	BTree(const T &x, BTree<T>*P = NULL) :Tree<T>(x, P){}
 	BTree(BTree<T> const & other, BTree<T>* P = NULL);
 	BTree<T>& operator=(BTree<T> const & other);
 	virtual ~BTree();

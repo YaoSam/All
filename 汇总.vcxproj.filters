@@ -15,12 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="out.txt">
-      <Filter>资源文件</Filter>
-    </Text>
     <Text Include="in.txt">
       <Filter>资源文件</Filter>
     </Text>
+    <Text Include="out.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,27 +30,9 @@
     <ClCompile Include="btree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="stack.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="bstree.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="bbtree.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="btree.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="bstree.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="bbtree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -216,6 +216,31 @@ void TestOfBbtree()
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
 }
 
+void TestOfIterator()
+{
+	srand(int(time(NULL)));
+	int a[10000];
+	unsigned int SizeOfTest = 100;
+	re(i, SizeOfTest)
+		a[i] = rand() % 10000;
+	BSTree<int> one(a, SizeOfTest);
+	PreOrder_iterator<int> iterA(&one);
+	one.pre();
+	std::cout << std::endl;
+	while (!iterA.isEnd())
+	{
+		std::cout << *iterA << " ";
+		++iterA;
+	}
+	std::cout << std::endl;
+	iterA.gotoFirst();
+	while (!iterA.isEnd())
+	{
+		std::cout << *iterA << " ";
+		++iterA;
+	}
+}
+
 void Test()
 {
 	try{
@@ -231,6 +256,8 @@ void Test()
 		TestOfBstree();
 		std::cout << "\n测试平衡二叉树" << std::endl;
 		TestOfBbtree();
+		std::cout << "\n测试迭代器" << std::endl;
+		TestOfIterator();
 	}
 	catch (const char *a){
 		std::cout << a << std::endl;
