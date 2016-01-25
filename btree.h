@@ -65,12 +65,11 @@ public:
 	BTree(BTree<T> const & other, BTree<T>* P = NULL);
 	BTree<T>& operator=(BTree<T> const & other);
 	virtual ~BTree();
-	void pre()const;//前序输出
-	void mid()const;//中序输出
-	void back()const;//后序输出
-	void print()const;//层次遍历输出
+	virtual void pre()const;//前序输出
+	virtual void mid()const;//中序输出
+	virtual void back()const;//后序输出
+	virtual void print()const;//层次遍历输出
 	virtual Tree<T>* find(T const &x)const;//目前是程序遍历查找
-	Tree<T>* insert(T const &x);
 	friend std::istream& operator>>(std::istream& in, BTree<T> &other)//通过endFlag来输入
 	{
 		in >> other.data;

@@ -20,15 +20,17 @@ int minHeight_bbtree(int n)
 		n -= (1<<i);
 	return i;
 }
-int Fibonacci(int n)
+long long FIB[100];
+long long Fibonacci(int n)
 {
-	return (n == 1 || n == 0) ? n : Fibonacci(n - 1) + Fibonacci(n - 2);
+	if (FIB[n] > 0) return FIB[n];
+	return FIB[n] = (n == 1 || n == 0) ? n : Fibonacci(n - 1) + Fibonacci(n - 2);
 }
 int maxHeight_bbtree(int n)
 {
 	int height=0;
 	while ((Fibonacci(height + 2)-1) < n)	height++;
-	return height-1;
+	return height;
 }
 
 TEMP
@@ -131,11 +133,11 @@ void TestOfBstree()
 {
 	srand(int(time(NULL)));
 	int a[100000];
-	unsigned int SizeOfTest = 200;
+	unsigned int SizeOfTest = 10000;
 	re(i, SizeOfTest)
-		a[i] = rand() % 100;
-	re(i, SizeOfTest)
-		std::cout << a[i] << " ";
+		a[i] = rand() % 10000;
+	//re(i, SizeOfTest)
+	//	std::cout << a[i] << " ";
 	std::cout << std::endl;
 	BSTree<int> one(a, SizeOfTest);
 	//std::cout << std::endl;
@@ -164,14 +166,14 @@ void TestOfBstree()
 	}
 	std::cout << "树高度：" << one.Height() << std::endl;
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
-	std::cin >> SizeOfTest;//测试内存释放
-	re(j, SizeOfTest)
-		a[j] = rand() % 10000;
-	re(j, SizeOfTest)
-	{
-		BSTree<int> two(a, SizeOfTest);
-		std::cout << "节点数：" << two.NodeNum() << " ";
-	}
+	//std::cin >> SizeOfTest;//测试内存释放
+	//re(j, SizeOfTest)
+	//	a[j] = rand() % 10000;
+	//re(j, SizeOfTest)
+	//{
+	//	BSTree<int> two(a, SizeOfTest);
+	//	std::cout << "节点数：" << two.NodeNum() << " ";
+	//}
 
 	return;
 
@@ -180,11 +182,12 @@ void TestOfBstree()
 void TestOfBbtree()
 {
 	srand(int(time(NULL)));
-	int a[10000];
-	unsigned int SizeOfTest = 1000;
+	int a[100000];
+	unsigned int SizeOfTest = 100000;
 	re(i, SizeOfTest)
-		a[i] = rand() % 1000;
-	Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
+		//a[i] = i;
+		a[i] = rand() % 100000;
+	//Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
 	AVLTree<int> one(a, SizeOfTest);
 	//std::cout << std::endl;
 	//one.pre();
@@ -213,19 +216,19 @@ void TestOfBbtree()
 	std::cout << "节点数：" << one.NodeNum() << std::endl;
 	re(i, SizeOfTest)
 	{
-		if (one.find(a[i])==NULL)
-			std::cout << "无法找到！" << std::endl;
-		one.DelNode(a[i]);
+		if (one.find(a[SizeOfTest - i - 1]) == NULL)
+			std::cout << "无法找到！" << a[SizeOfTest - i - 1] << std::endl;
+		one.DelNode(a[SizeOfTest-i-1]);
 		//one.mid();
-		//std::cout << "\n";
-		if (one.Height() > maxHeight_bbtree(one.NodeNum()))
-		{
-			std::cout <<i<< "超高！\n";
-		}
-		if (one.NodeNum() != SizeOfTest - i - 1)
-		{
-			std::cout <<"i: "<<i<< " 节点数目不对\n";
-		}
+		//std::cout <<one.Height()<< "\n";
+		//if (one.Height() > maxHeight_bbtree(one.NodeNum()))
+		//{
+		//	std::cout <<i<< "超高！:"<<one.Height()<<"\n";
+		//}
+		//if (one.NodeNum() != SizeOfTest - i - 1)
+		//{
+		//	std::cout <<"i: "<<i<< " 节点数目不对\n";
+		//}
 			//std::cout << "最大高度：" << maxHeight_bbtree(one.NodeNum()) << std::endl;
 			//std::cout << "树高度：" << one.Height() << std::endl;
 			//std::cout << "节点数：" << one.NodeNum() << std::endl;
@@ -247,8 +250,8 @@ void Test()
 		//TestOfQueue();
 		//std::cout << "测试链表" << std::endl;
 		//TestOfList();
-		std::cout << "测试二叉树" << std::endl;
-		TestOfBtree();
+		//std::cout << "测试二叉树" << std::endl;
+		//TestOfBtree();
 		std::cout << "测试排序二叉树" << std::endl;
 		TestOfBstree();
 		std::cout << "测试平衡二叉树" << std::endl;

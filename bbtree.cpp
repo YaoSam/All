@@ -96,7 +96,7 @@ TEMP
 void AVLTree<T>::DelNode(T const &x)
 {
 	if (this == NULL)return;
-	AVLTree<T>* L = static_cast<AVLTree<T>*>(this->left),*R=static_cast<AVLTree<T>*>(this->right);
+	AVLTree<T>* L = static_cast<AVLTree<T>*>(left),*R=static_cast<AVLTree<T>*>(right);
 	if (x < data)
 	{
 		if (!left)return;
@@ -104,7 +104,7 @@ void AVLTree<T>::DelNode(T const &x)
 		if (differ() < -1)//因为是删除操作，所以基本都是反过来的。左边被删除就右旋
 		{
 			//右边肯定有两层。
-			if (right->left!= NULL && right->right!=NULL&&((right->left->height) > (right->right->height)))
+			if (right->right == NULL || (right->left != NULL && ((right->left->height) > (right->right->height))))
 				RotateRL();
 			else
 				RotateRR();
@@ -116,7 +116,7 @@ void AVLTree<T>::DelNode(T const &x)
 		R->DelNode(x);
 		if (differ() >1)
 		{
-			if (left->right != NULL&&left->left!=NULL && (left->right->height) > (left->left->height))
+			if (left->left == NULL || (left->right != NULL && (left->right->height) > (left->left->height)))
 				RotateLR();
 			else
 				RotateLL();
@@ -126,18 +126,18 @@ void AVLTree<T>::DelNode(T const &x)
 	{
 		if (left&&right)
 		{
-			Tree<T>* temp = FindRightNext();//这里保证了不为空。
+			Tree<T>* temp = FindRightNext();//这里保证不为空。
 			data = temp->data;
-			R->DelNode(data);//再一次的递归……卧槽……这是所有的点都不能活啊 
+			R->DelNode(data);//再一次的递归……卧槽……
 			if (differ() > 1)//右边的节点被删除。考虑左旋转。照抄上面就好。
 			{
-				if (left->right != NULL &&left->left!=NULL&& (left->right->height) > (left->left->height))
+				if (left->left == NULL || (left->right != NULL && (left->right->height) > (left->left->height)))
 					RotateLR();
 				else
 					RotateLL();
 			}
 		}
-		else if (left)
+		else if (left)//由于是平衡二叉树，所以left高度肯定不>2
 		{
 			data = left->data;
 			delete left;
@@ -152,15 +152,15 @@ void AVLTree<T>::DelNode(T const &x)
 		else
 		{
 			if (parent == NULL)
-			{
 				height = 0;
-				return;
-			}
-			else if (parent->left == this)
-				parent->left = NULL;
 			else
-				parent->right = NULL;
-			delete const_cast<AVLTree<T>*>(this);
+			{
+				if (parent->left == this)
+					parent->left = NULL;
+				else
+					parent->right = NULL;
+				delete const_cast<AVLTree<T>*>(this);
+			} 	
 			return;
 		}
 

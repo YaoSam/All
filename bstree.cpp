@@ -104,8 +104,7 @@ void BSTree<T>::DelNode(T const &x)
 			target->rightLink(Next->right);
 		else
 			Next->parent->leftLink(Next->right);
-		BSTree<T>* temp = static_cast<BSTree<T>*>(Next);
-		temp->deleteNode();
+		static_cast<BSTree<T>*>(Next)->deleteNode();
 	}
 	else
 	{
@@ -117,8 +116,7 @@ void BSTree<T>::DelNode(T const &x)
 				target->leftLink(Next->left);
 			else
 				Next->parent->rightLink(Next->left);
-			BSTree<T>* temp = static_cast<BSTree<T>*>(Next);
-			temp->deleteNode();
+			static_cast<BSTree<T>*>(Next)->deleteNode();
 		}
 		else
 		{
@@ -132,8 +130,7 @@ void BSTree<T>::DelNode(T const &x)
 					target->parent->left = NULL;
 				else
 					target->parent->right = NULL;
-				BSTree<T>* temp = static_cast<BSTree<T>*>(target);
-				temp->deleteNode();
+				target->deleteNode();
 			}
 		}
 	}

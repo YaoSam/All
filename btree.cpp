@@ -8,6 +8,17 @@ TEMP inline T Max(T const &a, T const &b)
 	return a > b ? a : b;
 }
 
+TEMP 
+unsigned int Tree<T>::NodeNum()const
+{
+	if (height == 0)
+		return 0;
+	return (left ? left->NodeNum() : 0) + (right ? right->NodeNum() : 0) + 1;
+}
+
+/************************************************************************/
+/*                                                                      */
+/************************************************************************/
 TEMP
 BTree<T>::BTree(BTree<T> const & other, BTree<T>* P/* =NULL */) 
 {
@@ -32,7 +43,6 @@ BTree<T>& BTree<T>::operator=(BTree<T> const & other)
 	if(other.right)rightLink(new BTree<T>(*other.right));
 	return *this;
 }
-
 //由于动态绑定。所以函数的调用不能用空指针啊！！！！！！
 TEMP void BTree<T>::pre()const
 {
@@ -72,18 +82,6 @@ TEMP void BTree<T>::print()const
 	}
 	std::cout << std::endl;
 }
-
-TEMP 
-unsigned int Tree<T>::NodeNum()const
-{
-	if (height == 0)
-		return 0;
-	return (left ? left->NodeNum() : 0) + (right ? right->NodeNum() : 0) + 1;
-}
-
-/************************************************************************/
-/*                                                                      */
-/************************************************************************/
 TEMP
 Tree<T>* BTree<T>::find(T const &x)const
 {
