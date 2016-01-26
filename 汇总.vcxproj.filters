@@ -29,12 +29,15 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="heap.cpp">
+    <ClCompile Include="normal.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stack.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="heap.h">
+    <ClInclude Include="Stack.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

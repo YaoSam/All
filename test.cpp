@@ -39,15 +39,16 @@ void TestOfStack()
 {
 	srand(unsigned(time(NULL)));
 	stack<int> a, b;
-	unsigned int n = 100;
+	unsigned int n = 10100;
 	re(i, n)
 		a.push(rand() % 1000);
 	cout << a;
 	while (!a.isEmpty())
 		b.push(a.pop());
+	a = b;
 	re(i, n)
 		cout << b.pop() << " ";
-	cout << endl;
+	cout << endl << a << endl;
 }
 
 void TestOfList()
@@ -116,15 +117,15 @@ void TestOfBstree()
 	//	cout << a[i] << " ";
 	cout << endl;
 	BSTree<int> one(a, SizeOfTest);
-	//cout << endl;
-	//one.pre();
-	//cout << endl;
-	//one.mid();
-	//cout << endl;
-	//one.post();
-	//cout << endl;
-	//one.print();
-	//cout << endl;
+	cout << endl;
+	one.pre();
+	cout << endl;
+	one.mid();
+	cout << endl;
+	one.post();
+	cout << endl;
+	one.print();
+	cout << endl;
 	cout << "Ê÷¸ß¶È£º" << one.Height() << endl;
 	cout << "½ÚµãÊý£º" << one.NodeNum() << endl;
 	//Qsort(a, 0, SizeOfTest - 1);
@@ -254,8 +255,8 @@ void TestOfHeap()
 void Test()
 {
 	try{
-		//cout << "²âÊÔÕ»" << endl;
-		//TestOfStack();
+		cout << "²âÊÔÕ»" << endl;
+		TestOfStack();
 		//cout << "²âÊÔ¶Ñ" << endl;
 		//TestOfQueue();
 		//cout << "²âÊÔÁ´±í" << endl;
@@ -264,12 +265,12 @@ void Test()
 		//TestOfBtree();
 		cout << "\n²âÊÔÅÅÐò¶þ²æÊ÷" << endl;
 		TestOfBstree();
-		cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << endl;
-		TestOfBbtree();
-		cout << "\n²âÊÔµü´úÆ÷" << endl;
-		TestOfIterator();
-		cout << "\n²âÊÔ¶Ñ" << endl;
-		TestOfHeap();
+		//cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << endl;
+		//TestOfBbtree();
+		//cout << "\n²âÊÔµü´úÆ÷" << endl;
+		//TestOfIterator();
+		//cout << "\n²âÊÔ¶Ñ" << endl;
+		//TestOfHeap();
 
 	}
 	catch (const char *a){
