@@ -12,6 +12,7 @@ TEMP class BSTree;
 TEMP class tree_iterator;
 TEMP class PreOrder_iterator;
 TEMP class InOrder_iterator;
+TEMP class LevelOrder_iterator;
 TEMP
 class Tree
 {
@@ -20,6 +21,7 @@ class Tree
 	friend class AVLTree < T > ; 
 	friend class tree_iterator < T > ;
 	friend class PreOrder_iterator < T > ;
+	friend class LevelOrder_iterator < T > ;
 	friend class InOrder_iterator < T > ;
 protected:
 	T data;
@@ -65,6 +67,7 @@ public:
 	friend class BSTree < T > ;
 	friend class AVLTree < T > ;
 	friend class PreOrder_iterator<T>;
+	friend class LevelOrder_iterator < T > ;
 	friend class InOrder_iterator < T > ;
 public:
 	static T endFlag;//普通二叉树输入时候的结束符。

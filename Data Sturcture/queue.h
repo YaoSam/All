@@ -14,6 +14,7 @@ public:
 	queue() :front(0), rear(0){}
 	void push(T const &x);
 	T pop();
+	void clear(){ front = rear = 0; }
 	bool isEmpty(){ return front == rear; }
 	bool isFull(){ return (rear + 1) % QueueSize == front; }
 };

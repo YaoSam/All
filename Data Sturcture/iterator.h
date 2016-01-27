@@ -10,10 +10,11 @@ protected:
 	friend class Tree < T > ;
 	friend class PreOrder_iterator < T > ;
 	friend class InOrder_iterator < T > ;
+	friend class LevelOrder_iterator < T > ;
 public:
-	tree_iterator(Tree<T>* r, Tree<T>* p = NULL) :
+	tree_iterator(Tree<T>* r) :
 		root(r),
-		Pcurrent(p ? p : r)
+		Pcurrent(r)
 	{}
 	tree_iterator(const tree_iterator & other) :
 		Pcurrent(other.Pcurrent),
@@ -56,4 +57,18 @@ public:
 	virtual void gotoFirst();
 	virtual bool isEnd(){ return Stack.isEmpty(); }
 	virtual tree_iterator<T>&operator++();
+};
+
+TEMP 
+class LevelOrder_iterator :public tree_iterator < T >
+{
+	queue<Tree<T>*> Queue;
+public:
+	LevelOrder_iterator(Tree<T>* P) :tree_iterator<T>(P){}
+	LevelOrder_iterator(const tree_iterator<T>&other):
+		tree_iterator<T>(other.root,other.Pcurrent),
+		Queue(other.Queue){}
+	bool isEnd(){ return Pcurrent->left == NULL && Pcurrent->right == NULL &&Queue.isEmpty(); }
+	void gotoFirst(){ Pcurrent = root; Queue.clear(); }
+	tree_iterator<T>& operator++();
 };

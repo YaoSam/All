@@ -204,28 +204,39 @@ void TestOfIterator()
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	BSTree<int> one(a, SizeOfTest);
-	PreOrder_iterator<int> iterA(&one);
-	InOrder_iterator<int> iterB(&one);
-	//one.pre();
-	//cout << endl;
-	//while (!iterA.isEnd())
-	//{
-	//	cout << *iterA << " ";
-	//	++iterA;
-	//}
+	PreOrder_iterator<int> iterP(&one);
+	InOrder_iterator<int> iterI(&one);
+	LevelOrder_iterator<int> iterL(&one);
+	one.pre();
+	cout << endl;
+	while (!iterP.isEnd())
+	{
+		cout << *iterP << " ";
+		++iterP;
+	}
+	cout << endl;
 	one.mid();
 	cout << endl;
-	while (!iterB.isEnd())
+	while (!iterI.isEnd())
 	{
-		cout << *iterB << " ";
-		++iterB;
+		cout << *iterI << " ";
+		++iterI;
 	}
-	iterB.gotoFirst();
 	cout << endl;
-	while (!iterB.isEnd())
+	one.print();
+	cout << endl;
+	while (!iterL.isEnd())
 	{
-		cout << *iterB << " ";
-		++iterB;
+		cout << *iterL << " ";
+		++iterL;
+	}
+	cout << endl;
+	iterL.gotoFirst();
+	cout << endl;
+	while (!iterL.isEnd())
+	{
+		cout << *iterL << " ";
+		++iterL;
 	}
 }
 

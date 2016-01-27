@@ -90,3 +90,21 @@ tree_iterator<T>& InOrder_iterator<T>::operator++()
 	}
 	return *this;
 }
+
+//////////////////////////////////////////////////////////////////////////
+ 
+TEMP 
+tree_iterator<T>& LevelOrder_iterator<T>::operator++()
+{
+	if (Pcurrent->left)
+		Queue.push(Pcurrent->left);
+	if (Pcurrent->right)
+		Queue.push(Pcurrent->right);
+	if (!Queue.isEmpty())
+	{
+		Pcurrent = Queue.pop();
+		return *this;
+	}
+	else 
+		throw "\niterator range erreor\n";
+}
