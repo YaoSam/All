@@ -1,7 +1,7 @@
 #pragma once
 #include "btree.cpp"
 
-template <class T>
+TEMP
 class tree_iterator//³éÏó»ùÀà
 {
 protected:
@@ -68,7 +68,6 @@ public:
 	LevelOrder_iterator(const tree_iterator<T>&other):
 		tree_iterator<T>(other.root,other.Pcurrent),
 		Queue(other.Queue){}
-	bool isEnd(){ return Pcurrent->left == NULL && Pcurrent->right == NULL &&Queue.isEmpty(); }
 	void gotoFirst(){ Pcurrent = root; Queue.clear(); }
 	tree_iterator<T>& operator++();
 };

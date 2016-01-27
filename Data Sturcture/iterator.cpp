@@ -7,7 +7,7 @@ T tree_iterator<T>::operator*()const
 	if (Pcurrent)
 		return Pcurrent->data;
 	else
-		throw "\niterator range erreor\n";
+		throw "\niterator range error\n";
 }
 
 TEMP
@@ -16,13 +16,13 @@ Tree<T>* tree_iterator<T>::operator()()const
 	if (Pcurrent)
 		return Pcurrent;
 	else
-		throw "\niterator range erreor\n";
+		throw "\niterator range error\n";
 }
 //////////////////////////////////////////////////////////////////////////
 TEMP
 tree_iterator<T>& PreOrder_iterator<T>::operator++()
 {
-	if (Pcurrent == NULL)	throw "\niterator range erreor\n";
+	if (Pcurrent == NULL)	throw "\niterator range error\n";
 	Stack.push(Pcurrent);
 	Pcurrent = Pcurrent->left;
 	if (Pcurrent)//可以向左走。退出
@@ -77,7 +77,7 @@ TEMP
 tree_iterator<T>& InOrder_iterator<T>::operator++()
 {
 	if (Stack.isEmpty())
-		throw "\niterator range erreor\n";
+		throw "\niterator range error\n";
 	Pcurrent = Stack.pop();//输出中间。
 	if (Pcurrent->right != NULL)
 	{
@@ -96,15 +96,15 @@ tree_iterator<T>& InOrder_iterator<T>::operator++()
 TEMP 
 tree_iterator<T>& LevelOrder_iterator<T>::operator++()
 {
+	if (Pcurrent==NULL)
+		throw "\niterator range error\n";
 	if (Pcurrent->left)
 		Queue.push(Pcurrent->left);
 	if (Pcurrent->right)
 		Queue.push(Pcurrent->right);
 	if (!Queue.isEmpty())
-	{
 		Pcurrent = Queue.pop();
-		return *this;
-	}
-	else 
-		throw "\niterator range erreor\n";
+	else
+		Pcurrent = NULL;
+	return *this;
 }

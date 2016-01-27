@@ -101,7 +101,6 @@ TEMP void Tree<T>::print()const
 			Queue.push(temp->right);
 		std::cout << (temp->data) << " ";
 	}
-	std::cout << std::endl;
 }
 
 //////////////////////////////////////////////////////////////////////////

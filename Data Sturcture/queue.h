@@ -3,18 +3,22 @@
 #include <time.h>
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-const int QueueSize = 100000;
+const int OriginQueueSize = 20;
 
 TEMP
-class queue
+class queue//不能用动态分配内存的元素
 {
-	unsigned int front, rear;
-	T data[QueueSize];
+	unsigned int front, rear,size;//front都指向数据，rear指向位置。
+	T *data;
+	void ApplyMem();
 public:
-	queue() :front(0), rear(0){}
+	queue() :front(0), rear(0),size(OriginQueueSize),data(new T[size]){}
+	queue(const queue<T>&other);
+	queue<T>& operator=(const queue<T>&other);
+	~queue(){ delete[] data; }
 	void push(T const &x);
 	T pop();
 	void clear(){ front = rear = 0; }
 	bool isEmpty(){ return front == rear; }
-	bool isFull(){ return (rear + 1) % QueueSize == front; }
+	bool isFull(){ return (rear + 1) % size == front; }
 };

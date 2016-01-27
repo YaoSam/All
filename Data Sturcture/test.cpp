@@ -17,7 +17,7 @@ void TestOfQueue()//修改后请通过该函数进行测试。
 {
 	srand(unsigned(time(NULL)));
 	queue<int> a, b;
-	unsigned int SizeOfTest = 100;
+	unsigned int SizeOfTest = 10000;
 	re(i, SizeOfTest)
 		a.push(rand() % 1000);
 	queue<int> c = a;
@@ -200,7 +200,7 @@ void TestOfIterator()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 100;
+	unsigned int SizeOfTest = 1000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	BSTree<int> one(a, SizeOfTest);
@@ -230,7 +230,6 @@ void TestOfIterator()
 		cout << *iterL << " ";
 		++iterL;
 	}
-	cout << endl;
 	iterL.gotoFirst();
 	cout << endl;
 	while (!iterL.isEnd())
@@ -279,8 +278,8 @@ void Test()
 	try{
 		//cout << "测试栈" << endl;
 		//TestOfStack();
-		//cout << "测试堆" << endl;
-		//TestOfQueue();
+		cout << "测试队列" << endl;
+		TestOfQueue();
 		//cout << "测试链表" << endl;
 		//TestOfList();
 		//cout << "\n测试二叉树" << endl;
