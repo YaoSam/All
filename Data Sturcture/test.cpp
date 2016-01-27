@@ -7,7 +7,7 @@
 #include "bstree.cpp"
 #include "bbtree.cpp"
 #include "heap.cpp"
-#include "normal.h"
+#include "normal.cpp"
 #include <algorithm>
 #include <math.h>
 using namespace std;

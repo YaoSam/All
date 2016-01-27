@@ -173,8 +173,6 @@ BTree<T>& BTree<T>::operator=(BTree<T> const & other)
 	return *this;
 }
 
-
-
 TEMP
 Tree<T>* BTree<T>::find(T const &x)const
 {

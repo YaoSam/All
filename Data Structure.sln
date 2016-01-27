@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello", "汇总.vcxproj", "{34BB839C-966A-4381-9369-C2DB778F9E3D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello", "Data Sturcture\Data Structure.vcxproj", "{34BB839C-966A-4381-9369-C2DB778F9E3D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SegmentTree", "SegmentTree\SegmentTree.vcxproj", "{F01CF506-EECE-4871-BB67-8067041B2AD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{34BB839C-966A-4381-9369-C2DB778F9E3D}.Debug|Win32.Build.0 = Debug|Win32
 		{34BB839C-966A-4381-9369-C2DB778F9E3D}.Release|Win32.ActiveCfg = Release|Win32
 		{34BB839C-966A-4381-9369-C2DB778F9E3D}.Release|Win32.Build.0 = Release|Win32
+		{F01CF506-EECE-4871-BB67-8067041B2AD7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F01CF506-EECE-4871-BB67-8067041B2AD7}.Debug|Win32.Build.0 = Debug|Win32
+		{F01CF506-EECE-4871-BB67-8067041B2AD7}.Release|Win32.ActiveCfg = Release|Win32
+		{F01CF506-EECE-4871-BB67-8067041B2AD7}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
