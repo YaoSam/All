@@ -11,7 +11,7 @@ TEMP class AVLTree ;
 TEMP class BSTree;
 TEMP class tree_iterator;
 TEMP class PreOrder_iterator;
-
+TEMP class InOrder_iterator;
 TEMP
 class Tree
 {
@@ -19,7 +19,8 @@ class Tree
 	friend class BSTree < T > ;
 	friend class AVLTree < T > ; 
 	friend class tree_iterator < T > ;
-	friend class PreOrder_iterator<T>;
+	friend class PreOrder_iterator < T > ;
+	friend class InOrder_iterator < T > ;
 protected:
 	T data;
 	BTree<T> *right,*left,*parent;
@@ -41,50 +42,10 @@ public:
 	virtual Tree<T>* find(T const &x)const=0;//目前是程序遍历查找
 };
 
-template <class T>
-class tree_iterator//抽象基类
-{
-protected:
-	Tree<T>* Pcurrent;
-	Tree<T>* root;
-	friend class Tree < T > ;
-	friend class PreOrder_iterator<T>;
-public:
-	tree_iterator(Tree<T>* r, Tree<T>* p = NULL) :
-		root(r),
-		Pcurrent(p ? p : r)
-	{}
-	tree_iterator(const tree_iterator & other) :
-		Pcurrent(other.Pcurrent),
-		root(other.root)
-	{}
-	~tree_iterator(){}
-	T operator*()const;
-	Tree<T>* operator()()const;
-	void gotoFirst(Tree<T>* loca=NULL)
-	{
-		Pcurrent = loca ? loca : root;
-	}
-	bool isEnd(){ return Pcurrent == NULL; }
-	virtual tree_iterator<T>& operator++() = 0;
-};
-TEMP
-class PreOrder_iterator :public tree_iterator < T >
-{
-	stack<Tree<T>*> Stack;
-public:
-	PreOrder_iterator(Tree<T> *Pone) :tree_iterator<T>(Pone){}
-	PreOrder_iterator(const tree_iterator<T>& other) :
-		tree_iterator<T>(other.root, other.Pcurrent),
-		Stack(other.Stack)
-	{}
-	tree_iterator<T>&  operator++();
-};
-
-
 TEMP
 class BTree :public Tree < T >
 {
+public:
 	void del();//关键！不然无法释放内存。
 	void leftLink(BTree<T>* Left = NULL)
 	{
@@ -104,11 +65,12 @@ class BTree :public Tree < T >
 	friend class BSTree < T > ;
 	friend class AVLTree < T > ;
 	friend class PreOrder_iterator<T>;
+	friend class InOrder_iterator < T > ;
 public:
 	static T endFlag;//普通二叉树输入时候的结束符。
 	BTree() :Tree<T>(){}
 	BTree(const T &x, BTree<T>*P = NULL) :Tree<T>(x, P){}
-	BTree(BTree<T> const & other, BTree<T>* P = NULL);
+	BTree(BTree<T> const & other);
 	BTree<T>& operator=(BTree<T> const & other);
 	virtual ~BTree();
 	virtual Tree<T>* find(T const &x)const;//目前是程序遍历查找

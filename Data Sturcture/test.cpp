@@ -8,6 +8,7 @@
 #include "bbtree.cpp"
 #include "heap.cpp"
 #include "normal.cpp"
+#include "iterator.cpp"
 #include <algorithm>
 #include <math.h>
 using namespace std;
@@ -117,6 +118,8 @@ void TestOfBstree()
 	//	cout << a[i] << " ";
 	cout << endl;
 	BSTree<int> one(a, SizeOfTest);
+	BSTree<int> two(one);
+	two.pre();
 	cout << endl;
 	one.pre();
 	cout << endl;
@@ -202,19 +205,27 @@ void TestOfIterator()
 		a[i] = rand() % 10000;
 	BSTree<int> one(a, SizeOfTest);
 	PreOrder_iterator<int> iterA(&one);
-	one.pre();
+	InOrder_iterator<int> iterB(&one);
+	//one.pre();
+	//cout << endl;
+	//while (!iterA.isEnd())
+	//{
+	//	cout << *iterA << " ";
+	//	++iterA;
+	//}
+	one.mid();
 	cout << endl;
-	while (!iterA.isEnd())
+	while (!iterB.isEnd())
 	{
-		cout << *iterA << " ";
-		++iterA;
+		cout << *iterB << " ";
+		++iterB;
 	}
+	iterB.gotoFirst();
 	cout << endl;
-	iterA.gotoFirst();
-	while (!iterA.isEnd())
+	while (!iterB.isEnd())
 	{
-		cout << *iterA << " ";
-		++iterA;
+		cout << *iterB << " ";
+		++iterB;
 	}
 }
 
@@ -255,8 +266,8 @@ void TestOfHeap()
 void Test()
 {
 	try{
-		cout << "²âÊÔÕ»" << endl;
-		TestOfStack();
+		//cout << "²âÊÔÕ»" << endl;
+		//TestOfStack();
 		//cout << "²âÊÔ¶Ñ" << endl;
 		//TestOfQueue();
 		//cout << "²âÊÔÁ´±í" << endl;
@@ -267,8 +278,8 @@ void Test()
 		TestOfBstree();
 		//cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << endl;
 		//TestOfBbtree();
-		//cout << "\n²âÊÔµü´úÆ÷" << endl;
-		//TestOfIterator();
+		cout << "\n²âÊÔµü´úÆ÷" << endl;
+		TestOfIterator();
 		//cout << "\n²âÊÔ¶Ñ" << endl;
 		//TestOfHeap();
 

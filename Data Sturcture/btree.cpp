@@ -104,61 +104,46 @@ TEMP void Tree<T>::print()const
 	std::cout << std::endl;
 }
 
-/************************************************************************/
-/*                                                                      */
-/************************************************************************/
+//////////////////////////////////////////////////////////////////////////
 
 TEMP
-T tree_iterator<T>::operator*()const
+BTree<T>::BTree(BTree<T> const & other) 
 {
-	if (Pcurrent)
-		return Pcurrent->data;
-	else
-		throw "\niterator range erreor\n";
-}
-
-TEMP
-Tree<T>* tree_iterator<T>::operator()()const
-{
-	if (Pcurrent)
-		return Pcurrent;
-	else 
-		throw "\niterator range erreor\n";
-}
-
-TEMP
-tree_iterator<T>& PreOrder_iterator<T>::operator++()
-{
-	if (Pcurrent == NULL)	throw "\niterator range erreor\n";
-	Stack.push(Pcurrent);
-	Pcurrent = Pcurrent->left;
-	if (Pcurrent)//可以向左走。退出
-		return *this;
-	//此时P为空
-	while (Pcurrent == NULL&&!Stack.isEmpty())//能否回去
-	{
-		Pcurrent = Stack.pop();
-		Pcurrent = Pcurrent->right;
-		if (Pcurrent)return *this;
-	}
-	return *this;
-	//此时不能回去且P为空。结束。
-}
-
-/************************************************************************/
-/*                                                                      */
-/************************************************************************/
-TEMP
-BTree<T>::BTree(BTree<T> const & other, BTree<T>* P/* =NULL */) 
-{
-	if (&other == NULL)return;
+	if (other.height == 0)return;
+	const BTree<T>* temp = &other;
+	queue<const BTree<T>*> Queue_other;
+	BTree<T>* pthis = this;
+	queue<BTree<T>*> Queue_this;
 	data = other.data;
 	height = other.height;
-	parent = P;
-	if (other.left)
-		left = new BTree<T>(*other.left,this);
-	if (other.right)
-		right = new BTree<T>(*other.right,this);
+	Queue_other.push(temp);
+	Queue_this.push(pthis);
+	while (!Queue_other.isEmpty())
+	{
+		temp = Queue_other.pop();
+		pthis = Queue_this.pop();
+		if (temp->left)
+		{
+			Queue_other.push(temp->left);
+			pthis->leftLink(new BTree<T>(temp->left->data));
+			pthis->left->height = pthis->height + 1;
+			Queue_this.push(pthis->left);
+		}
+		if (temp->right)
+		{
+			Queue_other.push(temp->right);
+			pthis->rightLink(new BTree<T>(temp->right->data));
+			Queue_this.push(pthis->right);
+		}
+	}
+	//if (&other == NULL)return;
+	//data = other.data;
+	//height = other.height;
+	//parent = P;
+	//if (other.left)
+	//	left = new BTree<T>(*other.left,this);
+	//if (other.right)
+	//	right = new BTree<T>(*other.right,this);
 }
 TEMP
 BTree<T>& BTree<T>::operator=(BTree<T> const & other)

@@ -13,8 +13,8 @@ SegmentTree::SegmentTree(int a, int b) :BTree(Segment(a,b))
 {
 	if (a + 1 < b)
 	{
-		left = new SegmentTree(a, (a + b) / 2);
-		right = new SegmentTree((a + b) / 2, b);
+		leftLink(new SegmentTree(a, (a + b) / 2));
+		rightLink(new SegmentTree((a + b) / 2, b));
 	}
 	return;
 }

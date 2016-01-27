@@ -68,9 +68,6 @@
     <ClCompile Include="SegmentTree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SegmentTree.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="in.txt" />
     <Text Include="out.txt" />
   </ItemGroup>

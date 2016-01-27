@@ -29,11 +29,11 @@
 using namespace std;
 #undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-//#define DEBUG
-
+#define DEBUG
+	unsigned int num[1000000];
 void test()
 {
-	int SizeOfTest=1000;
+	unsigned int SizeOfTest=30000;
 	SegmentTree one(0,SizeOfTest);
 	//one.print();
 	re(i, SizeOfTest)
@@ -42,7 +42,9 @@ void test()
 		int b = rand() % SizeOfTest;
 		if (a > b)Swap(a, b);
 		Segment Seg(a, b);
-		one.insert(Seg);	cout << one.count() << " ";
+		one.insert(Seg);	
+		num[i] = one.count();
+		//printf("Count: %d\n", one.count());
 	}	
 
 	re(i, SizeOfTest)
@@ -51,9 +53,10 @@ void test()
 		int b = rand() % SizeOfTest;
 		if (a > b)Swap(a, b);
 		Segment Seg(a, b);
-		one.del(Seg);	cout<< ": " << one.count() << " " ;
+		one.del(Seg);	
+		num[i] = one.count();
+		//printf("Count: %d\n", one.count());
 	}
-
 
 }
 
