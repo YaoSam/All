@@ -110,30 +110,38 @@ BTree<T>::BTree(BTree<T> const & other)
 {
 	if (other.height == 0)return;
 	const BTree<T>* temp = &other;
-	queue<const BTree<T>*> Queue_other;
 	BTree<T>* pthis = this;
-	queue<BTree<T>*> Queue_this;
-	data = other.data;
-	height = other.height;
-	Queue_other.push(temp);
-	Queue_this.push(pthis);
-	while (!Queue_other.isEmpty())
+	stack<const BTree<T>*> Stack_other;
+	stack<BTree<T>*> Stack_this;
+	pthis->data = temp->data;
+	pthis->height = temp->height;
+	Stack_other.push(temp);
+	Stack_this.push(this);
+	temp = temp->left;
+	while (temp != NULL || !Stack_other.isEmpty())
 	{
-		temp = Queue_other.pop();
-		pthis = Queue_this.pop();
-		if (temp->left)
+		while (temp!=NULL)//先一直向左复制
 		{
-			Queue_other.push(temp->left);
-			pthis->leftLink(new BTree<T>(temp->left->data));
-			pthis->left->height = pthis->height + 1;
-			Queue_this.push(pthis->left);
+			pthis->left = new BTree < T > (temp->data,pthis,temp->height);
+			pthis = pthis->left;
+			Stack_other.push(temp);
+			Stack_this.push(pthis);
+			temp = temp->left;
 		}
-		if (temp->right)
+		if (!Stack_other.isEmpty())
 		{
-			Queue_other.push(temp->right);
-			pthis->rightLink(new BTree<T>(temp->right->data));
-			Queue_this.push(pthis->right);
+			temp = Stack_other.pop()->right;//取回路径。改点已经复制过了。所以复制左边的。
+			pthis = Stack_this.pop();
+			if (temp != NULL)//右边有东西
+			{
+				pthis->right = new BTree < T >(temp->data, pthis, temp->height);
+				pthis = pthis->right;
+				Stack_other.push(temp);
+				Stack_this.push(pthis);
+				temp = temp->left;
+			}
 		}
+
 	}
 	//if (&other == NULL)return;
 	//data = other.data;
@@ -161,18 +169,23 @@ TEMP
 Tree<T>* BTree<T>::find(T const &x)const
 {
 	if (height == 0)return NULL;
-	BTree<T>* temp;
-	queue<BTree<T>*> Queue;
-	Queue.push(const_cast<BTree*>(this));
-	while (!Queue.isEmpty())
+	stack<Tree<T>*> Stack;
+	Tree<T>* temp = const_cast<BTree<T>*>(this);
+	while (temp != NULL || !Stack.isEmpty())
 	{
-		temp = Queue.pop();
-		if (temp->data == x)
-			return temp;
-		if (temp->left)
-			Queue.push(temp->left);
-		if (temp->right)
-			Queue.push(temp->right);
+		while (temp != NULL)//不断向左遍历，并记录路径
+		{
+			if (temp->data = x)
+				return temp;
+			//std::cout << (temp->data) << " ";
+			Stack.push(temp);
+			temp = temp->left;
+		}
+		if (!Stack.isEmpty())//往回取一个点。向右走一步。
+		{
+			temp = Stack.pop();
+			temp = temp->right;
+		}
 	}
 	return NULL;
 }

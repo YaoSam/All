@@ -34,7 +34,7 @@ protected:
 public:
 	~Tree() {};
 	Tree() :height(0),parent(NULL),left(NULL), right(NULL){}
-	Tree(T const &x,BTree<T> *P=NULL) :data(x),parent(P),height(1),left(NULL), right(NULL){}
+	Tree(T const &x,BTree<T>* P,int h=0) :data(x),height(h),parent(P),left(NULL), right(NULL){}
 	unsigned int NodeNum()const;
 	unsigned int Height()const{ return height; }
 	void pre()const;//前序输出
@@ -72,7 +72,7 @@ public:
 public:
 	static T endFlag;//普通二叉树输入时候的结束符。
 	BTree() :Tree<T>(){}
-	BTree(const T &x, BTree<T>*P = NULL) :Tree<T>(x, P){}
+	BTree(const T &x,BTree<T>* P=NULL,int h=1) :Tree<T>(x,P,h){}
 	BTree(BTree<T> const & other);
 	BTree<T>& operator=(BTree<T> const & other);
 	virtual ~BTree();

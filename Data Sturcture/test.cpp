@@ -118,10 +118,12 @@ void TestOfBstree()
 	//	cout << a[i] << " ";
 	cout << endl;
 	BSTree<int> one(a, SizeOfTest);
+	cout << "树高度：" << one.Height() << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
 	BSTree<int> two(one);
-	two.pre();
-	cout << endl;
 	one.pre();
+	cout << endl;
+	two.mid();
 	cout << endl;
 	one.mid();
 	cout << endl;
@@ -129,8 +131,8 @@ void TestOfBstree()
 	cout << endl;
 	one.print();
 	cout << endl;
-	cout << "树高度：" << one.Height() << endl;
-	cout << "节点数：" << one.NodeNum() << endl;
+	cout << "树高度：" << two.Height() << endl;
+	cout << "节点数：" << two.NodeNum() << endl;
 	//Qsort(a, 0, SizeOfTest - 1);
 	re(i, SizeOfTest)
 	{
@@ -154,7 +156,7 @@ void TestOfBstree()
 
 }
 
-void TestOfBbtree()
+void TestOfAVLTree()
 {
 	srand(int(time(NULL)));
 	int a[10000];
@@ -164,14 +166,15 @@ void TestOfBbtree()
 		a[i] = rand() % 10000;
 	//Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
 	AVLTree<int> one(a, SizeOfTest); Tree<int>* three = &one;
-	//cout << endl;
-	//one.pre();
-	//cout << endl;
-	//one.mid();
-	//cout << endl;
-	//one.post();
-	//cout << endl;
-	//one.print();
+	AVLTree<int> two(one);
+	cout << endl;
+	two.pre();
+	cout << endl;
+	two.mid();
+	cout << endl;
+	two.post();
+	cout << endl;
+	two.print();
 	re(i, SizeOfTest)
 	{
 		const Tree<int>* temp = one.find(a[i]);
@@ -278,18 +281,18 @@ void Test()
 	try{
 		//cout << "测试栈" << endl;
 		//TestOfStack();
-		cout << "测试队列" << endl;
-		TestOfQueue();
+		//cout << "测试队列" << endl;
+		//TestOfQueue();
 		//cout << "测试链表" << endl;
 		//TestOfList();
 		//cout << "\n测试二叉树" << endl;
 		//TestOfBtree();
 		cout << "\n测试排序二叉树" << endl;
 		TestOfBstree();
-		//cout << "\n测试平衡二叉树" << endl;
-		//TestOfBbtree();
-		cout << "\n测试迭代器" << endl;
-		TestOfIterator();
+		cout << "\n测试平衡二叉树" << endl;
+		TestOfAVLTree();
+		//cout << "\n测试迭代器" << endl;
+		//TestOfIterator();
 		//cout << "\n测试堆" << endl;
 		//TestOfHeap();
 
