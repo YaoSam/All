@@ -4,7 +4,7 @@
 #include <time.h>
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-const int OriginSize = 10000;
+const int OriginSize = 90;
 TEMP
 class stack//不能用于动态分配内存的元素。
 {

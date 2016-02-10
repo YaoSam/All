@@ -114,45 +114,57 @@ void TestOfBstree()
 	unsigned int SizeOfTest = 100;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
-	//re(i, SizeOfTest)
-	//	cout << a[i] << " ";
-	cout << endl;
-	BSTree<int> one(a, SizeOfTest);
-	cout << "树高度：" << one.Height() << endl;
-	cout << "节点数：" << one.NodeNum() << endl;
-	BSTree<int> two(one);
+	Qsort(a, 0, SizeOfTest - 1);
+	bstree<int> one(a, SizeOfTest);
 	one.pre();
-	cout << endl;
-	two.mid();
-	cout << endl;
 	one.mid();
-	cout << endl;
 	one.post();
-	cout << endl;
-	one.print();
-	cout << endl;
-	cout << "树高度：" << two.Height() << endl;
-	cout << "节点数：" << two.NodeNum() << endl;
-	//Qsort(a, 0, SizeOfTest - 1);
 	re(i, SizeOfTest)
 	{
-		const Tree<int>* temp = one.find(a[i]);
-		if (temp == NULL)
-			cout << "无法找到！" << endl;
-	}
-	re(i, SizeOfTest)
+		//cout << a[i] << endl;
 		one.DelNode(a[i]);
-	cout << "树高度：" << one.Height() << endl;
-	cout << "节点数：" << one.NodeNum() << endl;
-	//cin >> SizeOfTest;//测试内存释放
-	//re(j, SizeOfTest)
-	//	a[j] = rand() % 10000;
-	//re(j, SizeOfTest)
+		cout << one.NodeNum() << " ";
+	}
+	cout << endl;
+	re(i, SizeOfTest)
+		cout << a[i] << " ";
+	cout << endl;
+	BSTree<int> two(a, SizeOfTest);
+	//cout << "树高度：" << one.Height() << endl;
+	//cout << "节点数：" << one.NodeNum() << endl;
+	//BSTree<int> two(one);
+	//one.pre();
+	//cout << endl;
+	two.mid();
+	cout << endl;
+	//one.mid();
+	//cout << endl;
+	//one.post();
+	//cout << endl;
+	//one.print();
+	//cout << endl;
+	//cout << "树高度：" << two.Height() << endl;
+	//cout << "节点数：" << two.NodeNum() << endl;
+	////Qsort(a, 0, SizeOfTest - 1);
+	//re(i, SizeOfTest)
 	//{
-	//	BSTree<int> two(a, SizeOfTest);
-	//	cout << "节点数：" << two.NodeNum() << " ";
+	//	const Tree<int>* temp = one.find(a[i]);
+	//	if (temp == NULL)
+	//		cout << "无法找到！" << endl;
 	//}
-	return;
+	//re(i, SizeOfTest)
+	//	one.DelNode(a[i]);
+	//cout << "树高度：" << one.Height() << endl;
+	//cout << "节点数：" << one.NodeNum() << endl;
+	////cin >> SizeOfTest;//测试内存释放
+	////re(j, SizeOfTest)
+	////	a[j] = rand() % 10000;
+	////re(j, SizeOfTest)
+	////{
+	////	BSTree<int> two(a, SizeOfTest);
+	////	cout << "节点数：" << two.NodeNum() << " ";
+	////}
+	//return;
 
 }
 

@@ -8,7 +8,7 @@ void stack<T>::applyMem()
 	T *temp = new T[size];
 	//re(i, top + 1)
 		//temp[i] = data[i];
-	memcpy(temp, data, sizeof(T)*top);
+	memcpy(temp, data, sizeof(T)*(top+1));
 	delete [] data;
 	data = temp;
 	return;
