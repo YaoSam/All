@@ -227,14 +227,14 @@ TEMP void treeNode<T>::Del()
 		right = NULL;
 	}
 }
-TEMP void treeNode<T>::copy(treeNode<T>*& root, treeNode<T>* const other,const treeNode<T>* P)
+TEMP void treeNode<T>::Copy(treeNode<T>*& root, treeNode<T>* const other, treeNode<T>* P)
 {
 	if (other)
-		root = new treeNode<T>*(other->data,other->height,P);
+		root = new treeNode<T>(other->data,other->height,P);
 	else
 		return;
-	copy(root->left, other->left,root);
-	copy(root->right, other->right,root);
+	Copy(root->left, other->left,root);
+	Copy(root->right, other->right,root);
 }
 TEMP
 void treeNode<T>::leftlink(treeNode<T>* other)
@@ -262,12 +262,12 @@ TEMP NormalTree<T>& NormalTree<T>::operator=(NormalTree<T> const & other)
 		delete root;
 		root = NULL;
 	}
-	copy(root, ohter->root);
+	root->Copy(root, other.root);
 	return *this;
 }
 TEMP  NormalTree<T>::NormalTree(const NormalTree<T> & other)
 {
-	copy(root, other.root);
+	root->Copy(root, other.root);
 }
 TEMP NormalTree<T>::~NormalTree()
 {
@@ -373,7 +373,7 @@ TEMP void NormalTree<T>::post()const //Ç°Ðò±éÀú£ºÖÐ×óÓÒ¡£×óÓÒÄæ×ªÇ°Ðò±éÀú£ºÖÐÓÒ×
 
 TEMP void NormalTree<T>::print()const
 {
-	if (height == 0)return;
+	if (root==NULL)return;
 	const treeNode<T>* temp;
 	queue<const treeNode<T>*> Queue;
 	Queue.push(root);

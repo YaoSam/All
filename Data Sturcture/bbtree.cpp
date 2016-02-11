@@ -175,3 +175,128 @@ AVLTree<T>::AVLTree(T const a[] /* = NULL */, unsigned int n /* = 0 */) :BSTree<
 		insert(a[i]);
 	return;
 }
+
+//////////////////////////////////////////////////////////////////////////
+TEMP
+void AVLtree<T>::RotateLL(treeNode<T>* node)
+{
+	treeNode<T>* Root = node->left,*P=node->parent;
+	if (node->parent == NULL)
+		root = Root;
+	if (P != NULL)
+	{
+		if (P->left == node)
+			P->leftlink(Root);
+		else
+			P->rightlink(Root);
+	}
+	else Root->parent = NULL;
+	node->leftlink(Root->right);
+	Root->rightlink(node);
+	node->CheckHeight();
+	Root->CheckHeight();
+}
+
+TEMP
+void AVLtree<T>::RotateRR(treeNode<T>* node)
+{
+	treeNode<T>* Root = node->right, *P = node->parent;
+	if (node->parent == NULL)
+		root = Root;
+	if (P != NULL)
+	{
+		if (P->left == node)
+			P->leftlink(Root);
+		else
+			P->rightlink(Root);
+	}
+	else Root->parent = NULL;
+	node->rightlink(Root->left);
+	Root->leftlink (node);
+	node->CheckHeight();
+	Root->CheckHeight();
+}
+
+TEMP
+void AVLtree<T>::RotateLR(treeNode<T>* node)
+{
+	RotateRR(node->left);
+	RotateLL(node);
+}
+
+TEMP
+void AVLtree<T>::RotateRL(treeNode<T>* node)
+{
+	RotateLL(node->right);
+	RotateRR(node);
+}
+
+TEMP
+void AVLtree<T>::Maintain(treeNode<T>* node,T const & x)
+{
+	while (node)
+	{
+		node->CheckHeight();
+		if (differ(node) == 2)
+		{
+			if (x < node->left->data)
+				RotateLL(node);
+			else
+				RotateLR(node);
+			break;
+		}
+		else if (differ(node) == -2)
+		{
+			if (x >= node->right->data)
+				RotateRR(node);
+			else
+				RotateRL(node);
+			break;
+		}
+		 node = node->parent;
+	}
+}
+
+TEMP
+void AVLtree<T>::insert(T const & x)
+{
+	treeNode<T>* target = root,*P=NULL;
+	if (target == NULL)
+		root = new treeNode<T>(x,1);
+	else
+	{
+		while (1)
+		{
+			if (x < target->data)
+			{
+				if (target->left) target = target->left;
+				else
+				{
+					target->left = new treeNode<T>(x, 1, target);
+					target->CheckHeight();
+					Maintain(target->parent, x);
+					break;
+				}
+			}
+			else
+			{
+				if (target->right)target = target->right;
+				else
+				{
+					target->right = new treeNode<T>(x, 1, target);
+					target->CheckHeight();
+					Maintain(target->parent, x);
+					break;
+				}
+			}
+		}
+	}
+
+}
+
+TEMP 
+AVLtree<T>::AVLtree(T const a[] /* = NULL */, unsigned int n /* = 0 */)
+{
+	re(i, n)
+		insert(a[i]);
+}

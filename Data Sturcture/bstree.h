@@ -24,7 +24,7 @@ protected:
 	treeNode<T>* FindLeftNext(const treeNode<T>* a)const;
 	void deleteNode(treeNode<T>* other);
 public:
-	void insert(T const & x);
+	virtual void insert(T const & x);
 	bstree(T const a[] = NULL, unsigned int n = 0);
 	virtual ~bstree(){}
 	treeNode<T>* find(T const &x)const;

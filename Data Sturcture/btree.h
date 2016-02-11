@@ -104,11 +104,13 @@ public:
 
 TEMP class NormalTree;
 TEMP class bstree;
+TEMP class AVLtree;
 TEMP
 class treeNode
 {
 	friend class NormalTree < T > ;
 	friend class bstree < T > ;
+	friend class AVLtree < T > ;
 protected:
 	T data;
 	unsigned int height;
@@ -119,7 +121,7 @@ protected:
 	}
 	void leftlink(treeNode<T>* other);
 	void rightlink(treeNode<T>* other);
-	void copy(treeNode<T>*& root,treeNode<T>* const other,const treeNode<T>* P=NULL);
+	void Copy(treeNode<T>*& root,treeNode<T>* const other,treeNode<T>* P=NULL);
 	void Del();
 public:
 	treeNode<T>(T const &x, unsigned int h = 0,treeNode<T>*p = NULL, treeNode<T>* l = NULL, treeNode<T>* r = NULL ) :
@@ -130,6 +132,7 @@ TEMP
 class NormalTree//这东西用来继承吧！
 {
 	friend class bstree < T > ;
+	friend class AVLtree < T > ;
 	treeNode<T>* root;
 public:
 	NormalTree(T const & x) :root(new treeNode<T>(x, 1)){}
