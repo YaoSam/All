@@ -3,7 +3,7 @@
 #include "stack.cpp"
 #include "list.cpp"
 #include "btree.cpp"
-#include "btree.cpp"
+#include "btree.h"
 #include "bstree.cpp"
 #include "bbtree.cpp"
 #include "heap.cpp"
@@ -87,14 +87,34 @@ void TestOfList()
 
 }
 
+void TestOfBtree()
+{
+	//输入可参考
+	//a b c # # d # # e f # # g # #
+	BTree<char> one; 
+	cin >> one;
+	cout << endl;
+	one.pre();
+	cout << endl;
+	one.mid();
+	cout << endl;
+	one.post();
+	cout << endl;
+	one.print();
+	cout << endl;
+	cout << "树高度：" << one.Height() << endl;
+	cout << "节点数：" << one.NodeNum() << endl;
+	return;
+}
+
 void TestOfBstree()
 {
 	srand(int(time(NULL)));
-	int a[100000];
-	unsigned int SizeOfTest =100000;
+	int a[10000];
+	unsigned int SizeOfTest =10000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 100000;
-	BStree<int> one(a, SizeOfTest);
+	bstree<int> one(a, SizeOfTest);
 	//one.pre();
 	//one.mid();
 	//one.post();
@@ -120,11 +140,11 @@ void TestOfBstree()
 void TestOfAVLTree()
 {
 	srand(int(time(NULL)));
-	int a[100000];
-	unsigned int SizeOfTest = 100000;
+	int a[10000];
+	unsigned int SizeOfTest = 2000;
 	re(i, SizeOfTest)
 		//a[i] = i;
-		a[i] = rand() % 100000;
+		a[i] = rand() % 10000;
 	Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
 	AVLtree<int> one(a, SizeOfTest); 
 	AVLtree<int> two(one);
@@ -138,7 +158,7 @@ void TestOfAVLTree()
 		if (temp == NULL)
 			cout << "无法找到！" << endl;
 	}
-	cout << "树高度：" << one.height() << endl;
+	cout << "树高度：" << one.H() << endl;
 	cout << "最大高度：" << maxHeight_bbtree(SizeOfTest) << endl;
 	cout << "最低高度：" << minHeight_bbtree(SizeOfTest) << endl;
 	cout << "节点数：" << one.NodeNum() << endl;
@@ -151,21 +171,27 @@ void TestOfAVLTree()
 	re(i, SizeOfTest)
 	{
 		one.DelNode(a[i]);
-		//cout<<one.NodeNum()<<" ";
+		cout<<one.NodeNum()<<" ";
 	}
+	//cout << endl;
+	//cout << "树高度：" << one.Height() << endl;
+	//cout << "节点数：" << one.NodeNum() << endl;
 }
 
 void TestOfIterator()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 10000;
+	unsigned int SizeOfTest = 1000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
-	BStree<int> one(a, SizeOfTest);
-	Preorder_iterator<int> iterP(&one);
-	Inorder_iterator<int> iterM(&one);
-	Levelorder_iterator<int> iterL(&one);
+	bstree<int> one(a, SizeOfTest);
+	Pre_iterator<int> iterP(&one);
+	Mid_iterator<int> iterM(&one);
+	Level_iterator<int> iterL(&one);
+	//PreOrder_iterator<int> iterP(&one);
+	//InOrder_iterator<int> iterI(&one);
+	//LevelOrder_iterator<int> iterL(&one);
 	one.pre();
 	while (!iterP.isEnd())
 	{
@@ -252,6 +278,8 @@ void Test()
 		//TestOfQueue();
 		//cout << "测试链表" << endl;
 		//TestOfList();
+		//cout << "\n测试二叉树" << endl;
+		//TestOfBtree();
 		cout << "\n测试排序二叉树" << endl;
 		TestOfBstree();
 		cout << "\n测试平衡二叉树" << endl;
