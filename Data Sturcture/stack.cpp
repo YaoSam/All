@@ -35,7 +35,7 @@ stack<T>& stack<T>::operator=(const stack<T>& other)
 	data = new T[other.size];
 	//re(i, other.top+1)
 		//data[i] = other.data[i];
-	memcpy(data, other.data, sizeof(T)*other.top);
+	memcpy(data, other.data, sizeof(T)*(other.top + 1));
 	return *this;
 }
 
