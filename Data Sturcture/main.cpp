@@ -31,6 +31,7 @@ using namespace std;
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 #define DEBUG
 void Test();
+
 int main()
 {
 	clock_t BeginTime = clock();
