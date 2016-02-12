@@ -1,8 +1,9 @@
 #pragma once
 #include <iostream>
 #include <time.h>
-#include "Stack.h"
 #include <math.h>
+#include "normal.h"
+#include "Stack.cpp"
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 
 TEMP class NormalTree;

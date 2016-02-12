@@ -1,6 +1,10 @@
 #pragma once
-#include "bstree.h"
+#include "bstree.cpp"
 
+class hello
+{
+	int a;
+};
 TEMP
 class AVLtree :public BStree < T >
 {
@@ -23,6 +27,6 @@ public:
 	}
 	void insert(T const & x);
 	void DelNode(T const &x);
-	AVLtree(T const a[] = NULL, unsigned int n = 0);
+	AVLtree(T const *a = NULL, const unsigned int n = 0);
 	virtual ~AVLtree(){}
 };

@@ -3,10 +3,6 @@
 #include "Stack.h"//前中后序输出
 #include "queue.cpp"//层序遍历
 
-TEMP inline T Max(T const &a, T const &b)
-{
-	return a > b ? a : b;
-}
 
 TEMP void treeNode<T>::Del()
 {

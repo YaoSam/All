@@ -120,7 +120,7 @@ void AVLtree<T>::insert(T const & x)
 }
 
 TEMP 
-AVLtree<T>::AVLtree(T const a[] /* = NULL */, unsigned int n /* = 0 */)
+AVLtree<T>::AVLtree(T const *a /* = NULL */, const unsigned int n /* = 0 */)
 {
 	re(i, n)
 		insert(a[i]);

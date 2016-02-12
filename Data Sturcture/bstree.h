@@ -1,8 +1,6 @@
 #pragma once
 #include "btree.cpp"
 
-
-
 TEMP
 class BStree :public NormalTree < T >
 {

@@ -14,6 +14,12 @@ TEMP void Swap(T & a, T &b)
 {
 	T temp = a; a = b; b = temp;
 }
+
+
+TEMP inline T Max(T const &a, T const &b)
+{
+	return a > b ? a : b;
+}
 static long long FIB[100];
 long long Fibonacci(int n);
 
