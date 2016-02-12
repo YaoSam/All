@@ -232,28 +232,29 @@ void AVLtree<T>::RotateRL(treeNode<T>* node)
 }
 
 TEMP
-void AVLtree<T>::Maintain(treeNode<T>* node,T const & x)
+void AVLtree<T>::Maintain(treeNode<T>* node, T const &x)
 {
 	while (node)
 	{
 		node->CheckHeight();
 		if (differ(node) == 2)
 		{
-			if (x < node->left->data)
+			if (differ(node->left)>=0)
 				RotateLL(node);
 			else
 				RotateLR(node);
-			break;
+			break;	
+
 		}
 		else if (differ(node) == -2)
 		{
-			if (x >= node->right->data)
+			if (differ(node->right)<=0)
 				RotateRR(node);
 			else
 				RotateRL(node);
 			break;
 		}
-		 node = node->parent;
+		node = node->parent;
 	}
 }
 
@@ -299,4 +300,54 @@ AVLtree<T>::AVLtree(T const a[] /* = NULL */, unsigned int n /* = 0 */)
 {
 	re(i, n)
 		insert(a[i]);
+}
+
+TEMP
+void AVLtree<T>::DelNode(T const &x)
+{
+	//TODO, 这里用了Swap。
+	treeNode<T>* target = find(x);
+	if (target == NULL)return;
+	treeNode<T>* Next = FindLeftNext(target),*P=NULL;
+	if (Next)
+	{
+		Swap(Next->data, target->data);
+		P = Next->parent;
+		if (P == target)
+			P->leftlink(Next->left);
+		else
+			P->rightlink(Next->right);
+		delete Next;
+		Maintain(P, x);
+	}
+	else
+	{
+		Next = FindRightNext(target);
+		if (Next)
+		{
+			Swap(Next->data, target->data);
+			P = Next->parent;
+			if (P == target)
+				P->rightlink(Next->right);
+			else
+				P->leftlink(Next->right);
+			delete Next;
+			Maintain(P, x);
+		}
+		else
+		{
+			P = target->parent;
+			if (P)
+			{
+				if (P->left == target)
+					P->left = NULL;
+				else
+					P->right = NULL;
+				delete target;
+				Maintain(P, x);
+			}
+			else
+				root = NULL;
+		}
+	}
 }

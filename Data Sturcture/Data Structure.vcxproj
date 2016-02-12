@@ -70,13 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bbtree.cpp" />
-    <ClCompile Include="btree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bbtree.h" />
-    <ClInclude Include="btree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -210,7 +210,7 @@ treeNode<T>* bstree<T>::FindRightNext(const treeNode<T>* a)const
 }
 
 TEMP
-void bstree<T>::deleteNode(treeNode<T>* other)
+void bstree<T>::deleteLeave(treeNode<T>* other)
 {
 	treeNode<T>* P = other->parent;
 	delete other;
@@ -248,7 +248,7 @@ void bstree<T>::DelNode(T const &x)
 			if (Next == target->left)
 			target->leftlink(Next->left);
 		else Next->parent->rightlink(Next->left);
-		deleteNode(Next);
+		deleteLeave(Next);//记住Next不是叶子……
 	}
 	else
 	{
@@ -259,7 +259,7 @@ void bstree<T>::DelNode(T const &x)
 			if (Next == target->right)
 				target->rightlink(Next->right);
 			else Next->parent->leftlink(Next->right);
-			deleteNode(Next);
+			deleteLeave(Next);
 		}
 		else
 		{
@@ -271,7 +271,7 @@ void bstree<T>::DelNode(T const &x)
 			}
 			else
 				root = NULL;
-			deleteNode(target);
+			deleteLeave(target);
 		}
 	}
 }

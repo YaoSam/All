@@ -141,10 +141,10 @@ void TestOfAVLTree()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 10000;
+	unsigned int SizeOfTest = 2000;
 	re(i, SizeOfTest)
 		//a[i] = i;
-		a[i] = rand() % 100000;
+		a[i] = rand() % 10000;
 	Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
 	AVLtree<int> one(a, SizeOfTest); 
 	AVLtree<int> two(one);
@@ -168,9 +168,11 @@ void TestOfAVLTree()
 	//	one.insert(rand() % 10000);
 	//cout << "树高度：" << one.Height() << endl;
 	//cout << "节点数：" << one.NodeNum() << endl;
-	//re(i, SizeOfTest)
-	//	one.DelNode(a[i]);
-	//one.mid();
+	re(i, SizeOfTest)
+	{
+		one.DelNode(a[i]);
+		cout<<one.NodeNum()<<" ";
+	}
 	//cout << endl;
 	//cout << "树高度：" << one.Height() << endl;
 	//cout << "节点数：" << one.NodeNum() << endl;
