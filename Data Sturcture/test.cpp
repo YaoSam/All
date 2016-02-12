@@ -187,25 +187,38 @@ void TestOfIterator()
 		a[i] = rand() % 10000;
 	bstree<int> one(a, SizeOfTest);
 	Pre_iterator<int> iterP(&one);
+	Mid_iterator<int> iterM(&one);
 	//PreOrder_iterator<int> iterP(&one);
 	//InOrder_iterator<int> iterI(&one);
 	//LevelOrder_iterator<int> iterL(&one);
 	one.pre();
-	cout << endl;
 	while (!iterP.isEnd())
 	{
 		cout << *iterP << " ";
 		++iterP;
 	}
 	cout << endl;
-	//one.mid();
-	//cout << endl;
-	//while (!iterI.isEnd())
-	//{
-	//	cout << *iterI << " ";
-	//	++iterI;
-	//}
-	//cout << endl;
+	iterP.goFirst();
+	while (!iterP.isEnd())
+	{
+		cout << *iterP << " ";
+		++iterP;
+	}
+	cout << endl;
+	one.mid();
+	while (!iterM.isEnd())
+	{
+		cout << *iterM << " ";
+		++iterM;
+	}
+	cout << endl;
+	iterM.goFirst();
+	while (!iterM.isEnd())
+	{
+		cout << *iterM << " ";
+		++iterM;
+	}
+	cout << endl;
 	//one.print();
 	//cout << endl;
 	//while (!iterL.isEnd())

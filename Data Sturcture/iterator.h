@@ -92,11 +92,21 @@ TEMP
 class Pre_iterator :public m_iterator < T >
 {
 	stack<treeNode<T>*> Stack;
-	using m_iterator<T>::pCurrent;
-	using m_iterator<T>::m_root;
 public:
 	Pre_iterator(NormalTree<T> *tree) :m_iterator(tree->root, tree->root){}
-	virtual ~Pre_iterator(){}
+	void goFirst(){ pCurrent = m_root; Stack.clear(); }
+	treeNode<T>* operator++();
+};
+
+TEMP 
+class Mid_iterator :public m_iterator < T >
+{
+	stack<treeNode<T>*> Stack;
+public:
+	Mid_iterator(NormalTree<T>* tree);
 	void goFirst();
 	treeNode<T>* operator++();
+	bool isEnd(){ return Stack.isEmpty(); }
+	T operator*()const;
+	treeNode<T>* operator()()const;
 };
