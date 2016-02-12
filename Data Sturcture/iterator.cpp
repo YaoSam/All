@@ -108,3 +108,37 @@ tree_iterator<T>& LevelOrder_iterator<T>::operator++()
 		Pcurrent = NULL;
 	return *this;
 }
+/************************************************************************/
+/*                                                                      */
+/************************************************************************/
+TEMP
+T m_iterator<T>::operator*()const
+{
+	if (pCurrent == NULL)
+		throw "iterator range error\n";
+	else
+		return pCurrent->data;
+}
+
+TEMP 
+void Pre_iterator<T>::goFirst()
+{
+	pCurrent = m_root;
+	Stack.clear();
+}
+
+TEMP
+treeNode<T>* Pre_iterator<T>::operator++()
+{
+	if (pCurrent == NULL)	throw "Pre_iterator range error\n";
+	Stack.push(pCurrent);
+	pCurrent = pCurrent->left;
+	while (pCurrent == NULL&&!Stack.isEmpty())//能否回去
+	{
+		pCurrent = Stack.pop();
+		pCurrent = pCurrent->right;
+		if (pCurrent)
+			break;
+	}
+	return pCurrent;//可以向左走。退出，或者此时不能回去且P为空。结束。
+}

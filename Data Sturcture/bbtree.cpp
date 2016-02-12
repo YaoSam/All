@@ -234,7 +234,7 @@ void AVLtree<T>::RotateRL(treeNode<T>* node)
 TEMP
 void AVLtree<T>::Maintain(treeNode<T>* node, T const &x)
 {
-	while (node)
+	while (node)//从下往上检查最小不平衡的二叉树。
 	{
 		node->CheckHeight();
 		if (differ(node) == 2)

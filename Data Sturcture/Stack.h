@@ -18,7 +18,7 @@ public:
 	~stack(){ delete[] data; }
 	void push(T const & x);
 	T pop();
-	void clear()const{ top = -1; }
+	void clear(){ top = -1; }
 	T topData()const;//返回顶端元素
 	int Top()const{ return top; }//返回栈大小
 	bool isEmpty()const{ return top < 0; }

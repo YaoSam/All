@@ -31,11 +31,11 @@ class AVLtree :public bstree < T >
 	void RotateLR(treeNode<T>* node);
 	void RotateRL(treeNode<T>* node);
 	void Maintain(treeNode<T>* node, T const &x);
-	int Height(treeNode<T>* node){//用来Debug的。检查对height的维护
+	int Height(const treeNode<T>* node)const{//用来Debug的。检查对height的维护
 		return Max(((node->left) ? Height(node->left) : 0), ((node->right) ? Height(node->right) : 0)) +1;
 	}
 public:
-	int H()
+	int H()const
 	{
 		return Height(root);
 	}

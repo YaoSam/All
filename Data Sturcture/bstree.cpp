@@ -245,9 +245,10 @@ void bstree<T>::DelNode(T const &x)
 	if (Next != NULL)
 	{
 		Swap(Next->data, target->data);
-			if (Next == target->left)
+		if (Next == target->left)
 			target->leftlink(Next->left);
-		else Next->parent->rightlink(Next->left);
+		else 
+			Next->parent->rightlink(Next->left);
 		deleteLeave(Next);//记住Next不是叶子……
 	}
 	else
@@ -258,7 +259,8 @@ void bstree<T>::DelNode(T const &x)
 			Swap(Next->data, target->data);
 			if (Next == target->right)
 				target->rightlink(Next->right);
-			else Next->parent->leftlink(Next->right);
+			else 
+				Next->parent->leftlink(Next->right);
 			deleteLeave(Next);
 		}
 		else
@@ -267,7 +269,8 @@ void bstree<T>::DelNode(T const &x)
 			{
 				if (target->parent->left == target)
 					target->parent->left = NULL;
-				else target->parent->right = NULL;
+				else
+					target->parent->right = NULL;
 			}
 			else
 				root = NULL;

@@ -252,7 +252,6 @@ void treeNode<T>::rightlink(treeNode<T>* other)
 		other->parent = this;
 }
 
-
 TEMP NormalTree<T>& NormalTree<T>::operator=(NormalTree<T> const & other)
 {
 	if (this == &other)return *this;

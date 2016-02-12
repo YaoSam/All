@@ -185,10 +185,11 @@ void TestOfIterator()
 	unsigned int SizeOfTest = 1000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
-	BSTree<int> one(a, SizeOfTest);
-	PreOrder_iterator<int> iterP(&one);
-	InOrder_iterator<int> iterI(&one);
-	LevelOrder_iterator<int> iterL(&one);
+	bstree<int> one(a, SizeOfTest);
+	Pre_iterator<int> iterP(&one);
+	//PreOrder_iterator<int> iterP(&one);
+	//InOrder_iterator<int> iterI(&one);
+	//LevelOrder_iterator<int> iterL(&one);
 	one.pre();
 	cout << endl;
 	while (!iterP.isEnd())
@@ -197,28 +198,28 @@ void TestOfIterator()
 		++iterP;
 	}
 	cout << endl;
-	one.mid();
-	cout << endl;
-	while (!iterI.isEnd())
-	{
-		cout << *iterI << " ";
-		++iterI;
-	}
-	cout << endl;
-	one.print();
-	cout << endl;
-	while (!iterL.isEnd())
-	{
-		cout << *iterL << " ";
-		++iterL;
-	}
-	iterL.gotoFirst();
-	cout << endl;
-	while (!iterL.isEnd())
-	{
-		cout << *iterL << " ";
-		++iterL;
-	}
+	//one.mid();
+	//cout << endl;
+	//while (!iterI.isEnd())
+	//{
+	//	cout << *iterI << " ";
+	//	++iterI;
+	//}
+	//cout << endl;
+	//one.print();
+	//cout << endl;
+	//while (!iterL.isEnd())
+	//{
+	//	cout << *iterL << " ";
+	//	++iterL;
+	//}
+	//iterL.gotoFirst();
+	//cout << endl;
+	//while (!iterL.isEnd())
+	//{
+	//	cout << *iterL << " ";
+	//	++iterL;
+	//}
 }
 
 void TestOfHeap()
@@ -270,8 +271,8 @@ void Test()
 		TestOfBstree();
 		cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << endl;
 		TestOfAVLTree();
-		//cout << "\n²âÊÔµü´úÆ÷" << endl;
-		//TestOfIterator();
+		cout << "\n²âÊÔµü´úÆ÷" << endl;
+		TestOfIterator();
 		//cout << "\n²âÊÔ¶Ñ" << endl;
 		//TestOfHeap();
 
