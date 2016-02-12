@@ -35,12 +35,24 @@
     <ClCompile Include="btree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="bstree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="bbtree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="iterator.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="btree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bstree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="bbtree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -87,26 +87,6 @@ void TestOfList()
 
 }
 
-void TestOfBtree()
-{
-	//输入可参考
-	//a b c # # d # # e f # # g # #
-	BTree<char> one; 
-	cin >> one;
-	cout << endl;
-	one.pre();
-	cout << endl;
-	one.mid();
-	cout << endl;
-	one.post();
-	cout << endl;
-	one.print();
-	cout << endl;
-	cout << "树高度：" << one.Height() << endl;
-	cout << "节点数：" << one.NodeNum() << endl;
-	return;
-}
-
 void TestOfBstree()
 {
 	srand(int(time(NULL)));
@@ -114,7 +94,7 @@ void TestOfBstree()
 	unsigned int SizeOfTest =10000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 100000;
-	bstree<int> one(a, SizeOfTest);
+	BStree<int> one(a, SizeOfTest);
 	//one.pre();
 	//one.mid();
 	//one.post();
@@ -185,10 +165,10 @@ void TestOfIterator()
 	unsigned int SizeOfTest = 1000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
-	bstree<int> one(a, SizeOfTest);
-	Pre_iterator<int> iterP(&one);
-	Mid_iterator<int> iterM(&one);
-	Level_iterator<int> iterL(&one);
+	BStree<int> one(a, SizeOfTest);
+	Preorder_iterator<int> iterP(&one);
+	Inorder_iterator<int> iterM(&one);
+	Levelorder_iterator<int> iterL(&one);
 	//PreOrder_iterator<int> iterP(&one);
 	//InOrder_iterator<int> iterI(&one);
 	//LevelOrder_iterator<int> iterL(&one);
