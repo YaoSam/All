@@ -71,7 +71,9 @@ public:
 	void gotoFirst(){ Pcurrent = root; Queue.clear(); }
 	tree_iterator<T>& operator++();
 };
-
+/************************************************************************/
+/*                                                                      */
+/************************************************************************/
 
 TEMP
 class m_iterator
@@ -109,4 +111,24 @@ public:
 	bool isEnd(){ return Stack.isEmpty(); }
 	T operator*()const;
 	treeNode<T>* operator()()const;
+};
+
+TEMP 
+class Level_iterator :public m_iterator < T >
+{
+	queue<treeNode<T>*> Queue;
+public:
+	Level_iterator(NormalTree<T>* tree) :m_iterator(tree->root, tree->root){}
+	void goFirst()
+	{
+		pCurrent = m_root;
+		Queue.clear(); 
+	}
+	bool isEnd()
+	{
+		return pCurrent->left==NULL&&
+				pCurrent->right==NULL&&
+				Queue.isEmpty();
+	}
+	treeNode<T>* operator++();
 };

@@ -108,6 +108,7 @@ TEMP class AVLtree;
 TEMP class m_iterator;
 TEMP class Pre_iterator;
 TEMP class Mid_iterator;
+TEMP class Level_iterator;
 
 TEMP
 class treeNode
@@ -118,6 +119,7 @@ class treeNode
 	friend class m_iterator < T > ;
 	friend class Pre_iterator < T > ;
 	friend class Mid_iterator < T > ;
+	friend class Level_iterator < T > ;
 protected:
 	T data;
 	unsigned int height;
@@ -143,6 +145,7 @@ class NormalTree//这东西用来继承吧！
 	friend class m_iterator < T > ;
 	friend class Pre_iterator < T > ;
 	friend class Mid_iterator < T > ;
+	friend class Level_iterator < T > ;
 	treeNode<T>* root;
 public:
 	NormalTree(T const & x) :root(new treeNode<T>(x, 1)){}

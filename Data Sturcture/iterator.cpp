@@ -189,3 +189,17 @@ treeNode<T>* Mid_iterator<T>::operator++()
 	}
 	return pCurrent;
 }
+
+TEMP
+treeNode<T>* Level_iterator<T>::operator++()
+{
+	if (pCurrent->left)
+		Queue.push(pCurrent->left);
+	if (pCurrent->right)
+		Queue.push(pCurrent->right);
+	if (!Queue.isEmpty())
+		pCurrent = Queue.pop();
+	else
+		throw "Level_iterator range error\n";
+	return pCurrent;
+}

@@ -188,6 +188,7 @@ void TestOfIterator()
 	bstree<int> one(a, SizeOfTest);
 	Pre_iterator<int> iterP(&one);
 	Mid_iterator<int> iterM(&one);
+	Level_iterator<int> iterL(&one);
 	//PreOrder_iterator<int> iterP(&one);
 	//InOrder_iterator<int> iterI(&one);
 	//LevelOrder_iterator<int> iterL(&one);
@@ -219,20 +220,19 @@ void TestOfIterator()
 		++iterM;
 	}
 	cout << endl;
-	//one.print();
-	//cout << endl;
-	//while (!iterL.isEnd())
-	//{
-	//	cout << *iterL << " ";
-	//	++iterL;
-	//}
-	//iterL.gotoFirst();
-	//cout << endl;
-	//while (!iterL.isEnd())
-	//{
-	//	cout << *iterL << " ";
-	//	++iterL;
-	//}
+	one.print();
+	while (!iterL.isEnd())
+	{
+		cout << *iterL << " ";
+		++iterL;
+	}
+	cout << endl;
+	iterL.goFirst();
+	while (!iterL.isEnd())
+	{
+		cout << *iterL << " ";
+		++iterL;
+	}
 }
 
 void TestOfHeap()
