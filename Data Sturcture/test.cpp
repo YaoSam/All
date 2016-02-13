@@ -211,6 +211,13 @@ void TestOfIterator()
 		++iterPost;
 	}
 	cout << endl;
+	iterPost.goFirst();
+	while (!iterPost.isEnd())
+	{
+		cout << *iterPost << " ";
+		++iterPost;
+	}
+	cout << endl;
 	one.print();
 	while (!iterL.isEnd())
 	{

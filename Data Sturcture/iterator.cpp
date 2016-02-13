@@ -30,6 +30,7 @@ TEMP
 void Mid_iterator<T>::goFirst()
 {
 	pCurrent = m_root;
+	Stack.clear();
 	while (pCurrent != NULL)
 	{
 		Stack.push(pCurrent);
@@ -85,6 +86,7 @@ TEMP
 void Post_iterator<T>::goFirst()
 {
 	pCurrent = m_root;
+	Stack.clear();
 	while (pCurrent != NULL)
 	{
 		while (pCurrent != NULL)

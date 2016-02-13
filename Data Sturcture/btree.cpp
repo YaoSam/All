@@ -132,30 +132,38 @@ TEMP void NormalTree<T>::mid()const
 	std::cout << std::endl;
 }
 
-//TODO
 TEMP void NormalTree<T>::post()const //前序遍历：中左右。左右逆转前序遍历：中右左。后序遍历：左右中。
 {
 	stack<const treeNode<T>*> Stack;
-	stack<const T*> OutPut;
 	const treeNode<T>* temp = root;
-	while (temp != NULL || !Stack.isEmpty())//左右逆转的前序遍历
+	while (temp != NULL)
 	{
 		while (temp != NULL)
 		{
-			OutPut.push(&(temp->data));
 			Stack.push(temp);
-			temp = temp->right;
-		}
-		if (!Stack.isEmpty())
-		{
-			temp = Stack.pop();
 			temp = temp->left;
 		}
+		temp = Stack.topData()->right;
 	}
-	//逆序输出左右逆转的前序遍历
-	while (!OutPut.isEmpty())
+	temp = Stack.pop();
+	while (temp != NULL)
 	{
-		std::cout << (*OutPut.pop()) << " ";
+		std::cout << (temp->data) << " ";
+		if (Stack.isEmpty())break;
+		if(temp == Stack.topData()->left)
+		{
+			temp = Stack.topData()->right;
+			while (temp != NULL)
+			{
+				while (temp != NULL)
+				{
+					Stack.push(temp);
+					temp = temp->left;
+				}
+				temp = Stack.topData()->right;
+			}
+		}
+		temp = Stack.pop();
 	}
 	std::cout << std::endl;
 }
