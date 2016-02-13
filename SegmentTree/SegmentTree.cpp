@@ -1,6 +1,6 @@
 #pragma once
 #include "SegmentTree.h"
-
+#include <stdlib.h>
 std::ostream& operator<<(std::ostream& out, const Segment& other)
 {
 	return out << "( " << other.left << " , " << other.right << " )";
@@ -123,7 +123,7 @@ DiscreteSegTree::DiscreteSegTree(const Segment *Seg, const unsigned int n)
 		num[2 * i + 1] = Seg[i].right;
 	}
 	Qsort(num, 0, 2 * n - 1);
-	int Count=0;//记录不同的元素的个数
+	unsigned int Count=0;//记录不同的元素的个数
 	re(i, 2 * n)//筛选出不同的元素
 	{
 		num[Count++] = num[i];
@@ -142,6 +142,26 @@ DiscreteSegTree::DiscreteSegTree(const Segment *Seg, const unsigned int n)
 	delete[] num;
 	re(i, n)
 		insert(Seg[i]);
+}
+
+DiscreteSegTree::DiscreteSegTree(const DiscreteSegTree& other) :SegmentTree(other)
+{
+	tree = other.tree;
+	unsigned int Count = (root->Data()).right;
+	Hash = new int[Count];
+	memcpy(Hash, other.Hash, sizeof(int)*(Count));
+}
+
+DiscreteSegTree& DiscreteSegTree::operator=(const DiscreteSegTree& other)
+{
+	if (this == &other)return *this;
+	delete[] Hash;
+	unsigned int Count = (root->Data()).right;
+	Hash = new int[Count];
+	SegmentTree::operator=(other);
+	tree = other.tree;
+	memcpy(Hash, other.Hash, sizeof(int)*(Count));
+	return *this;
 }
 
 void DiscreteSegTree::insert(const Segment &x)

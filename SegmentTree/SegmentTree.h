@@ -46,6 +46,8 @@ class DiscreteSegTree :public SegmentTree
 	int count(const treeNode< Segment>* node)const;
 public:
 	DiscreteSegTree(const Segment *Seg, const unsigned int n);
+	DiscreteSegTree(const DiscreteSegTree& other);//既然用了动态分配。那就顺便搞定这里吧。
+	DiscreteSegTree& operator=(const DiscreteSegTree& other);
 	void insert(const Segment &x);
 	void del(const Segment& x);
 	int count()const;
