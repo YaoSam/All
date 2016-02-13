@@ -19,6 +19,6 @@ public:
 	void push(T const &x);
 	T pop();
 	void clear(){ front = rear = 0; }
-	bool isEmpty(){ return front == rear; }
+	bool isEmpty()const{ return front == rear; }
 	bool isFull(){ return (rear + 1) % size == front; }
 };

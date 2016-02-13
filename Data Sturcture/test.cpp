@@ -170,14 +170,12 @@ void TestOfIterator()
 	bstree<int> one(a, SizeOfTest);
 	Pre_iterator<int> iterP(&one);
 	Mid_iterator<int> iterM(&one);
+	Post_iterator<int> iterPost(&one);
 	Level_iterator<int> iterL(&one);
 	Qsort(a, 0, SizeOfTest - 1);
 	re(i, SizeOfTest)
 		cout << a[i] << " ";
 	cout << endl;
-	//PreOrder_iterator<int> iterP(&one);
-	//InOrder_iterator<int> iterI(&one);
-	//LevelOrder_iterator<int> iterL(&one);
 	one.pre();
 	while (!iterP.isEnd())
 	{
@@ -204,6 +202,13 @@ void TestOfIterator()
 	{
 		cout << *iterM << " ";
 		++iterM;
+	}
+	cout << endl;
+	one.post();
+	while (!iterPost.isEnd())
+	{
+		cout << *iterPost << " ";
+		++iterPost;
 	}
 	cout << endl;
 	one.print();
@@ -268,8 +273,8 @@ void Test()
 		TestOfBstree();
 		cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << endl;
 		TestOfAVLTree();
-		//cout << "\n²âÊÔµü´úÆ÷" << endl;
-		//TestOfIterator();
+		cout << "\n²âÊÔµü´úÆ÷" << endl;
+		TestOfIterator();
 		//cout << "\n²âÊÔ¶Ñ" << endl;
 		//TestOfHeap();
 

@@ -35,6 +35,7 @@ void Mid_iterator<T>::goFirst()
 		Stack.push(pCurrent);
 		pCurrent = pCurrent->left;
 	}
+	pCurrent = Stack.topData();
 	return;
 }
 
@@ -45,38 +46,24 @@ Mid_iterator<T>::Mid_iterator(NormalTree<T>* tree) :m_iterator<T>(tree->root,tre
 }
 
 TEMP 
-T Mid_iterator<T>::operator*()const
-{
-	if (Stack.isEmpty())
-		throw "Mid_iterator range error\n";
-	else
-		return Stack.topData()->data;
-}
-
-TEMP
-treeNode<T>* Mid_iterator<T>::operator()()const
-{
-	if (Stack.isEmpty())
-		throw "Mid_iterator range error\n";
-	else
-		return Stack.topData();
-}
-
-TEMP 
 treeNode<T>* Mid_iterator<T>::operator++()
 {
 	if (Stack.isEmpty())
 		throw "Mid_iterator range error\n";
-	pCurrent = Stack.pop();//输出中间。
+	pCurrent=Stack.pop();//这个已经被输出了。说明这个的左边已经不用管了。
 	if (pCurrent->right != NULL)
 	{
-		treeNode<T>* temp = pCurrent->right;//接下来输出右边
-		while (temp != NULL)//将右边的左边放进去。
+		treeNode<T>* temp = pCurrent->right;//往右边走一步
+		while (temp != NULL)//接着一直往右走
 		{
 			Stack.push(temp);
 			temp = temp->left;
 		}
 	}
+	if (Stack.isEmpty())
+		pCurrent = NULL;
+	else
+		pCurrent = Stack.topData();
 	return pCurrent;
 }
 
@@ -90,6 +77,55 @@ treeNode<T>* Level_iterator<T>::operator++()
 	if (!Queue.isEmpty())
 		pCurrent = Queue.pop();
 	else
-		throw "Level_iterator range error\n";
+		pCurrent = NULL;//否则置为空
+	return pCurrent;
+}
+
+TEMP 
+void Post_iterator<T>::goFirst()
+{
+	pCurrent = m_root;
+	while (pCurrent != NULL)
+	{
+		while (pCurrent != NULL)
+		{
+			Stack.push(pCurrent);
+			pCurrent = pCurrent->left;
+		}
+		pCurrent = Stack.topData()->right;
+	}
+	if (Stack.isEmpty())//置为空
+		pCurrent = NULL;
+	else
+		pCurrent = Stack.pop();
+}
+
+TEMP
+Post_iterator<T>::Post_iterator(NormalTree<T>* tree) :m_iterator(tree->root,tree->root)
+{
+	goFirst();
+}
+
+TEMP
+treeNode<T>* Post_iterator<T>::operator++()//输出最左边的叶子节点。
+{
+	if (pCurrent==NULL)
+		throw "Post_iterator range error\n";
+	if (Stack.isEmpty())//置为空
+		return pCurrent = NULL;
+	if (pCurrent == Stack.topData()->left)
+	{
+		pCurrent = Stack.topData()->right;//对其右边goFirst
+		while (pCurrent != NULL)
+		{
+			while (pCurrent != NULL)
+			{
+				Stack.push(pCurrent);
+				pCurrent = pCurrent->left;
+			}
+			pCurrent = Stack.topData()->right;
+		}
+	}
+	pCurrent = Stack.pop();
 	return pCurrent;
 }

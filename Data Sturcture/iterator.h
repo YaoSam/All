@@ -10,7 +10,7 @@ public:
 	m_iterator(treeNode<T>* P, treeNode<T>* R) :pCurrent(P), m_root(R){}
 	virtual ~m_iterator(){}
 	virtual T operator*()const;
-	virtual bool isEnd(){ return pCurrent == NULL; }
+	virtual bool isEnd()const{ return pCurrent == NULL; }
 	virtual treeNode<T>* operator()()const{ return pCurrent; }
 	virtual void goFirst()=0;
 	virtual treeNode<T>* operator++()=0;
@@ -34,9 +34,16 @@ public:
 	Mid_iterator(NormalTree<T>* tree);
 	void goFirst();
 	treeNode<T>* operator++();
-	bool isEnd(){ return Stack.isEmpty(); }
-	T operator*()const;
-	treeNode<T>* operator()()const;
+};
+
+TEMP
+class Post_iterator :public m_iterator < T >
+{
+	stack<treeNode<T>*> Stack;
+public:
+	Post_iterator(NormalTree<T>* tree);
+	void goFirst();
+	treeNode<T>* operator++();
 };
 
 TEMP 
@@ -49,12 +56,6 @@ public:
 	{
 		pCurrent = m_root;
 		Queue.clear(); 
-	}
-	bool isEnd()
-	{
-		return pCurrent->left==NULL&&
-				pCurrent->right==NULL&&
-				Queue.isEmpty();
 	}
 	treeNode<T>* operator++();
 };
