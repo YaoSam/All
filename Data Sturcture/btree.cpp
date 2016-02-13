@@ -67,7 +67,6 @@ TEMP NormalTree<T>::~NormalTree()
 	}
 }
 
-
 TEMP unsigned int NormalTree<T>::NodeNum()const
 {
 	stack<const treeNode<T>*> Stack;
@@ -132,7 +131,7 @@ TEMP void NormalTree<T>::mid()const
 	std::cout << std::endl;
 }
 
-TEMP void NormalTree<T>::post()const //前序遍历：中左右。左右逆转前序遍历：中右左。后序遍历：左右中。
+TEMP void NormalTree<T>::post()const
 {
 	stack<const treeNode<T>*> Stack;
 	const treeNode<T>* temp = root;

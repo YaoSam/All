@@ -12,8 +12,12 @@ struct Segment
 	friend std::istream& operator>>(std::istream& in, Segment &other);
 };
 
-class SegmentTree:public BTree<Segment>
+class SegmentTree:public NormalTree<Segment>
 {
+	//基本用递归实现。
+	void insert(const Segment &x, treeNode<Segment>* node);
+	void del(const Segment& x, treeNode<Segment>* node);
+	int count(const treeNode<Segment>* node)const;
 public:
 	SegmentTree(int a, int b);
 	void insert(int a, int b){ insert(Segment(a, b)); }

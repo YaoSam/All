@@ -13,6 +13,6 @@ public:
 	bstree(T const a[] = NULL, unsigned int n = 0);
 	virtual ~bstree(){}
 	treeNode<T>* find(T const &x)const;
-	void DelNode(T const &x);
+	virtual void DelNode(T const &x);
 	//void erase(T const & x);
 };

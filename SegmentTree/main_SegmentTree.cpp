@@ -33,18 +33,19 @@ using namespace std;
 	unsigned int num[1000000];
 void test()
 {
-	unsigned int SizeOfTest=30000;
+	unsigned int SizeOfTest=100;
 	SegmentTree one(0,SizeOfTest);
-	//one.print();
+	one.print();
 	re(i, SizeOfTest)
 	{
 		int a = rand()%SizeOfTest;
 		int b = rand() % SizeOfTest;
 		if (a > b)Swap(a, b);
 		Segment Seg(a, b);
+		cout << Seg << endl;
 		one.insert(Seg);	
 		num[i] = one.count();
-		//printf("Count: %d\n", one.count());
+		printf("Count: %d\n", one.count());
 	}	
 
 	re(i, SizeOfTest)
@@ -55,7 +56,7 @@ void test()
 		Segment Seg(a, b);
 		one.del(Seg);	
 		num[i] = one.count();
-		//printf("Count: %d\n", one.count());
+		printf("Count: %d\n", one.count());
 	}
 
 }

@@ -14,6 +14,7 @@ TEMP class Pre_iterator;
 TEMP class Mid_iterator;
 TEMP class Level_iterator;
 TEMP class Post_iterator;
+class SegmentTree;
 TEMP
 class treeNode
 {
@@ -25,6 +26,7 @@ class treeNode
 	friend class Mid_iterator < T > ;
 	friend class Level_iterator < T > ;
 	friend class Post_iterator < T > ;
+	friend class SegmentTree;
 protected:
 	T data;
 	unsigned int height;
@@ -52,6 +54,7 @@ class NormalTree//这东西用来继承吧！
 	friend class Mid_iterator < T > ;
 	friend class Level_iterator < T > ;
 	friend class Post_iterator < T > ;
+protected:
 	treeNode<T>* root;
 public:
 	NormalTree(T const & x) :root(new treeNode<T>(x, 1)){}

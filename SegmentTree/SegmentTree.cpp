@@ -9,33 +9,75 @@ std::istream& operator>>(std::istream& in, Segment &other)
 {
 	return in >> other.left >> other.right;
 }
-SegmentTree::SegmentTree(int a, int b) :BTree(Segment(a,b))
+SegmentTree::SegmentTree(int a, int b) :NormalTree(Segment(a,b))//先用宽度优先吧……懒得想了。
 {
-	if (a + 1 < b)
+	queue<treeNode<Segment>*> Queue;
+	treeNode<Segment>* temp = root;
+	Segment tempSeg; 
+	int mid;
+	Queue.push(temp);
+	while (!Queue.isEmpty())
 	{
-		leftLink(new SegmentTree(a, (a + b) / 2));
-		rightLink(new SegmentTree((a + b) / 2, b));
+		temp = Queue.pop();
+		tempSeg = temp->data;
+		if (tempSeg.right - tempSeg.left > 1)
+		{
+			mid = (tempSeg.right + tempSeg.left) / 2;
+			temp->leftlink(new treeNode<Segment>(Segment(tempSeg.left, mid)));
+			temp->rightlink(new treeNode<Segment>(Segment(mid, tempSeg.right)));
+			Queue.push(temp->left);
+			Queue.push(temp->right);
+		}
+	}
+}
+
+void SegmentTree::insert(const Segment &x, treeNode<Segment>* node)
+{
+	if (node->data == x)
+		(node->data).cover++;
+	else if ((node->data).left + 1 == (node->data).right) return;
+	else
+	{
+		int mid = ((node->data).left + (node->data).right) / 2;
+		if (mid > x.right)
+			insert(x, node->left);
+		else if (mid < x.left)
+			insert(x, node->right);
+		else
+		{
+			insert(Segment(x.left, mid),node->left);
+			insert(Segment(mid, x.right),node->right);
+		}
 	}
 	return;
 }
 
 void SegmentTree::insert(const Segment &x)
 {
-	if (data == x)
-		data.cover++;
-	else if (data.left + 1 == data.right) return;
+	insert(x, root);
+}
+
+void SegmentTree::del(const Segment& x,treeNode<Segment>* node)
+{
+	if (node->data == x)
+	{
+		if ((node->data).cover>0)
+			(node->data).cover--;
+		else 
+			return;
+	}
+	else if ((node->data).left + 1 == (node->data).right) return;
 	else
 	{
-		int mid = (data.left + data.right) / 2;
-		SegmentTree* L = static_cast<SegmentTree*>(left), *R = static_cast<SegmentTree*>(right);
+		int mid = ((node->data).left + (node->data).right) / 2;
 		if (mid > x.right)
-			L->insert(x);
+			del(x, node->left);
 		else if (mid < x.left)
-			R->insert(x);
+			del(x, node->right);
 		else
 		{
-			L->insert(Segment(x.left, mid));
-			R->insert(Segment(mid, x.right));
+			del(Segment(x.left, mid),node->left);
+			del(Segment(mid, x.right),node->right);
 		}
 	}
 	return;
@@ -43,39 +85,21 @@ void SegmentTree::insert(const Segment &x)
 
 void SegmentTree::del(const Segment& x)
 {
-	if (data == x)
-	{
-		if (data.cover>0)
-			data.cover--;
-		else 
-			return;
-	}
-	else if (data.left + 1 == data.right) return;
+	del(x, root);
+}
+int SegmentTree::count(const treeNode<Segment>* node)const
+{
+	if (this == NULL)
+		throw "count 出错……跳进了空指针";
+	if ((node->data).cover>0)
+		return (node->data).lenght();
+	else if ((node->data).lenght() == 1)return 0;
 	else
 	{
-		int mid = (data.left + data.right) / 2;
-		SegmentTree* L = static_cast<SegmentTree*>(left), *R = static_cast<SegmentTree*>(right);
-		if (mid > x.right)
-			L->del(x);
-		else if (mid < x.left)
-			R->del(x);
-		else
-		{
-			L->del(Segment(x.left, mid));
-			R->del(Segment(mid, x.right));
-		}
+		return count(node->left) + count(node->right);
 	}
-	return;
 }
 int SegmentTree::count()const
 {
-	if (data.cover>0)
-		return data.lenght();
-	else if (data.lenght() == 1)return 0;
-	else
-	{
-		SegmentTree* L = static_cast<SegmentTree*>(left), *R = static_cast<SegmentTree*>(right);
-		return (left ? L->count() : 0) + (right ? R->count() : 0);
-	}
+	return count(root);
 }
-
