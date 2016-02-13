@@ -74,6 +74,7 @@ namespace UnitTest
 	};
 	TEST_CLASS(UnitTest2)
 	{
+	public:
 		TEST_METHOD(Test_Stack)
 		{
 			try
@@ -91,7 +92,7 @@ namespace UnitTest
 					if (a[i] != two.pop())
 						debug("对不上");
 			}
-				catch (const char *err){ debug(err); }
+			catch (const char *err){ debug(err); }
 		}
 		TEST_METHOD(Test_Queue)
 		{
@@ -122,7 +123,7 @@ namespace UnitTest
 			{
 				srand(int(time(NULL)));
 				int a[1000];
-				unsigned int SizeOfTest = 100;
+				unsigned int SizeOfTest = 200;
 				re(i, SizeOfTest)
 					a[i] = rand() % SizeOfTest;
 				list<int> one(a, SizeOfTest);
@@ -150,6 +151,28 @@ namespace UnitTest
 						debug("后序插入错了");
 					++one.pointer;
 				}
+			}
+			catch (const char * err){ debug(err); }
+		}
+		TEST_METHOD(Test_MaxHeap)
+		{
+			try{
+				unsigned int SizeOfTest = 1800;
+				int abc[10000] = { 0 }, bcd[10000] = { 0 };
+				re(i, SizeOfTest)
+					abc[i] = rand() % SizeOfTest;
+				MaxHeap<int> one(abc, SizeOfTest);
+				MaxHeap<int> two = one;
+				one = two;
+				memcpy(bcd, abc, SizeOfTest*sizeof(int));
+				heapSort(abc, SizeOfTest);
+				Qsort(bcd, 0, SizeOfTest - 1);
+				re(i, SizeOfTest)
+					if (abc[i] != bcd[i])
+						debug("排序不匹配");
+				re(i, SizeOfTest)
+					if (one.pop() != bcd[i])
+						debug("pop不匹配");
 			}
 			catch (const char * err){ debug(err); }
 		}

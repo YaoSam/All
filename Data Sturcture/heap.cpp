@@ -44,7 +44,7 @@ TEMP MaxHeap<T>& MaxHeap<T>::operator=(MaxHeap<T> const & other)
 	if (this == &other)return *this;
 	delete[] Heap;
 	Heap = new T[HeapSize];
-	memcpy(Heap, other.Heap, sizeof(T)*Current);
+	memcpy(Heap, other.Heap, sizeof(T)*(Current+1));
 	return *this;
 }
 
