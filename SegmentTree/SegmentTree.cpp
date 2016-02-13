@@ -9,26 +9,18 @@ std::istream& operator>>(std::istream& in, Segment &other)
 {
 	return in >> other.left >> other.right;
 }
+void SegmentTree::create(int a, int b,treeNode<Segment>* & node)
+{
+	node= new treeNode<Segment>(Segment(a, b));
+	if (a+1<b)
+	{
+		create(a, (a + b) / 2, node->left);
+		create((a + b) / 2, b, node->right);
+	}
+}
 SegmentTree::SegmentTree(int a, int b) :NormalTree(Segment(a,b))//先用宽度优先吧……懒得想了。
 {
-	queue<treeNode<Segment>*> Queue;
-	treeNode<Segment>* temp = root;
-	Segment tempSeg; 
-	int mid;
-	Queue.push(temp);
-	while (!Queue.isEmpty())
-	{
-		temp = Queue.pop();
-		tempSeg = temp->data;
-		if (tempSeg.right - tempSeg.left > 1)
-		{
-			mid = (tempSeg.right + tempSeg.left) / 2;
-			temp->leftlink(new treeNode<Segment>(Segment(tempSeg.left, mid)));
-			temp->rightlink(new treeNode<Segment>(Segment(mid, tempSeg.right)));
-			Queue.push(temp->left);
-			Queue.push(temp->right);
-		}
-	}
+	create(a, b, root);
 }
 
 void SegmentTree::insert(const Segment &x, treeNode<Segment>* node)
@@ -91,7 +83,7 @@ int SegmentTree::count(const treeNode<Segment>* node)const
 {
 	if (this == NULL)
 		throw "count 出错……跳进了空指针";
-	if ((node->data).cover>0)
+	if ((node->Data()).cover>0)
 		return (node->data).lenght();
 	else if ((node->data).lenght() == 1)return 0;
 	else
@@ -100,6 +92,81 @@ int SegmentTree::count(const treeNode<Segment>* node)const
 	}
 }
 int SegmentTree::count()const
+{
+	return count(root);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+Segment DiscreteSegTree::find(const Segment &origin)
+{
+	int a, b;
+	SearchNode one(origin.left,0);
+	treeNode<SearchNode>* temp = tree.find(one);
+	if (temp == NULL)
+		throw "非已有节点";
+	a = (temp->Data()).UnknownData;
+	one.knownData = origin.right;
+	temp = tree.find(one);
+	if (temp == NULL)
+		throw "非已有节点";
+	b = (temp->Data()).UnknownData;
+	return Segment(a, b);
+}
+
+DiscreteSegTree::DiscreteSegTree(const Segment *Seg, const unsigned int n)
+{
+	int *num = new int[2*n];
+	re(i, n)
+	{
+		num[2 * i] = Seg[i].left;
+		num[2 * i + 1] = Seg[i].right;
+	}
+	Qsort(num, 0, 2 * n - 1);
+	int Count=0;//记录不同的元素的个数
+	re(i, 2 * n)//筛选出不同的元素
+	{
+		num[Count++] = num[i];
+		int j = 1;
+		while (num[i] == num[i + j]||i+j>2*n) j++;//a[i]!=a[i+j]
+		i += j - 1;
+	}
+	root = new treeNode<Segment>(Segment(0, Count));
+	create(0, Count, root);
+	Hash = new int[Count];
+	re(i, Count)//因为之前排序是从大到小。所以现在逆序。
+	{
+		tree.insert(SearchNode(num[Count - i - 1], i));
+		Hash[i] = num[Count - i - 1];
+	}
+	delete[] num;
+	re(i, n)
+		insert(Seg[i]);
+}
+
+void DiscreteSegTree::insert(const Segment &x)
+{
+	SegmentTree::insert(find(x));
+}
+
+void DiscreteSegTree::del(const Segment& x)
+{
+	SegmentTree::del(find(x));
+}
+
+int DiscreteSegTree::count(const treeNode< Segment>* node)const
+{
+	if (this == NULL)
+		throw "count 出错……跳进了空指针";
+	if ((node->Data()).cover > 0)
+		return Hash[(node->Data()).right] - Hash[(node->Data()).left];
+	else if ((node->Data()).lenght() == 1)return 0;
+	else
+	{
+		return count(node->Left()) + count(node->Right());
+	}
+}
+int DiscreteSegTree::count()const
 {
 	return count(root);
 }

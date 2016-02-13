@@ -1,5 +1,6 @@
 #pragma once
 #include "bstree.h"
+#include "normal.cpp"
 
 TEMP
 class AVLtree :public bstree < T >

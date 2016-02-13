@@ -1,24 +1,36 @@
 #pragma once
 #include "normal.h"
 
+TEMP bool operator<	(T const & a, T const &b)	{ return	b > a; }
+TEMP bool operator>=	(T const & a, T const &b)	{ return	a > b || !(b > a); }
+TEMP bool operator<=	(T const & a, T const &b)	{ return	!(a > b); }
+TEMP bool operator!=	(T const & a, T const &b)	{ return	a > b || b > a; }
+TEMP bool operator==	(T const & a, T const &b)	{ return	!(a > b) && !(b > a); }
 
-
-long long Fibonacci(int n)
+TEMP void Swap(T & a, T &b)
 {
-	if (FIB[n] > 0) return FIB[n];
-	return FIB[n] = (n == 1 || n == 0) ? n : Fibonacci(n - 1) + Fibonacci(n - 2);
+	T temp = a; a = b; b = temp;
 }
 
-int minHeight_bbtree(int n)
+
+TEMP inline T Max(T const &a, T const &b)
 {
-	int i = 0;
-	for (; n > 0; i++)
-		n -= (1 << i);
-	return i;
+	return a > b ? a : b;
 }
-int maxHeight_bbtree(int n)
+
+TEMP
+void Qsort(T a[], int left, int right)
 {
-	int height = 0;
-	while ((Fibonacci(height + 2) - 1) < n)	height++;
-	return height;
+	T mid = a[(left + right) / 2];
+	int l = left, r = right;
+	do
+	{
+		while (a[l] > mid)l++;
+		while (a[r] < mid)r--;
+		if (l <= r)
+			Swap(a[l++], a[r--]);
+	} while (l <= r);
+	if (r > left)		Qsort(a, left, r);
+	if (l < right)	Qsort(a, l, right);
+	return;
 }

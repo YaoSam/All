@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../Data Sturcture/ALL.h"
+#include "../SegmentTree/SegmentTree.cpp"
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -38,8 +39,8 @@ namespace UnitTest
 					one.DelNode(a[i]);
 					if (one.NodeNum() != SizeOfTest - i - 1)
 						debug("删除后节点不对");
-					if ((int)one.height() > maxHeight_bbtree(SizeOfTest - i - 1))
-						debug("高度不对");
+					//if ((int)one.height() > maxHeight_bbtree(SizeOfTest - i - 1))
+					//	debug("高度不对");
 				}
 			}
 			catch (const char *err){ debug(err); }
@@ -173,6 +174,38 @@ namespace UnitTest
 				re(i, SizeOfTest)
 					if (one.pop() != bcd[i])
 						debug("pop不匹配");
+			}
+			catch (const char * err){ debug(err); }
+		}
+	};
+	TEST_CLASS(UniTest3)
+	{
+	public:
+		TEST_METHOD(Test_DiscreteSegTree)
+		{
+			try
+			{
+				clock_t time1, time2;
+				char str[1000];
+				Segment Seg[100];
+				int SizeofTest = 10000;
+				Seg[0] = Segment(0, 3);
+				Seg[1] = Segment(11, 20);
+				Seg[2] = Segment(3, 4);
+				Seg[3] = Segment(0, SizeofTest);
+				time1 = clock();
+				DiscreteSegTree one(Seg, 4);
+				time2 = clock();
+				sprintf_s(str, "%d\n", int(time2 - time1));
+				Logger::WriteMessage(str);
+				time1 = clock();
+				SegmentTree two(0,SizeofTest);
+				time2 = clock();
+				sprintf_s(str, "%d\n", int(time2 - time1));
+				Logger::WriteMessage(str);
+				re(i, 4)
+					two.insert(Seg[i]);
+				Assert::AreEqual(two.count(), one.count());
 			}
 			catch (const char * err){ debug(err); }
 		}

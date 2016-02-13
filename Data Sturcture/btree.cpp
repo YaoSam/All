@@ -1,7 +1,5 @@
 #pragma  once
 #include "btree.h"
-#include "Stack.cpp"//前中后序输出
-#include "queue.cpp"//层序遍历
 TEMP void treeNode<T>::Del()
 {
 	if (left)

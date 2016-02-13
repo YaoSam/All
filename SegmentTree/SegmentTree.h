@@ -1,6 +1,5 @@
 #pragma once
-#include "..\Data Sturcture\btree.cpp"
-#include "..\Data Sturcture\normal.h"
+#include "..\Data Sturcture\ALL.h"
 struct Segment
 {
 	int left, right, cover;
@@ -14,14 +13,41 @@ struct Segment
 
 class SegmentTree:public NormalTree<Segment>
 {
+protected:
 	//基本用递归实现。
-	void insert(const Segment &x, treeNode<Segment>* node);
-	void del(const Segment& x, treeNode<Segment>* node);
-	int count(const treeNode<Segment>* node)const;
+	virtual void create(int a, int b, treeNode<Segment>* &node);
+	virtual void insert(const Segment &x, treeNode<Segment>* node);
+	virtual void del(const Segment& x, treeNode<Segment>* node);
+	virtual int count(const treeNode<Segment>* node)const;
 public:
+	SegmentTree(){}
 	SegmentTree(int a, int b);
-	void insert(int a, int b){ insert(Segment(a, b)); }
+	virtual ~SegmentTree(){}
+	virtual void insert(int a, int b){ insert(Segment(a, b)); }
+	virtual void insert(const Segment &x);
+	virtual void del(const Segment& x);
+	virtual int count()const;
+};
+
+struct SearchNode
+{
+	int knownData; int UnknownData;
+public:
+	SearchNode(const int &t, const int &u) :knownData(t), UnknownData(u){}
+	bool operator>(const SearchNode & other)const{ return knownData > other.knownData; }
+	bool operator==(const SearchNode& other)const{ return knownData == other.knownData; }
+};
+
+class DiscreteSegTree :public SegmentTree
+{
+	AVLtree<SearchNode> tree;
+	int *Hash;
+	Segment find(const Segment &origin);
+	int count(const treeNode< Segment>* node)const;
+public:
+	DiscreteSegTree(const Segment *Seg, const unsigned int n);
 	void insert(const Segment &x);
 	void del(const Segment& x);
 	int count()const;
+	~DiscreteSegTree(){ delete[] Hash; }
 };

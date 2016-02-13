@@ -26,6 +26,7 @@
 #include <time.h>
 #include <algorithm>
 #include "SegmentTree.h"
+#include <sstream>
 using namespace std;
 #undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
@@ -70,7 +71,26 @@ int main()
 	freopen_s(&input, "in.txt", "r", stdin);
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
-	test();
+	clock_t time1, time2;
+	stringstream ss;
+	char str[1000];
+	//test();
+	Segment Seg[100];
+	Seg[0] = Segment(0, 3);
+	Seg[1] = Segment(11, 20);
+	Seg[2] = Segment(3, 4);
+	Seg[3] = Segment(0,2000000000);
+	time1 = clock();
+	DiscreteSegTree one(Seg, 4);
+	time2 = clock();
+	sprintf_s(str, "%d\n", int(time2 - time1));
+	cout << str << endl;
+	cout<<one.count()		<<endl;
+	time1 = clock();
+	SegmentTree two(0,100000);
+	time2 = clock();
+	sprintf_s(str, "%d\n", int(time2 - time1));
+	cout << str << endl;
 	cout << endl << "运行时间：" << clock() - BeginTime << endl;
 #ifndef DEBUG
 	system("pause");

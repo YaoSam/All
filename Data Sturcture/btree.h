@@ -2,6 +2,9 @@
 #include <iostream>
 #include <time.h>
 #include "Stack.cpp"
+#include "queue.cpp"
+#include "normal.cpp"
+#include "normal2.h"
 #include <math.h>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 
@@ -42,6 +45,9 @@ protected:
 public:
 	treeNode<T>(T const &x, unsigned int h = 0,treeNode<T>*p = NULL, treeNode<T>* l = NULL, treeNode<T>* r = NULL ) :
 		data(x),height(h),left(l),right(r),parent(p){}
+	T Data()const{ return data; }
+	treeNode<T>* Left()const{ return left; }
+	treeNode<T>* Right()const { return right; }
 };
 
 TEMP

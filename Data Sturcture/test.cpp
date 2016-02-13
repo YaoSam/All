@@ -1,14 +1,5 @@
 #pragma  once
-#include "queue.cpp"
-#include "stack.cpp"
-#include "list.cpp"
-#include "btree.cpp"
-#include "btree.h"
-#include "bstree.cpp"
-#include "bbtree.cpp"
-#include "heap.cpp"
-#include "normal.cpp"
-#include "iterator.cpp"
+#include "ALL.h"
 #include <algorithm>
 #include <math.h>
 using namespace std;
