@@ -12,11 +12,6 @@
 TEMP class NormalTree;
 TEMP class bstree;
 TEMP class AVLtree;
-TEMP class m_iterator;
-TEMP class Pre_iterator;
-TEMP class Mid_iterator;
-TEMP class Level_iterator;
-TEMP class Post_iterator;
 class SegmentTree;
 TEMP
 class treeNode
@@ -24,11 +19,6 @@ class treeNode
 	friend class NormalTree < T > ;
 	friend class bstree < T > ;
 	friend class AVLtree < T > ;
-	friend class m_iterator < T > ;
-	friend class Pre_iterator < T > ;
-	friend class Mid_iterator < T > ;
-	friend class Level_iterator < T > ;
-	friend class Post_iterator < T > ;
 	friend class SegmentTree;
 protected:
 	T data;
@@ -53,13 +43,6 @@ public:
 TEMP
 class NormalTree//这东西用来继承吧！
 {
-	friend class bstree < T > ;
-	friend class AVLtree < T > ;
-	friend class m_iterator < T > ;
-	friend class Pre_iterator < T > ;
-	friend class Mid_iterator < T > ;
-	friend class Level_iterator < T > ;
-	friend class Post_iterator < T > ;
 protected:
 	treeNode<T>* root;
 public:
@@ -76,4 +59,5 @@ public:
 	void print()const;
 	virtual treeNode<T>* find(T const & x)const;
 	virtual void insert(T const & x) = 0;
+	treeNode<T>* Root()const{ return root; }
 };

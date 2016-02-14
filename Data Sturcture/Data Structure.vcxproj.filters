@@ -32,15 +32,9 @@
     <ClCompile Include="iterator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="normal2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="iterator.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="normal2.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,7 +7,7 @@ T m_iterator<T>::operator*()const
 	if (pCurrent == NULL)
 		throw "iterator range error\n";
 	else
-		return pCurrent->data;
+		return pCurrent->Data();
 }
 
 TEMP
@@ -15,11 +15,11 @@ treeNode<T>* Pre_iterator<T>::operator++()
 {
 	if (pCurrent == NULL)	throw "Pre_iterator range error\n";
 	Stack.push(pCurrent);
-	pCurrent = pCurrent->left;
+	pCurrent = pCurrent->Left();
 	while (pCurrent == NULL&&!Stack.isEmpty())//能否回去
 	{
 		pCurrent = Stack.pop();
-		pCurrent = pCurrent->right;
+		pCurrent = pCurrent->Right();
 		if (pCurrent)
 			break;
 	}
@@ -34,14 +34,14 @@ void Mid_iterator<T>::goFirst()
 	while (pCurrent != NULL)
 	{
 		Stack.push(pCurrent);
-		pCurrent = pCurrent->left;
+		pCurrent = pCurrent->Left();
 	}
 	pCurrent = Stack.topData();
 	return;
 }
 
 TEMP
-Mid_iterator<T>::Mid_iterator(NormalTree<T>* tree) :m_iterator<T>(tree->root,tree->root)
+Mid_iterator<T>::Mid_iterator(NormalTree<T>* tree) :m_iterator<T>(tree->Root(),tree->Root())
 {
 	goFirst();
 }
@@ -52,13 +52,13 @@ treeNode<T>* Mid_iterator<T>::operator++()
 	if (Stack.isEmpty())
 		throw "Mid_iterator range error\n";
 	pCurrent=Stack.pop();//这个已经被输出了。说明这个的左边已经不用管了。
-	if (pCurrent->right != NULL)
+	if (pCurrent->Right()!= NULL)
 	{
-		treeNode<T>* temp = pCurrent->right;//往右边走一步
+		treeNode<T>* temp = pCurrent->Right();//往右边走一步
 		while (temp != NULL)//接着一直往右走
 		{
 			Stack.push(temp);
-			temp = temp->left;
+			temp = temp->Left();
 		}
 	}
 	if (Stack.isEmpty())
@@ -71,10 +71,10 @@ treeNode<T>* Mid_iterator<T>::operator++()
 TEMP
 treeNode<T>* Level_iterator<T>::operator++()
 {
-	if (pCurrent->left)
-		Queue.push(pCurrent->left);
-	if (pCurrent->right)
-		Queue.push(pCurrent->right);
+	if (pCurrent->Left())
+		Queue.push(pCurrent->Left());
+	if (pCurrent->Right())
+		Queue.push(pCurrent->Right());
 	if (!Queue.isEmpty())
 		pCurrent = Queue.pop();
 	else
@@ -92,9 +92,9 @@ void Post_iterator<T>::goFirst()
 		while (pCurrent != NULL)
 		{
 			Stack.push(pCurrent);
-			pCurrent = pCurrent->left;
+			pCurrent = pCurrent->Left();
 		}
-		pCurrent = Stack.topData()->right;
+		pCurrent = Stack.topData()->Right();
 	}
 	if (Stack.isEmpty())//置为空
 		pCurrent = NULL;
@@ -103,7 +103,7 @@ void Post_iterator<T>::goFirst()
 }
 
 TEMP
-Post_iterator<T>::Post_iterator(NormalTree<T>* tree) :m_iterator(tree->root,tree->root)
+Post_iterator<T>::Post_iterator(NormalTree<T>* tree) :m_iterator(tree->Root(),tree->Root())
 {
 	goFirst();
 }
@@ -115,17 +115,17 @@ treeNode<T>* Post_iterator<T>::operator++()//输出最左边的叶子节点。
 		throw "Post_iterator range error\n";
 	if (Stack.isEmpty())//置为空
 		return pCurrent = NULL;
-	if (pCurrent == Stack.topData()->left)
+	if (pCurrent == Stack.topData()->Left())
 	{
-		pCurrent = Stack.topData()->right;//对其右边goFirst
+		pCurrent = Stack.topData()->Right();//对其右边goFirst
 		while (pCurrent != NULL)
 		{
 			while (pCurrent != NULL)
 			{
 				Stack.push(pCurrent);
-				pCurrent = pCurrent->left;
+				pCurrent = pCurrent->Left();
 			}
-			pCurrent = Stack.topData()->right;
+			pCurrent = Stack.topData()->Right();
 		}
 	}
 	pCurrent = Stack.pop();

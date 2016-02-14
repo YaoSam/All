@@ -82,17 +82,11 @@ int main()
 	Seg[3] = Segment(101,2000000000);
 	time1 = clock();
 	DiscreteSegTree one(Seg, 4);
-	DiscreteSegTree three= one;
-	one = three;
-	time2 = clock();
-	sprintf_s(str, "%d", int(time2 - time1));
-	cout << str << endl;
-	time1 = clock();
-	SegmentTree two(0,10000);
-	time2 = clock();
-	sprintf_s(str, "%d\n", int(time2 - time1));
-	cout << str << endl;
+	cout << one.count() << endl;
+	one.del(Seg[3]);
 	cout<<one.count()<<endl;
+	one.insert(Seg[3]);
+	cout << one.count() << endl;
 	cout << endl << "运行时间：" << clock() - BeginTime << endl;
 #ifndef DEBUG
 	system("pause");

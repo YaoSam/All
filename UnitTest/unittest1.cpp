@@ -188,7 +188,7 @@ namespace UnitTest
 				clock_t time1, time2;
 				char str[1000];
 				Segment Seg[100];
-				int SizeofTest = 10000;
+				int SizeofTest = 100000;
 				Seg[0] = Segment(0, 3);
 				Seg[1] = Segment(11, 20);
 				Seg[2] = Segment(3, 4);

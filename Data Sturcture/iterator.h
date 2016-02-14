@@ -21,7 +21,7 @@ class Pre_iterator :public m_iterator < T >
 {
 	stack<treeNode<T>*> Stack;
 public:
-	Pre_iterator(NormalTree<T> *tree) :m_iterator(tree->root, tree->root){}
+	Pre_iterator(NormalTree<T> *tree) :m_iterator(tree->Root(), tree->Root()){}
 	void goFirst(){ pCurrent = m_root; Stack.clear(); }
 	treeNode<T>* operator++();
 };
@@ -51,7 +51,7 @@ class Level_iterator :public m_iterator < T >
 {
 	queue<treeNode<T>*> Queue;
 public:
-	Level_iterator(NormalTree<T>* tree) :m_iterator(tree->root, tree->root){}
+	Level_iterator(NormalTree<T>* tree) :m_iterator(tree->Root(), tree->Root()){}
 	void goFirst()
 	{
 		pCurrent = m_root;
