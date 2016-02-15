@@ -10,6 +10,7 @@
 
 
 TEMP class NormalTree;
+TEMP class FreeTree;
 TEMP class bstree;
 TEMP class AVLtree;
 class SegmentTree;
@@ -17,6 +18,7 @@ TEMP
 class treeNode
 {
 	friend class NormalTree < T > ;
+	friend class FreeTree < T > ;
 	friend class bstree < T > ;
 	friend class AVLtree < T > ;
 	friend class SegmentTree;

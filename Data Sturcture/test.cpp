@@ -114,12 +114,9 @@ void TestOfAVLTree()
 	srand(int(time(NULL)));
 	int a[10000];
 	unsigned int SizeOfTest = 1000;
-	re(i, SizeOfTest)
-		//a[i] = i;
-		a[i] = rand() % 4;
-	Qsort(a, 0, SizeOfTest-1); //这时候出来的一般就是理想高度了。
-	AVLtree<int> one(a, SizeOfTest); 
-	AVLtree<int> two(one);
+	AVLtree<int> one(a, SizeOfTest);
+	if (one.H() > maxHeight_bbtree(SizeOfTest))
+			cout << "错了" << endl;
 	//one.pre();
 	//one.mid();
 	//one.post();
@@ -267,12 +264,12 @@ void Test()
 		//TestOfQueue();
 		//cout << "测试链表" << endl;
 		//TestOfList();
-		cout << "\n测试排序二叉树" << endl;
-		TestOfBstree();
+		//cout << "\n测试排序二叉树" << endl;
+		//TestOfBstree();
 		cout << "\n测试平衡二叉树" << endl;
 		TestOfAVLTree();
-		cout << "\n测试迭代器" << endl;
-		TestOfIterator();
+		//cout << "\n测试迭代器" << endl;
+		//TestOfIterator();
 		//cout << "\n测试堆" << endl;
 		//TestOfHeap();
 

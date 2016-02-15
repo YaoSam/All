@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SegmentTree", "SegmentTree\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{120A5034-A2BB-4210-8C9B-538CB78D5905}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Permutation", "Arrange\Arrange.vcxproj", "{6CC627D2-B00F-4A21-87DD-321007DCF593}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -27,6 +29,10 @@ Global
 		{120A5034-A2BB-4210-8C9B-538CB78D5905}.Debug|Win32.Build.0 = Debug|Win32
 		{120A5034-A2BB-4210-8C9B-538CB78D5905}.Release|Win32.ActiveCfg = Release|Win32
 		{120A5034-A2BB-4210-8C9B-538CB78D5905}.Release|Win32.Build.0 = Release|Win32
+		{6CC627D2-B00F-4A21-87DD-321007DCF593}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6CC627D2-B00F-4A21-87DD-321007DCF593}.Debug|Win32.Build.0 = Debug|Win32
+		{6CC627D2-B00F-4A21-87DD-321007DCF593}.Release|Win32.ActiveCfg = Release|Win32
+		{6CC627D2-B00F-4A21-87DD-321007DCF593}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

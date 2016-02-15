@@ -13,9 +13,9 @@ int minHeight_bbtree(int n)
 		n -= (1 << i);
 	return i;
 }
-int maxHeight_bbtree(int n)
+int maxHeight_bbtree(int n)//最大高度为：F(H+2)-1<=n<=F(H+3)-1
 {
 	int height = 0;
-	while ((Fibonacci(height + 2) - 1) < n)	height++;
-	return height;
+	while ((Fibonacci(height + 2) - 1) <= n)	height++;
+	return height-1;
 }

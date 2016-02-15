@@ -26,7 +26,7 @@ public:
 	const T& operator[](unsigned int n)const;
 	friend std::ostream& operator<<(std::ostream &out, stack<T> const & other)
 	{
-		re(i, unsigned(other.top))
+		re(i, unsigned(other.top+1))
 			out << other.data[i] << " ";
 		return out << std::endl;
 	}
