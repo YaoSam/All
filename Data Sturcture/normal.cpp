@@ -25,8 +25,8 @@ void Qsort(T a[], int left, int right)
 	int l = left, r = right;
 	do
 	{
-		while (a[l] > mid)l++;
-		while (a[r] < mid)r--;
+		while (a[l] < mid)l++;
+		while (a[r] > mid)r--;
 		if (l <= r)
 			Swap(a[l++], a[r--]);
 	} while (l <= r);

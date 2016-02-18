@@ -62,13 +62,7 @@ T stack<T>::topData()const
 		throw "Empty stack£¬failed stack.topData()";
 	return data[top];
 }
-TEMP 
-T& stack<T>::operator[](unsigned int n)
-{
-	if (n > top)
-		throw "Subscript out of range£¬faile stack.push()";
-	return data[n];
-}
+
 TEMP
 const T& stack<T>::operator[](unsigned int n)const
 {

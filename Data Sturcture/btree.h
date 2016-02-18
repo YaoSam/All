@@ -39,7 +39,9 @@ public:
 		data(x),height(h),left(l),right(r),parent(p){}
 	T Data()const{ return data; }
 	treeNode<T>* Left()const{ return left; }
-	treeNode<T>* Right()const { return right; }
+	treeNode<T>* Right()const{ return right; }
+	treeNode<T>* Parent()const{ return parent; }
+	unsigned int Height()const{ return height; }
 };
 
 TEMP
@@ -48,7 +50,7 @@ class NormalTree//这东西用来继承吧！
 protected:
 	treeNode<T>* root;
 public:
-	NormalTree(T const & x) :root(new treeNode<T>(x, 1)){}
+	NormalTree(T const & x,unsigned int h=1) :root(new treeNode<T>(x, h)){}
 	NormalTree(treeNode<T>* r = NULL) :root(r){}
 	NormalTree(NormalTree<T> const & other);
 	NormalTree<T>& operator=(NormalTree<T> const & other);

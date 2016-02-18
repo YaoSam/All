@@ -25,12 +25,11 @@
 #include <string>
 #include <time.h>
 #include <algorithm>
-#include "Arrange.h"
+#include "bag.h"
 using namespace std;
 #undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 #define DEBUG
-void Test();
 
 int main()
 {
@@ -41,10 +40,31 @@ int main()
 	freopen_s(&input, "in.txt", "r", stdin);
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
-	int m, n;//m指层数，n指分叉数目。
-	cout << AllSolution(2, 5) << endl;
-	cout << Combination(4, 5) << endl;
-	cout<<Permutation(4, 5);
+	try{
+		unsigned int n = 0;
+		double Limit = 0;
+		//输入
+		cout << "请输入物体数目："; cin >> n;
+		cout << "请输入背包大小："; cin >> Limit;
+		object *thing = new object[n + 1];
+		cout << "请输入背包：" << endl;
+		re(i, n)
+			cin >> thing[i];
+		//运算
+		BagState bestSolution = Solve(n, Limit, thing);
+		//输出
+		cout << "输入的背包：" << endl;
+		re(i, n)
+			cout << thing[i];
+		Qsort(thing, 0, n - 1);
+		cout << "背包排序后：" << endl;
+		re(i, n)
+			cout << thing[i];
+		cout << endl;
+		cout << "The max sum_value is: " << endl << bestSolution.value() << endl;
+		cout << "The optimum solution is :" << endl << bestSolution << endl;
+	}
+	catch (char const * a){ cout << a << endl; }
 	cout << endl << "运行时间：" << clock() - BeginTime << endl;
 #ifndef DEBUG
 	system("pause");

@@ -20,9 +20,9 @@ public:
 	T pop();
 	void clear(){ top = -1; }
 	T topData()const;//返回顶端元素
+	unsigned int Number()const{ return unsigned int(top + 1); }
 	int Top()const{ return top; }//返回栈大小
 	bool isEmpty()const{ return top < 0; }
-	T& operator[](unsigned int n);//用来遍历元素。没事就别用这个了。
 	const T& operator[](unsigned int n)const;
 	friend std::ostream& operator<<(std::ostream &out, stack<T> const & other)
 	{

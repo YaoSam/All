@@ -128,7 +128,7 @@ DiscreteSegTree::DiscreteSegTree(const Segment *Seg, const unsigned int n)
 	{
 		num[Count++] = num[i];
 		int j = 1;
-		while (num[i] == num[i + j]||i+j>2*n) j++;//a[i]!=a[i+j]
+		while (i+j<2*n&&num[i] == num[i + j]) j++;//a[i]!=a[i+j]
 		i += j - 1;
 	}
 	root = new treeNode<Segment>(Segment(0, Count));

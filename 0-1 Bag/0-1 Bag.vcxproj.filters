@@ -15,27 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="in.txt">
-      <Filter>资源文件</Filter>
-    </Text>
-    <Text Include="out.txt">
-      <Filter>资源文件</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="freetree.cpp">
+    <ClCompile Include="bag.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="freetree.h">
+    <ClInclude Include="bag.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="in.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="out.txt" />
   </ItemGroup>
 </Project>

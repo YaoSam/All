@@ -82,10 +82,10 @@ void TestOfList()
 void TestOfBstree()
 {
 	srand(int(time(NULL)));
-	int a[10000];
+	int a[100000];
 	unsigned int SizeOfTest =1000;
 	re(i, SizeOfTest)
-		a[i] = rand() % 1000;
+		a[i] = rand() % 100000;
 	bstree<int> one(a, SizeOfTest);
 	//one.pre();
 	//one.mid();
@@ -101,22 +101,25 @@ void TestOfBstree()
 			cout << "ÎÞ·¨ÕÒµ½£¡" << endl;
 	}
 	cout << one.height() << endl;
-	//re(i, SizeOfTest)
-	//{
-	//	//cout << a[i] << endl;
-	//	one.DelNode(a[i]);
-	//	cout << one.NodeNum() << " ";
-	//}
+	re(i, SizeOfTest)
+		one.insert(a[i]);
+	re(i, SizeOfTest)
+	{
+		//cout << a[i] << endl;
+		one.DelNode(a[i]);
+		//cout << one.NodeNum() << " ";
+	}
 }
 
 void TestOfAVLTree()
 {
 	srand(int(time(NULL)));
 	int a[10000];
-	unsigned int SizeOfTest = 1000;
+
+	unsigned int SizeOfTest = 10000;
+	re(i, SizeOfTest)
+		a[i] = rand() % 10000;
 	AVLtree<int> one(a, SizeOfTest);
-	if (one.H() > maxHeight_bbtree(SizeOfTest))
-			cout << "´íÁË" << endl;
 	//one.pre();
 	//one.mid();
 	//one.post();
@@ -138,10 +141,12 @@ void TestOfAVLTree()
 	//cout << "Ê÷¸ß¶È£º" << one.Height() << endl;
 	//cout << "½ÚµãÊý£º" << one.NodeNum() << endl;
 	re(i, SizeOfTest)
+		one.insert(a[i]);
+	re(i, SizeOfTest)
 	{
 		one.DelNode(a[i]);
-		if (one.NodeNum() != SizeOfTest - i - 1)
-			cout << "´íÁË£¡" << endl;
+		//if (one.NodeNum() != SizeOfTest - i - 1)
+			//cout << "´íÁË£¡" << endl;
 	}
 	//cout << endl;
 	//cout << "Ê÷¸ß¶È£º" << one.Height() << endl;
@@ -264,8 +269,8 @@ void Test()
 		//TestOfQueue();
 		//cout << "²âÊÔÁ´±í" << endl;
 		//TestOfList();
-		//cout << "\n²âÊÔÅÅÐò¶þ²æÊ÷" << endl;
-		//TestOfBstree();
+		cout << "\n²âÊÔÅÅÐò¶þ²æÊ÷" << endl;
+		TestOfBstree();
 		cout << "\n²âÊÔÆ½ºâ¶þ²æÊ÷" << endl;
 		TestOfAVLTree();
 		//cout << "\n²âÊÔµü´úÆ÷" << endl;
