@@ -56,10 +56,7 @@ int main()
 		cout << "输入的背包：" << endl;
 		re(i, n)
 			cout << thing[i];
-		Qsort(thing, 0, n - 1);
-		cout << "背包排序后：" << endl;
-		re(i, n)
-			cout << thing[i];
+
 		cout << endl;
 		cout << "The max sum_value is: " << endl << bestSolution.value() << endl;
 		cout << "The optimum solution is :" << endl << bestSolution << endl;

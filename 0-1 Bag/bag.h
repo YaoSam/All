@@ -5,10 +5,10 @@ struct object
 {
 	unsigned int num;//记录融合了多少个物体
 	double weight, value;
-	object(double value = 0, double weight = 0, unsigned int num = 0) :
+	object(double value = 0, double weight = 0, unsigned int num = 1) :
 		value(value), weight(weight), num(num){}
 	bool operator>(object const & other)const{//用价值密度作为标准
-		if (value*other.weight == other.value*weight)return value > other.value;
+		if (value*other.weight == other.value*weight)return value > other.value;//用来压缩背包用的。
 		return value*other.weight > other.value*weight;
 	}
 	bool operator==(object const & other)const{
@@ -26,7 +26,7 @@ std::istream &operator>>(std::istream& in, object &other);
 class BagState
 {
 	double MaxValue, MyValue, RestRoom;
-	unsigned int RestNum;
+	int RestNum;
 	treeNode<bool>* MyLocation;
 	//一下的要慎重delete
 	FreeTree<bool>* SolutionTree;
@@ -42,9 +42,9 @@ public:
 	//用来判断是否已经装满
 	double restroom()const{ return RestRoom; }
 	//用来判断是否到了底层
-	bool isEnd()const{ return RestNum == 0; }
+	bool isEnd()const{ return RestNum ==0; }
 	//其实isEnd()可以用这个代替……
-	unsigned int level()const { return MyLocation->Height() + 1; }
+	unsigned int level()const { return MyLocation->Height(); }
 	//遍历物体。生成新的背包。flag=1则放入。flag=0则略过。
 	BagState insert(bool flag)const;
 	//代表其在优先队列的优先级，用来存入堆，判别标准：其价值上界(MaxValue)
