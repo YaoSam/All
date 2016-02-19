@@ -1,5 +1,6 @@
 #pragma  once
 #include "ALL.h"
+#include "normal2.cpp"
 #include <algorithm>
 #include <math.h>
 using namespace std;

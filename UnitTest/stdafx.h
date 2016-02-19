@@ -18,3 +18,5 @@
 #include <algorithm>
 #include <exception>
 #include <sstream>
+#include "../Data Sturcture/ALL.h"
+#include "../SegmentTree/SegmentTree.h"

@@ -1,8 +1,6 @@
 #pragma once
 #include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../Data Sturcture/ALL.h"
-#include "../SegmentTree/SegmentTree.cpp"
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

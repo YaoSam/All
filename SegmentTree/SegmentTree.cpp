@@ -101,16 +101,14 @@ int SegmentTree::count()const
 Segment DiscreteSegTree::find(const Segment &origin)
 {
 	int a, b;
-	SearchNode one(origin.left,0);
-	treeNode<SearchNode>* temp = tree.find(one);
+	treeNode<SearchNode<int,int>>* temp = tree.find(origin.left);
 	if (temp == NULL)
 		throw "非已有节点";
-	a = (temp->Data()).UnknownData;
-	one.knownData = origin.right;
-	temp = tree.find(one);
+	a = (temp->Data()).data;
+	temp = tree.find(origin.right);
 	if (temp == NULL)
 		throw "非已有节点";
-	b = (temp->Data()).UnknownData;
+	b = (temp->Data()).data;
 	return Segment(a, b);
 }
 
@@ -136,7 +134,7 @@ DiscreteSegTree::DiscreteSegTree(const Segment *Seg, const unsigned int n)
 	Hash = new int[Count];
 	re(i, Count)
 	{
-		tree.insert(SearchNode(num[i], i));
+		tree.insert(SearchNode<int,int>(num[i], i));
 		Hash[i] = num[i];
 	}
 	delete[] num;

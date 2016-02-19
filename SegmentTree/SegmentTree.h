@@ -29,18 +29,10 @@ public:
 	virtual int count()const;
 };
 
-struct SearchNode
-{
-	int knownData; int UnknownData;
-public:
-	SearchNode(const int &t, const int &u) :knownData(t), UnknownData(u){}
-	bool operator>(const SearchNode & other)const{ return knownData > other.knownData; }
-	bool operator==(const SearchNode& other)const{ return knownData == other.knownData; }
-};
 
 class DiscreteSegTree :public SegmentTree
 {
-	AVLtree<SearchNode> tree;
+	SearchTree<int,int> tree;
 	int *Hash;
 	Segment find(const Segment &origin);
 	int count(const treeNode< Segment>* node)const;

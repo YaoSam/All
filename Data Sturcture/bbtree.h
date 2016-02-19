@@ -27,3 +27,29 @@ public:
 	AVLtree(T const a[] = NULL, unsigned int n = 0);
 	virtual ~AVLtree(){}
 };
+
+
+template<typename A,typename B>
+struct SearchNode
+{
+	A index;
+	B data;
+	SearchNode(A const &index, B const  &data) :index(index), data(data){}
+	bool operator>(const SearchNode<A, B>& other)const{
+		return index > other.index;
+	}
+	bool operator==(const SearchNode<A, B>& other)const{
+		return index == other.index;
+	}
+};
+template<typename A, typename B>
+std::ostream& operator<<(std::ostream& out, const SearchNode<A, B>& other);
+
+template<typename A, typename B>
+class SearchTree:public AVLtree<SearchNode<A,B>>
+{
+public:
+	SearchTree(A const *Index = NULL, B const * Data = NULL, unsigned int n = 0);
+	SearchTree(SearchTree<A, B> const *node,unsigned int n);
+	treeNode<SearchNode<A,B>>* find(A const & index)const;
+};

@@ -176,3 +176,32 @@ void AVLtree<T>::DelNode(T const &x)
 		}
 	}
 }
+
+
+//////////////////////////////////////////////////////////////////////////
+template<typename A, typename B>
+std::ostream& operator<<(std::ostream& out, const SearchNode<A, B>& other)
+{
+	return out << "( " << other.index << " , " << other.data << " )";
+}
+
+template<typename A, typename B>
+SearchTree<A, B>::SearchTree(A const *Index /* = NULL */, B const * Data /* =NULL */, unsigned int n /* = 0 */)
+{
+	re(i, n)
+		insert(SearchNode<A,B>(Index[i], Data[i]));
+}
+
+template<typename A, typename B>
+SearchTree<A, B>::SearchTree(SearchTree<A, B> const *node, unsigned int n)
+{
+	re(i, n)
+		insert(node[i]);
+}
+
+template<typename A, typename B>
+treeNode<SearchNode<A, B>>*  SearchTree<A, B>::find(A const & index)const
+{
+	SearchNode<A, B> temp(index, B());
+	return AVLtree<SearchNode<A,B>>::find(temp);
+}
