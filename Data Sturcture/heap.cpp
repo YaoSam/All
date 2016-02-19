@@ -43,7 +43,7 @@ TEMP void MaxHeap<T>::expend()
 
 TEMP MaxHeap<T>::MaxHeap(T const *data, unsigned int n) :
 Current(n - 1),
-size(OriginalHeapSize),
+size(n),
 Heap(new T[size])
 {
 	memcpy(Heap, data, n*sizeof(T));
@@ -64,7 +64,7 @@ TEMP MaxHeap<T>& MaxHeap<T>::operator=(MaxHeap<T> const & other)
 
 TEMP void MaxHeap<T>::push(T const &X)
 {
-	if (Current >= size - 1)
+	if (Current >= int(size - 1))
 		expend();
 		//throw "堆溢出。";
 	//直接放在底部。

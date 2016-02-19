@@ -30,7 +30,7 @@ namespace UnitTest
 				Mid_iterator<int> iterM(&one);
 				re(i, SizeOfTest)
 				{
-					if (*iterM != a[SizeOfTest - i - 1])
+					if (*iterM != a[i])
 						debug("≤ª“ª÷¬");
 					++iterM;
 				}
@@ -59,8 +59,8 @@ namespace UnitTest
 				Mid_iterator<int> iterM(&one);
 				re(i, SizeOfTest)
 				{
-					if (*iterM != a[SizeOfTest - i - 1])
-						debug("≤‚ ‘≤Â»ÎÀ≥–Ú\n");
+					if (*iterM != a[i])
+						debug("≤ª“ª÷¬\n");
 					++iterM;
 				}
 				re(i, SizeOfTest)
@@ -167,7 +167,7 @@ namespace UnitTest
 				one = two;
 				memcpy(bcd, abc, SizeOfTest*sizeof(int));
 				heapSort(abc, SizeOfTest);
-				Qsort(bcd, 0, SizeOfTest - 1);
+				Qsort_MaxToMin(bcd, 0, SizeOfTest - 1);
 				re(i, SizeOfTest)
 					if (abc[i] != bcd[i])
 						debug("≈≈–Ú≤ª∆•≈‰");

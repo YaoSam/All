@@ -134,10 +134,10 @@ DiscreteSegTree::DiscreteSegTree(const Segment *Seg, const unsigned int n)
 	root = new treeNode<Segment>(Segment(0, Count));
 	create(0, Count, root);
 	Hash = new int[Count];
-	re(i, Count)//因为之前排序是从大到小。所以现在逆序。
+	re(i, Count)
 	{
-		tree.insert(SearchNode(num[Count - i - 1], i));
-		Hash[i] = num[Count - i - 1];
+		tree.insert(SearchNode(num[i], i));
+		Hash[i] = num[i];
 	}
 	delete[] num;
 	re(i, n)

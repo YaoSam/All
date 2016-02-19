@@ -6,7 +6,7 @@ std::ostream &operator<<(std::ostream& out, object const & other)
 		out
 		<< "价值：" << other.value / (other.num) << " "
 		<< "重量: " << other.weight / (other.num)
-		<< " 平均价值： " << other.value / other.weight
+		//<< " 平均价值： " << other.value / other.weight
 		<< std::endl;
 	return out;
 }
@@ -72,15 +72,14 @@ void BagState::keepSolution()
 {
 	treeNode<bool>* temp = MyLocation;
 	unsigned int height=temp->Height();
-	object *tempObject = new object[height];
+	object *tempObject = new object[height];//这点内存就算了吧
 	RestNum = 0;
 	re(i, height)
 	{
 		if (temp->Data())
-			tempObject[RestNum++] = AllObject[height - i - 1];
+			tempObject[RestNum++] = AllObject[height - i - 1];//一个从后往前。一个从前往后。
 		temp = temp->Parent();
 	}
-	//memcpy(tempObject, AllObject, sizeof(object)*RestNum);
 	SolutionTree->~FreeTree();
 	SolutionTree = NULL;
 	AllObject = tempObject;
@@ -139,9 +138,7 @@ BagState Solve(unsigned int n, double limit, object* thing)
 		Heap_State.push(one.insert(false));
 		one = Heap_State.pop();//因为弹出后得判断时候已经到了终点。
 	}
-	std::cout << one << std::endl;
 	one.keepSolution();
-	std::cout << one << std::endl;
 	delete m_thing;
 	return one;
 }

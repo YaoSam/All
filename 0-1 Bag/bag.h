@@ -26,7 +26,7 @@ std::istream &operator>>(std::istream& in, object &other);
 class BagState
 {
 	double MaxValue, MyValue, RestRoom;
-	int RestNum;
+	unsigned int RestNum;
 	treeNode<bool>* MyLocation;
 	//一下的要慎重delete
 	FreeTree<bool>* SolutionTree;

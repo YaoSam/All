@@ -28,8 +28,8 @@ public:
 	//动态分配内存惯例要打以下三个函数。
 	MaxHeap(MaxHeap<T> const & other) :
 		Current(other.Current), 
-		Heap(new T[HeapSize]),
-		size(other.size)
+		size(other.size),
+		Heap(new T[size])
 	{
 		memcpy(Heap, other.Heap, sizeof(T)*(Current+1));
 	}
