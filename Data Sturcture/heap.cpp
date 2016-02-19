@@ -32,7 +32,19 @@ TEMP void MaxHeap<T>::Up(int i)
 	}
 }
 
-TEMP MaxHeap<T>::MaxHeap(T const *data = NULL, unsigned int n = 0) :Current(n - 1), Heap(new T[HeapSize])
+TEMP void MaxHeap<T>::expend()
+{
+	size *= 2;
+	T* temp = new T[size];
+	memcpy(temp, Heap, (Current + 1)*sizeof(T));
+	delete Heap;
+	Heap = temp;
+}
+
+TEMP MaxHeap<T>::MaxHeap(T const *data, unsigned int n) :
+Current(n - 1),
+size(OriginalHeapSize),
+Heap(new T[size])
 {
 	memcpy(Heap, data, n*sizeof(T));
 	re(i, n / 2 + 2) //从0 到 n/2+1
@@ -43,14 +55,18 @@ TEMP MaxHeap<T>& MaxHeap<T>::operator=(MaxHeap<T> const & other)
 {
 	if (this == &other)return *this;
 	delete[] Heap;
-	Heap = new T[HeapSize];
+	size = other.size;
+	Heap = new T[other.size];
+	Current = other.Current;
 	memcpy(Heap, other.Heap, sizeof(T)*(Current+1));
 	return *this;
 }
 
 TEMP void MaxHeap<T>::push(T const &X)
 {
-	if (Current >= HeapSize - 1)	throw "堆溢出。";
+	if (Current >= size - 1)
+		expend();
+		//throw "堆溢出。";
 	//直接放在底部。
 	Heap[++Current] = X;
 	//向上维护堆。
@@ -59,7 +75,7 @@ TEMP void MaxHeap<T>::push(T const &X)
 
 TEMP T MaxHeap<T>::pop()
 {
-	if (Current == -1)	throw"Empty";
+	if (Current == -1)	throw"堆为空。不能弹出。";
 	//弹出堆顶
 	T ans = Heap[0];
 	//取最后一个元素放在堆顶

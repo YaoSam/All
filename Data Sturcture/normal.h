@@ -15,3 +15,4 @@ TEMP void Swap(T & a, T &b);
 TEMP inline T Max(T const &a, T const &b);
 
 TEMP void Qsort(T a[], int left, int right);
+TEMP void Qsort_MaxToMin(T a[], int left, int right);

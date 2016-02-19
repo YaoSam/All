@@ -25,12 +25,29 @@ void Qsort(T a[], int left, int right)
 	int l = left, r = right;
 	do
 	{
-		while (a[l] > mid)l++;
-		while (a[r] <mid)r--;
+		while (a[l] < mid)l++;
+		while (a[r] > mid)r--;
 		if (l <= r)
 			Swap(a[l++], a[r--]);
 	} while (l <= r);
 	if (r > left)		Qsort(a, left, r);
 	if (l < right)	Qsort(a, l, right);
+	return;
+}
+
+TEMP
+void Qsort_MaxToMin(T a[], int left, int right)
+{
+	T mid = a[(left + right) / 2];
+	int l = left, r = right;
+	do
+	{
+		while (a[l] > mid)l++;
+		while (a[r] < mid)r--;
+		if (l <= r)
+			Swap(a[l++], a[r--]);
+	} while (l <= r);
+	if (r > left)		Qsort_MaxToMin(a, left, r);
+	if (l < right)	Qsort_MaxToMin(a, l, right);
 	return;
 }

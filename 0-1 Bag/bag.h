@@ -12,7 +12,7 @@ struct object
 		return value*other.weight > other.value*weight;
 	}
 	bool operator==(object const & other)const{
-		return value == other.value&&weight == other.weight&&num == other.num;
+		return value == other.value&&weight == other.weight;
 	}
 	object operator*(unsigned int n){
 		return object(value*n, weight*n, num*n);
@@ -34,6 +34,8 @@ class BagState
 	//计算剩余价值
 	double CounRestValue()const;
 public:
+	//优化内存。
+	void keepSolution();
 	//flag为零则不计算剩余价值。用来省计算量。因为批量申请会调用大量默认构造函数。
 	BagState(){}
 	BagState(unsigned int thingNum, double limit,object things[]);

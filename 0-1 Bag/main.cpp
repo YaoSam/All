@@ -56,7 +56,6 @@ int main()
 		cout << "ÊäÈëµÄ±³°ü£º" << endl;
 		re(i, n)
 			cout << thing[i];
-
 		cout << endl;
 		cout << "The max sum_value is: " << endl << bestSolution.value() << endl;
 		cout << "The optimum solution is :" << endl << bestSolution << endl;
