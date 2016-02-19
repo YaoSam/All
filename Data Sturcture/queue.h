@@ -20,5 +20,4 @@ public:
 	T pop();
 	void clear(){ front = rear = 0; }
 	bool isEmpty()const{ return front == rear; }
-	bool isFull(){ return (rear + 1) % size == front; }
 };

@@ -11,13 +11,11 @@ struct object
 		if (value*other.weight == other.value*weight)return value > other.value;//用来压缩背包用的。
 		return value*other.weight > other.value*weight;
 	}
-	bool operator==(object const & other)const{
-		return value == other.value&&weight == other.weight;
-	}
 	object operator*(unsigned int n){
 		return object(value*n, weight*n, num*n);
 	}
 };
+bool operator==(object const & a, object const & b);
 //输出格式： 价值：? 重量: ? *数目
 std::ostream &operator<<(std::ostream& out, object const & other);
 //输入格式：vlaue weight
@@ -36,7 +34,7 @@ class BagState
 public:
 	//优化内存。
 	void keepSolution();
-	//flag为零则不计算剩余价值。用来省计算量。因为批量申请会调用大量默认构造函数。
+	void clear(){ if (AllObject)delete[]AllObject; }
 	BagState(){}
 	BagState(unsigned int thingNum, double limit,object things[]);
 	//返回当前背包价值
@@ -46,7 +44,7 @@ public:
 	//用来判断是否到了底层
 	bool isEnd()const{ return RestNum ==0; }
 	//其实isEnd()可以用这个代替……
-	unsigned int level()const { return MyLocation->Height(); }
+	unsigned int height()const { return MyLocation->Height(); }
 	//遍历物体。生成新的背包。flag=1则放入。flag=0则略过。
 	BagState insert(bool flag)const;
 	//代表其在优先队列的优先级，用来存入堆，判别标准：其价值上界(MaxValue)

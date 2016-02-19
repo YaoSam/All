@@ -60,7 +60,7 @@ public:
 	void pre()const;
 	void mid()const;
 	void post()const;
-	void print()const;
+	virtual void print()const;
 	virtual treeNode<T>* find(T const & x)const;
 	virtual void insert(T const & x) = 0;
 	treeNode<T>* Root()const{ return root; }

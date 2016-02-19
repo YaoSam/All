@@ -1,5 +1,7 @@
 #include "bag.h"
-
+bool operator==(object const & a, object const & b){
+	return a.value == b.value&&a.weight == a.weight;
+}
 std::ostream &operator<<(std::ostream& out, object const & other)
 {
 	re(i, other.num)
@@ -60,7 +62,7 @@ BagState BagState::insert(bool flag)const
 }
 
 BagState::BagState(unsigned int Num, double limit,object things[])
-	:RestNum(Num+1), AllObject(things), RestRoom(limit),//这三个变量感觉是一直要用的。
+	:RestNum(Num), AllObject(things), RestRoom(limit),//这三个变量感觉是一直要用的。
 	MyValue(0)
 {
 	SolutionTree = new FreeTree<bool>(0);
@@ -72,13 +74,14 @@ void BagState::keepSolution()
 {
 	treeNode<bool>* temp = MyLocation;
 	unsigned int height=temp->Height();
-	object *tempObject = new object[height];//这点内存就算了吧
-	RestNum = 0;
-	re(i, height)
+	object *tempObject = new object[height];//这点内存就算了吧.我反正不释放了……╮(￣▽￣")╭
+	RestNum = 0; 
+	while (height > 0)
 	{
 		if (temp->Data())
-			tempObject[RestNum++] = AllObject[height - i - 1];//一个从后往前。一个从前往后。
+			tempObject[RestNum++] = AllObject[height- 1];//一个从后往前。一个从前往后。
 		temp = temp->Parent();
+		height--;
 	}
 	SolutionTree->~FreeTree();
 	SolutionTree = NULL;
@@ -111,12 +114,12 @@ BagState Solve(unsigned int n, double limit, object* thing)
 	memcpy(m_thing, thing, n*sizeof(object));
 	Qsort_MaxToMin(m_thing, 0, n - 1);
 	//下面压缩物体
-	unsigned int i = 0, j = 0, k = 0, ObjectNum = 0;
+	unsigned int i = 0, j = 0, k = 0, ObjectNum = 0,count=0;
 	int delta = 0;
 	while (j < n)
 	{
 		//查找相同物体,i记录起点，j记录终点
-		for (i = j; j < n; j++)
+		for (i = j, j++; j < n; j++)
 			if (m_thing[j]!=m_thing[i])
 				break;
 		//合并n个相同物体。
@@ -131,13 +134,15 @@ BagState Solve(unsigned int n, double limit, object* thing)
 	double CurrentMaxValue = 0;
 	while (!one.isEnd())
 	{
-		//取出最优节点
+		count++;
 		CurrentMaxValue = CurrentMaxValue < one.value() ? one.value() : CurrentMaxValue;
-		if (one.restroom()>=m_thing[one.level()].weight)//容量越界不插入
+		if (one.restroom()>=m_thing[one.height()].weight)//容量越界不插入
 			Heap_State.push(one.insert(true));
 		Heap_State.push(one.insert(false));
+		//取出最优节点
 		one = Heap_State.pop();//因为弹出后得判断时候已经到了终点。
 	}
+	//std::cout << count << std::endl;
 	one.keepSolution();
 	delete m_thing;
 	return one;

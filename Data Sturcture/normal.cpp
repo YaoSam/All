@@ -4,8 +4,8 @@
 TEMP bool operator<	(T const & a, T const &b)	{ return	b > a; }
 TEMP bool operator>=	(T const & a, T const &b)	{ return	a > b || !(b > a); }
 TEMP bool operator<=	(T const & a, T const &b)	{ return	!(a > b); }
-TEMP bool operator!=	(T const & a, T const &b)	{ return	a > b || b > a; }
-TEMP bool operator==	(T const & a, T const &b)	{ return	!(a > b) && !(b > a); }
+TEMP bool operator!=	(T const & a, T const &b)	{ return	!(a==b); }
+//TEMP bool operator==	(T const & a, T const &b)	{ return	!(a > b) && !(b > a); }
 
 TEMP void Swap(T & a, T &b)
 {
