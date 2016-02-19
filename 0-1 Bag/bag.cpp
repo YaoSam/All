@@ -80,8 +80,28 @@ std::ostream& operator<<(std::ostream& out, BagState const & other)
 }
 BagState Solve(unsigned int n, double limit, object* thing)
 {
-	Qsort(thing, 0, n - 1);
-	BagState one(n, limit, thing);
+	object *m_thing = new object[n + 1];
+	memcpy(m_thing, thing, n*sizeof(object));
+	//下面压缩物体
+	Qsort(m_thing, 0, n - 1);
+	object temp; bool flag = 0;
+	unsigned int i = 0, j = 0, k = 0, ObjectNum = 0;
+	int delta = 0;
+	while (j < n)
+	{
+		//查找相同物体,i记录起点，j记录终点
+		for (i = j, temp = m_thing[j]; j < n; j++)
+			if (m_thing[j]!=temp)
+				break;
+		//合并n个相同物体。
+		for (k = 0, delta = j - i; (1 << k) <= delta; delta -= (1 << k), k++)//delta不断减少
+			m_thing[ObjectNum++] = (m_thing[i] * (1 << k));
+		if (delta > 0)//如果还有剩下
+			m_thing[ObjectNum++] = m_thing[i] * delta;
+	}
+	//solve
+	//unsigned int ObjectNum = n;
+	BagState one(ObjectNum, limit, m_thing);
 	MaxHeap<BagState> Heap_State;
 	double CurrentMaxValue = 0;
 	while (!one.isEnd())
