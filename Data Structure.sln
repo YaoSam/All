@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Permutation", "Arrange\Arra
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0-1 Bag", "0-1 Bag\0-1 Bag.vcxproj", "{0AD5FA8B-42E5-46FF-A01A-3C1DE270D97E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HuffmanTree", "HuffmanTree\HuffmanTree.vcxproj", "{FA44E531-173B-43FD-B9C2-7FCD5503F1DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,10 @@ Global
 		{0AD5FA8B-42E5-46FF-A01A-3C1DE270D97E}.Debug|Win32.Build.0 = Debug|Win32
 		{0AD5FA8B-42E5-46FF-A01A-3C1DE270D97E}.Release|Win32.ActiveCfg = Release|Win32
 		{0AD5FA8B-42E5-46FF-A01A-3C1DE270D97E}.Release|Win32.Build.0 = Release|Win32
+		{FA44E531-173B-43FD-B9C2-7FCD5503F1DF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FA44E531-173B-43FD-B9C2-7FCD5503F1DF}.Debug|Win32.Build.0 = Debug|Win32
+		{FA44E531-173B-43FD-B9C2-7FCD5503F1DF}.Release|Win32.ActiveCfg = Release|Win32
+		{FA44E531-173B-43FD-B9C2-7FCD5503F1DF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

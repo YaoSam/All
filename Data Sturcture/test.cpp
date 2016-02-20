@@ -276,8 +276,8 @@ void Test()
 		TestOfAVLTree();
 		//cout << "\n²âÊÔµü´úÆ÷" << endl;
 		//TestOfIterator();
-		//cout << "\n²âÊÔ¶Ñ" << endl;
-		//TestOfHeap();
+		cout << "\n²âÊÔ¶Ñ" << endl;
+		TestOfHeap();
 
 	}
 	catch (const char *a){

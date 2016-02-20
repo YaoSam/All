@@ -18,19 +18,16 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="bag.cpp">
+    <ClCompile Include="HuffmanTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bag.h">
+    <ClInclude Include="HuffmanTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="in.txt">
-      <Filter>资源文件</Filter>
-    </Text>
     <Text Include="out.txt">
       <Filter>资源文件</Filter>
     </Text>
