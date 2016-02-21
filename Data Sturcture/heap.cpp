@@ -67,7 +67,6 @@ TEMP void Heap<T>::push(T const &X)
 {
 	if (Current >= int(size - 1))
 		expend();
-		//throw "堆溢出。";
 	//直接放在底部。
 	Data[++Current] = X;
 	//向上维护堆。
@@ -87,8 +86,6 @@ TEMP T Heap<T>::pop()
 }
 
 //////////////////////////////////////////////////////////////////////////
-TEMP bool MaxHeapCmp(T const &a, T const &b){ return a < b; }
-TEMP bool MinHeapCmp(T const &a, T const &b){ return a > b; }
 TEMP MaxHeap<T>::MaxHeap(T const *data, unsigned int n) :Heap<T>(data, n, MaxHeapCmp) {}
 TEMP MinHeap<T>::MinHeap(T const *data, unsigned int n) : Heap<T>(data, n, MinHeapCmp) {}
 TEMP MaxHeap<T>::MaxHeap(MaxHeap<T> const & other) :Heap<T>(other){}

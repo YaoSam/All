@@ -53,8 +53,12 @@ int main()
 			a[Count++] = *iterM;
 		++iterM;
 	}
+	printArray(a, Count);
 	Qsort(a, 0, Count - 1);
-	re(i, Count)cout << a[i] << " ";
+	printArray(a, Count);
+	int b[100]={35,25,15,15,10};
+	HuffmanTree<int> two(b, 5);
+	two.print();
 	cout << endl << "运行时间：" << clock() - BeginTime << endl;
 #ifndef DEBUG
 	system("pause");

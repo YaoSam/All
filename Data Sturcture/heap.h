@@ -14,7 +14,7 @@ protected:
 	int Current;
 	unsigned int size;
 	T *Data;
-	//比较函数
+	//比较函数，对于堆来说多一个指针好像也差不多。
 	bool (*compare)(T const & a, T const &b);
 	//向下调整i节点。
 	void Down(int i);
@@ -47,10 +47,10 @@ public:
 	bool isEmpty()const{ return Current < 0; }
 };
 //////////////////////////////////////////////////////////////////////////
-TEMP bool MaxHeapCmp(T const &a, T const &b);
 TEMP
 class MaxHeap :public Heap < T >
 {
+	static bool MaxHeapCmp(T const &a, T const &b){ return a < b; }
 public:
 	MaxHeap() :Heap<T>(MaxHeapCmp){}
 	MaxHeap(T const *data, unsigned int n);
@@ -58,10 +58,10 @@ public:
 	MaxHeap<T>& operator=(MaxHeap<T> const & other);
 	virtual ~MaxHeap(){}
 };
-TEMP bool MinHeapCmp(T const &a, T const &b);
 TEMP
 class MinHeap :public Heap < T >
 {
+	static bool MinHeapCmp(T const &a, T const &b){ return a>b; }
 public:
 	MinHeap() :Heap<T>(MinHeapCmp){}
 	MinHeap(T const *data, unsigned int n);

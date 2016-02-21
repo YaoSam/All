@@ -5,7 +5,6 @@ TEMP bool operator<	(T const & a, T const &b)	{ return	b > a; }
 TEMP bool operator>=	(T const & a, T const &b)	{ return	a > b || !(b > a); }
 TEMP bool operator<=	(T const & a, T const &b)	{ return	!(a > b); }
 TEMP bool operator!=	(T const & a, T const &b)	{ return	!(a==b); }
-//TEMP bool operator==	(T const & a, T const &b)	{ return	!(a > b) && !(b > a); }
 
 TEMP void Swap(T & a, T &b)
 {
@@ -50,4 +49,11 @@ void Qsort_MaxToMin(T a[], int left, int right)
 	if (r > left)		Qsort_MaxToMin(a, left, r);
 	if (l < right)	Qsort_MaxToMin(a, l, right);
 	return;
+}
+
+TEMP void printArray(T const *a, unsigned int n)
+{
+	re(i, n)
+		std::cout << a[i] << " ";
+	std::cout << std::endl;
 }

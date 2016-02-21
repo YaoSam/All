@@ -70,6 +70,75 @@ namespace UnitTest
 			}
 			catch (const char *err){ debug(err); }
 		}
+		TEST_METHOD(Test_DiscreteSegTree)
+		{
+			try
+			{
+				clock_t time1, time2;
+				char str[1000];
+				Segment Seg[100];
+				int SizeofTest = 50000;
+				Seg[0] = Segment(0, 3);
+				Seg[1] = Segment(11, 20);
+				Seg[2] = Segment(3, 4);
+				Seg[3] = Segment(0, SizeofTest);
+				time1 = clock();
+				DiscreteSegTree one(Seg, 4);
+				time2 = clock();
+				sprintf_s(str, "%d\n", int(time2 - time1));
+				Logger::WriteMessage(str);
+				time1 = clock();
+				SegmentTree two(0, SizeofTest);
+				time2 = clock();
+				sprintf_s(str, "%d\n", int(time2 - time1));
+				Logger::WriteMessage(str);
+				re(i, 4)
+					two.insert(Seg[i]);
+				Assert::AreEqual(two.count(), one.count());
+			}
+			catch (const char * err){ debug(err); }
+		}
+		TEST_METHOD(Test_HuffmanTree)
+		{
+			try
+				//简单测试
+			{
+				int num[100] = { 35, 25, 15, 15, 10 };
+				int check[100] = { 100, 40, 60, 15, 25, 25, 35, 10, 15 };
+				HuffmanTree<int> one(num, 5);
+				Level_iterator<int> iterL(&one);
+				re(i, 9)
+				{
+					if (*iterL != check[i])
+						debug("对不上");
+					++iterL;
+				}
+				//大规模测试
+				int a[100000], b[100000]; unsigned int SizeOfTest = 10000;
+				re(i, SizeOfTest)
+					a[i] = rand() % SizeOfTest;
+				HuffmanTree<int> two(a, SizeOfTest);
+				unsigned int Count = two.NodeNum();
+				if (Count != 2 * SizeOfTest - 1)
+					debug("所有的点数目不对");
+				Count = 0;
+				Pre_iterator<int> iterP(&two);
+				while (!iterP.isEnd())
+				{
+					if (iterP()->Height() == 1)
+						b[Count++] = *iterP;
+					++iterP;
+				}
+				if (Count != SizeOfTest)
+					debug("叶子节点的数目不对");
+				Qsort(a, 0, SizeOfTest - 1);
+				Qsort(b, 0, SizeOfTest - 1);
+				re(i, SizeOfTest)
+					if (a[i] != b[i])
+						debug("叶子结点");
+			}
+			catch (const char *err){ debug(err); }
+		}
 	};
 	TEST_CLASS(UnitTest2)
 	{
@@ -172,38 +241,6 @@ namespace UnitTest
 				re(i, SizeOfTest)
 					if (one.pop() != bcd[i])
 						debug("pop不匹配");
-			}
-			catch (const char * err){ debug(err); }
-		}
-	};
-	TEST_CLASS(UniTest3)
-	{
-	public:
-		TEST_METHOD(Test_DiscreteSegTree)
-		{
-			try
-			{
-				clock_t time1, time2;
-				char str[1000];
-				Segment Seg[100];
-				int SizeofTest = 100000;
-				Seg[0] = Segment(0, 3);
-				Seg[1] = Segment(11, 20);
-				Seg[2] = Segment(3, 4);
-				Seg[3] = Segment(0, SizeofTest);
-				time1 = clock();
-				DiscreteSegTree one(Seg, 4);
-				time2 = clock();
-				sprintf_s(str, "%d\n", int(time2 - time1));
-				Logger::WriteMessage(str);
-				time1 = clock();
-				SegmentTree two(0,SizeofTest);
-				time2 = clock();
-				sprintf_s(str, "%d\n", int(time2 - time1));
-				Logger::WriteMessage(str);
-				re(i, 4)
-					two.insert(Seg[i]);
-				Assert::AreEqual(two.count(), one.count());
 			}
 			catch (const char * err){ debug(err); }
 		}

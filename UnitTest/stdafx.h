@@ -20,3 +20,4 @@
 #include <sstream>
 #include "../Data Sturcture/ALL.h"
 #include "../SegmentTree/SegmentTree.h"
+#include "../HuffmanTree/HuffmanTree.cpp"
