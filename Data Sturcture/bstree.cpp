@@ -75,7 +75,6 @@ treeNode<T>* bstree<T>::FindRightNext(const treeNode<T>* a)const
 	return temp;
 }
 
-
 TEMP
 treeNode<T>* bstree<T>::find(T const &x)const
 {

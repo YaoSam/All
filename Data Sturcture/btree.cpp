@@ -1,19 +1,40 @@
 #pragma  once
 #include "btree.h"
-TEMP void treeNode<T>::Del()
+TEMP void treeNode<T>::Del(treeNode<T>*& root)
 {
-	if (left)
+	stack<const treeNode<T>*> Stack;
+	const treeNode<T>* temp = root, *temp2;
+	if (root == NULL)return;
+	while (temp != NULL)
 	{
-		left->Del();
-		delete left;
-		left = NULL;
+		while (temp != NULL)
+		{
+			Stack.push(temp);
+			temp = temp->left;
+		}
+		temp = Stack.topData()->right;
 	}
-	if (right)
+	temp = Stack.pop();
+	while (temp != NULL)
 	{
-		right->Del();
-		delete right;
-		right = NULL;
+		temp2 = temp; delete temp2; //因为后面还要用到temp的信息。
+		if (Stack.isEmpty())break;
+		if (temp == Stack.topData()->left)
+		{
+			temp = Stack.topData()->right;
+			while (temp != NULL)
+			{
+				while (temp != NULL)
+				{
+					Stack.push(temp);
+					temp = temp->left;
+				}
+				temp = Stack.topData()->right;
+			}
+		}
+		temp = Stack.pop();
 	}
+	root = NULL;
 }
 TEMP void treeNode<T>::Copy(treeNode<T>*& root, treeNode<T>* const other, treeNode<T>* P)
 {
@@ -42,12 +63,7 @@ TEMP void treeNode<T>::rightlink(treeNode<T>* other)
 TEMP NormalTree<T>& NormalTree<T>::operator=(NormalTree<T> const & other)
 {
 	if (this == &other)return *this;
-	if (root)
-	{
-		root->Del();
-		delete root;
-		root = NULL;
-	}
+	root->Del(root);
 	root->Copy(root, other.root);
 	return *this;
 }
@@ -57,11 +73,7 @@ TEMP  NormalTree<T>::NormalTree(const NormalTree<T> & other)
 }
 TEMP NormalTree<T>::~NormalTree()
 {
-	if (root)
-	{
-		root->Del();
-		delete root;
-	}
+	root->Del(root);
 }
 
 TEMP unsigned int NormalTree<T>::NodeNum()const
@@ -132,6 +144,7 @@ TEMP void NormalTree<T>::post()const
 {
 	stack<const treeNode<T>*> Stack;
 	const treeNode<T>* temp = root;
+	if (root == NULL)return;
 	while (temp != NULL)
 	{
 		while (temp != NULL)
