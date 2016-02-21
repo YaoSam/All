@@ -141,8 +141,7 @@ TEMP void NormalTree<T>::pre()const
 		}
 		if (!Stack.isEmpty())//往回取一个点。向右走一步。
 		{
-			temp = Stack.pop();
-			temp = temp->right;
+			temp = Stack.pop()->right;
 		}
 	}
 	std::cout << std::endl;

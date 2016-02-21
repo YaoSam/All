@@ -48,8 +48,10 @@ int main()
 		cout << "请输入背包大小："; cin >> Limit;
 		object *thing = new object[n + 1];
 		cout << "请输入背包：" << endl;
-		re(i, n)
+		re(i, n/2)
 			cin >> thing[i];
+		re(i, n / 2)
+			thing[i + n / 2] = object(rand() % 10 + 10, rand() % 10 + 7);
 		//运算
 		BagState bestSolution = Solve(n, Limit, thing);
 		//输出

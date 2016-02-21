@@ -24,6 +24,7 @@ public:
 	list(list<T> const & other);
 	~list();
 	list<T>& operator=(list<T> const &other);
+	unsigned int Length()const { return length; }
 	void HeadInsert(T const &x);
 	void RearInsert(T const &x);
 	node<T>* find(T const &x);

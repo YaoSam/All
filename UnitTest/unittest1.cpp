@@ -20,10 +20,12 @@ namespace UnitTest
 			{
 				srand(int(time(NULL)));
 				int a[10000];
-				unsigned int SizeOfTest = 100;
+				unsigned int SizeOfTest = 1000;
 				re(i, SizeOfTest)
-					a[i] = rand() % 10;
+					a[i] = rand() % SizeOfTest;
 				AVLtree<int> one(a, SizeOfTest);
+				AVLtree<int> two(one);//测试复制构造
+				one = two;//测试赋值函数
 				Qsort(a, 0, SizeOfTest - 1);
 				Mid_iterator<int> iterM(&one);
 				re(i, SizeOfTest)

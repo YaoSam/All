@@ -84,7 +84,7 @@ void TestOfBstree()
 {
 	srand(int(time(NULL)));
 	int a[100000];
-	unsigned int SizeOfTest =1000;
+	unsigned int SizeOfTest =10000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 100000;
 	bstree<int> one(a, SizeOfTest);
@@ -117,21 +117,17 @@ void TestOfAVLTree()
 	srand(int(time(NULL)));
 	int a[100000];
 
-	unsigned int SizeOfTest = 1000;
+	unsigned int SizeOfTest = 10000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
 	Qsort(a, 0, SizeOfTest - 1);
 	AVLtree<int> one(a, SizeOfTest);
-	one.pre();
-	one.mid();
-	one.post();
-	one.print();
 	AVLtree<int> two(one);
 	one = two;
-	one.pre();
-	one.mid();
-	one.post();
-	one.print();
+	//one.pre();
+	//one.mid();
+	//one.post();
+	//one.print();
 	re(i, SizeOfTest)
 	{
 		treeNode<int>* temp = one.find(a[i]);
@@ -246,13 +242,7 @@ void TestOfHeap()
 	cout << endl;
 	memcpy(bcd, abc, SizeOfTest*sizeof(int));
 	heapSort(abc, SizeOfTest);
-	Qsort(bcd, 0, SizeOfTest - 1);
-	re(i, SizeOfTest)
-		cout << abc[i] << ' ';
-	cout << endl;
-	re(i, SizeOfTest)
-		cout << bcd[i] << ' ';
-	cout << endl;
+	Qsort_MaxToMin(bcd, 0, SizeOfTest - 1);
 	re(k, SizeOfTest)
 	{
 		if (bcd[k] != abc[k])

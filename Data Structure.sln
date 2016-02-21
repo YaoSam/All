@@ -9,7 +9,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SegmentTree", "SegmentTree\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{120A5034-A2BB-4210-8C9B-538CB78D5905}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Permutation", "Arrange\Arrange.vcxproj", "{6CC627D2-B00F-4A21-87DD-321007DCF593}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Arrange", "Arrange\Arrange.vcxproj", "{6CC627D2-B00F-4A21-87DD-321007DCF593}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0-1 Bag", "0-1 Bag\0-1 Bag.vcxproj", "{0AD5FA8B-42E5-46FF-A01A-3C1DE270D97E}"
 EndProject
@@ -48,5 +48,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

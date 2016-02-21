@@ -34,7 +34,7 @@ protected:
 	}
 	inline void leftlink(treeNode<T>* other);
 	inline void rightlink(treeNode<T>* other);
-	void Copy(treeNode<T>*& root,const treeNode<T>*  otherRoot);
+	void Copy(treeNode<T>*& root,const treeNode<T>*  otherRoot);//模仿前序遍历实现的复制
 	void Del(treeNode<T>*& root);//模仿后序遍历实现删除。
 public:
 	treeNode<T>(T const &x=T(), unsigned int h = 1,treeNode<T>*p = NULL, treeNode<T>* l = NULL, treeNode<T>* r = NULL ) :
