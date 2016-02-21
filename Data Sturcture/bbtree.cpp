@@ -83,43 +83,6 @@ void AVLtree<T>::Maintain(treeNode<T>* node, T const &x)
 	}
 }
 
-TEMP
-void AVLtree<T>::insert(T const & x)
-{
-	treeNode<T>* target = root,*P=NULL;
-	if (target == NULL)
-		root = new treeNode<T>(x,1);
-	else
-	{
-		while (1)
-		{
-			if (x < target->data)
-			{
-				if (target->left) target = target->left;
-				else
-				{
-					target->left = new treeNode<T>(x, 1, target);
-					target->CheckHeight();
-					Maintain(target->parent, x);
-					break;
-				}
-			}
-			else
-			{
-				if (target->right)target = target->right;
-				else
-				{
-					target->right = new treeNode<T>(x, 1, target);
-					target->CheckHeight();
-					Maintain(target->parent, x);
-					break;
-				}
-			}
-		}
-	}
-
-}
-
 TEMP 
 AVLtree<T>::AVLtree(T const a[] /* = NULL */, unsigned int n /* = 0 */)
 {
@@ -127,58 +90,6 @@ AVLtree<T>::AVLtree(T const a[] /* = NULL */, unsigned int n /* = 0 */)
 		insert(a[i]);
 }
 
-TEMP
-void AVLtree<T>::DelNode(T const &x)
-{
-	//TODO, 这里用了Swap。
-	treeNode<T>* target = find(x);
-	if (target == NULL)return;
-	treeNode<T>* Next = FindLeftNext(target),*P=NULL;
-	if (Next)
-	{
-		Swap(Next->data, target->data);
-		P = Next->parent;
-		if (P == target)
-			P->leftlink(Next->left);
-		else
-			P->rightlink(Next->left);
-		delete Next;
-		Maintain(P, x);
-	}
-	else
-	{
-		Next = FindRightNext(target);
-		if (Next)
-		{
-			Swap(Next->data, target->data);
-			P = Next->parent;
-			if (P == target)
-				P->rightlink(Next->right);
-			else
-				P->leftlink(Next->right);
-			delete Next;
-			Maintain(P, x);
-		}
-		else
-		{
-			P = target->parent;
-			if (P)
-			{
-				if (P->left == target)
-					P->left = NULL;
-				else
-					P->right = NULL;
-				delete target;
-				Maintain(P, x);
-			}
-			else
-				root = NULL;
-		}
-	}
-}
-
-
-//////////////////////////////////////////////////////////////////////////
 template<typename A, typename B>
 std::ostream& operator<<(std::ostream& out, const SearchNode<A, B>& other)
 {

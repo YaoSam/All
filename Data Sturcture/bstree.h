@@ -7,6 +7,7 @@ class bstree :public NormalTree < T >
 protected:
 	treeNode<T>* FindRightNext(const treeNode<T>* a)const;
 	treeNode<T>* FindLeftNext(const treeNode<T>* a)const;
+	virtual void Maintain(treeNode<T>* node, T const& x);
 	void deleteLeave(treeNode<T>* other);
 public:
 	virtual void insert(T const & x);

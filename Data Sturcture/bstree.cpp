@@ -1,40 +1,45 @@
 #include "bstree.h"
 
+TEMP
+void bstree<T>::Maintain(treeNode<T>* other, T const& x)
+{
+	while (other){
+		other->CheckHeight();
+		other = other->parent;
+	}
+	return;
+}
 TEMP 
 void bstree<T>::insert(T const &x)
 {
-	if (root == NULL)
+	treeNode<T>* target = root, *P = NULL;
+	if (target== NULL)
 	{
 		root = new treeNode<T>(x, 1);
 		return;
 	}
-	treeNode<T>* temp = root;
-	while (temp)
+	while (1)
 	{
-		if (x < temp->data)
+		if (x < target->data)
 		{
-			if (temp->left == NULL)
+			if (target->left)target = target->left;
+			else
 			{
-				temp->left = new treeNode<T>(x, 1, temp);
+				target->left = new treeNode<T>(x, 1, target);
 				break;
 			}
-			temp = temp->left;
 		}
 		else
 		{
-			if (temp->right == NULL)
+			if (target->right)target = target->right;
+			else
 			{
-				temp->right = new treeNode<T>(x, 1, temp);
+				target->right = new treeNode<T>(x, 1, target);
 				break;
 			}
-			temp = temp->right;
 		}
 	}
-	while (temp)
-	{
-		temp->CheckHeight();
-		temp = temp->parent;
-	}
+	Maintain(target, x);
 }
 
 TEMP
@@ -70,17 +75,6 @@ treeNode<T>* bstree<T>::FindRightNext(const treeNode<T>* a)const
 	return temp;
 }
 
-TEMP
-void bstree<T>::deleteLeave(treeNode<T>* other)
-{
-	treeNode<T>* P = other->parent;
-	delete other;
-	while (P != NULL)
-	{
-		P->CheckHeight();
-		P = P->parent;
-	}
-}
 
 TEMP
 treeNode<T>* bstree<T>::find(T const &x)const
@@ -102,40 +96,46 @@ void bstree<T>::DelNode(T const &x)
 {
 	treeNode<T>* target = find(x);
 	if (target == NULL) return;
-	treeNode<T>* Next = FindLeftNext(target);
+	treeNode<T>* Next = FindLeftNext(target),*P;
 	if (Next != NULL)
 	{
+		P = Next->parent;
 		Swap(Next->data, target->data);
-		if (Next == target->left)
-			target->leftlink(Next->left);
+		if (P==target)
+			P->leftlink(Next->left);
 		else 
-			Next->parent->rightlink(Next->left);
-		deleteLeave(Next);//记住Next不是叶子……
+			P->rightlink(Next->left);
+		delete Next;
+		Maintain(P, x);
 	}
 	else
 	{
 		Next = FindRightNext(target);
 		if (Next != NULL)
 		{
+			P = Next->parent;
 			Swap(Next->data, target->data);
-			if (Next == target->right)
-				target->rightlink(Next->right);
+			if (P==target)
+				P->rightlink(Next->right);
 			else 
-				Next->parent->leftlink(Next->right);
-			deleteLeave(Next);
+				P->leftlink(Next->right);
+			delete Next;
+			Maintain(P, x);
 		}
-		else
+		else//P就是叶子节点
 		{
-			if (target->parent)
+			P = target->parent;
+			if (P)
 			{
-				if (target->parent->left == target)
-					target->parent->left = NULL;
+				if (P->left == target)
+					P->left = NULL;
 				else
-					target->parent->right = NULL;
+					P->right = NULL;
+				Maintain(P, x);//其实maintain和delete的位置随意。在调整了P之后就可以了。
 			}
 			else
 				root = NULL;
-			deleteLeave(target);
+			delete target;
 		}
 	}
 }

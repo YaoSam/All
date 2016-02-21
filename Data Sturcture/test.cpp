@@ -115,11 +115,12 @@ void TestOfBstree()
 void TestOfAVLTree()
 {
 	srand(int(time(NULL)));
-	int a[10000];
+	int a[100000];
 
-	unsigned int SizeOfTest = 10000;
+	unsigned int SizeOfTest = 1000;
 	re(i, SizeOfTest)
 		a[i] = rand() % 10000;
+	Qsort(a, 0, SizeOfTest - 1);
 	AVLtree<int> one(a, SizeOfTest);
 	//one.pre();
 	//one.mid();

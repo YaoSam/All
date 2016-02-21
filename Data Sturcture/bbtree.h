@@ -22,8 +22,6 @@ public:
 	{
 		return Height(root);
 	}
-	void insert(T const & x);
-	void DelNode(T const &x);
 	AVLtree(T const a[] = NULL, unsigned int n = 0);
 	virtual ~AVLtree(){}
 };
