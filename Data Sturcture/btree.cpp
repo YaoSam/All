@@ -36,14 +36,43 @@ TEMP void treeNode<T>::Del(treeNode<T>*& root)
 	}
 	root = NULL;
 }
-TEMP void treeNode<T>::Copy(treeNode<T>*& root, treeNode<T>* const other, treeNode<T>* P)
+TEMP void treeNode<T>::Copy(treeNode<T>*& root, const treeNode<T>* otherRoot)
 {
-	if (other)
-		root = new treeNode<T>(other->data,other->height,P);
-	else
-		return;
-	Copy(root->left, other->left,root);
-	Copy(root->right, other->right,root);
+	stack<const treeNode<T>*> Stack_other;
+	const treeNode<T>* temp_other = otherRoot;
+	stack<treeNode<T>*> Stack_this;
+	treeNode<T> *temp_this=NULL;
+	if (temp_other){
+		temp_this = root = new treeNode<T>(temp_other->data, 1);
+		Stack_other.push(temp_other);
+		Stack_this.push(temp_this);
+		temp_other = temp_other->left;
+	}
+	else root = NULL;
+	while (temp_other != NULL || !Stack_other.isEmpty())
+	{
+		while (temp_other != NULL)//此时一定是向左走的。
+		{
+			temp_this->left = new treeNode<T>(temp_other->data, temp_other->height, temp_this);
+			temp_this = temp_this->left;//跟上temp_other的步伐
+			Stack_this.push(temp_this);
+			Stack_other.push(temp_other);
+			temp_other = temp_other->left;
+		}
+		if (!Stack_other.isEmpty())//往回取一个点。向右走一步。
+		{
+			temp_other = Stack_other.pop()->right;
+			temp_this = Stack_this.pop();
+			if (temp_other)
+			{
+				temp_this->right = new treeNode<T>(temp_other->data, temp_other->height, temp_this);
+				temp_this = temp_this->right;
+				Stack_other.push(temp_other);
+				Stack_this.push(temp_this);
+				temp_other = temp_other->left;//往左走。
+			}
+		}
+	}
 }
 
 TEMP void treeNode<T>::leftlink(treeNode<T>* other)

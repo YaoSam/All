@@ -122,10 +122,16 @@ void TestOfAVLTree()
 		a[i] = rand() % 10000;
 	Qsort(a, 0, SizeOfTest - 1);
 	AVLtree<int> one(a, SizeOfTest);
-	//one.pre();
-	//one.mid();
-	//one.post();
-	//one.print();
+	one.pre();
+	one.mid();
+	one.post();
+	one.print();
+	AVLtree<int> two(one);
+	one = two;
+	one.pre();
+	one.mid();
+	one.post();
+	one.print();
 	re(i, SizeOfTest)
 	{
 		treeNode<int>* temp = one.find(a[i]);
