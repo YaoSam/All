@@ -71,9 +71,7 @@ int main()
 	freopen_s(&input, "in.txt", "r", stdin);
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
-	clock_t time1, time2;
-	stringstream ss;
-	char str[1000];
+	clock_t time1;
 	//test();
 	Segment Seg[100];
 	Seg[0] = Segment(0, 3);

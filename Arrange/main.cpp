@@ -41,7 +41,6 @@ int main()
 	freopen_s(&input, "in.txt", "r", stdin);
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
-	int m, n;//m指层数，n指分叉数目。
 	cout << AllSolution(2, 5) << endl;
 	cout << Combination(4, 5) << endl;
 	cout<<Permutation(4, 5);

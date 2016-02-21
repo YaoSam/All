@@ -11,7 +11,7 @@ TEMP void Heap<T>::Down(int i)
 		//不断向下跟较大的节点交换。
 		if (next + 1 <= Current&&compare(Data[next], Data[next + 1]))
 			next++;
-		if (Data[next] > Data[i])
+		if (!compare(Data[next], Data[i]))
 			Swap(Data[next], Data[i]);
 		else break;
 		i = next;

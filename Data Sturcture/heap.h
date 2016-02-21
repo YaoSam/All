@@ -52,7 +52,7 @@ TEMP
 class MaxHeap :public Heap < T >
 {
 public:
-	MaxHeap() :Heap<T>(){}
+	MaxHeap() :Heap<T>(MaxHeapCmp){}
 	MaxHeap(T const *data, unsigned int n);
 	MaxHeap(MaxHeap<T> const & other);
 	MaxHeap<T>& operator=(MaxHeap<T> const & other);
@@ -62,9 +62,8 @@ TEMP bool MinHeapCmp(T const &a, T const &b);
 TEMP
 class MinHeap :public Heap < T >
 {
-	bool Cmp(T const &a, T const &b){ return a > b; }
 public:
-	MinHeap() :Heap<T>(){}
+	MinHeap() :Heap<T>(MinHeapCmp){}
 	MinHeap(T const *data, unsigned int n);
 	MinHeap(MinHeap<T> const & other);
 	MinHeap<T>& operator=(MinHeap<T> const & other);

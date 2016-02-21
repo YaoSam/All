@@ -25,21 +25,12 @@
 #include <string>
 #include <time.h>
 #include <algorithm>
-
+#include "HuffmanTree.cpp"
+#include "../Data Sturcture/iterator.cpp"
 using namespace std;
 #undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 #define DEBUG
-
-void f1(int a, int b, bool(*Fun)(int c, int d))
-{
-	cout << Fun(a, b);
-}
-bool f2(int a, int b)
-{
-	return a < b;
-}
-
 
 int main()
 {
@@ -50,7 +41,20 @@ int main()
 	freopen_s(&input, "in.txt", "r", stdin);
 	freopen_s(&output, "out.txt", "w", stdout);
 #endif
-	f1(1, 2, f2);
+	int a[100];
+	re(i, 100)a[i] = i;
+	HuffmanTree<int> one(a, 100);
+	one.print();
+	Mid_iterator<int> iterM(&one);
+	int Count=0;
+	while (!iterM.isEnd())
+	{
+		if(iterM()->Height()==1)
+			a[Count++] = *iterM;
+		++iterM;
+	}
+	Qsort(a, 0, Count - 1);
+	re(i, Count)cout << a[i] << " ";
 	cout << endl << "运行时间：" << clock() - BeginTime << endl;
 #ifndef DEBUG
 	system("pause");

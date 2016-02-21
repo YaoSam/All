@@ -14,6 +14,7 @@ TEMP class FreeTree;
 TEMP class bstree;
 TEMP class AVLtree;
 class SegmentTree;
+TEMP class HuffmanTree;
 TEMP
 class treeNode
 {
@@ -22,6 +23,7 @@ class treeNode
 	friend class bstree < T > ;
 	friend class AVLtree < T > ;
 	friend class SegmentTree;
+	friend class HuffmanTree < T > ;
 protected:
 	T data;
 	unsigned int height;
@@ -35,7 +37,7 @@ protected:
 	void Copy(treeNode<T>*& root,treeNode<T>* const other,treeNode<T>* P=NULL);
 	void Del();
 public:
-	treeNode<T>(T const &x, unsigned int h = 0,treeNode<T>*p = NULL, treeNode<T>* l = NULL, treeNode<T>* r = NULL ) :
+	treeNode<T>(T const &x=T(), unsigned int h = 1,treeNode<T>*p = NULL, treeNode<T>* l = NULL, treeNode<T>* r = NULL ) :
 		data(x),height(h),left(l),right(r),parent(p){}
 	T Data()const{ return data; }
 	treeNode<T>* Left()const{ return left; }

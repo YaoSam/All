@@ -1,6 +1,7 @@
 #pragma once
 #undef  re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
+#undef  TEMP
 #define TEMP template<class T>
 
 //要定义>和!=
