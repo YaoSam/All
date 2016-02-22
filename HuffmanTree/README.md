@@ -1,14 +1,13 @@
-﻿# HuffManTree
+# HuffManTree
 
 ---
 
-通过堆还有二叉树实现哈夫曼树（**HuffmanTree**）<br>
-首先整体结构继承自普通二叉树（**NormalTree**）<br>
-通过定义节点的比较函数（即直接比较节点的数据）来定义堆。<br>
-用这个堆来实现快速查找最小的两个节点。然后结合生成新的节点放入堆。<br>
-循环n-1次。即可以得到哈夫曼树。
+ͨ���ѻ��ж�����ʵ�ֹ���������**HuffmanTree**��<br>
+��������ṹ�̳�����ͨ��������**NormalTree**��<br>
+ͨ������ڵ�ıȽϺ�������ֱ�ӱȽϽڵ�����ݣ�������ѡ�<br>
+���������ʵ�ֿ��ٲ�����С�������ڵ㡣Ȼ���������µĽڵ����ѡ�<br>
+ѭ��n-1�Ρ������Եõ�����������
+ʹ�÷�����
+---
 
-
-
-
-
+> `HuffmanTree<int> one(Data, 100);`

@@ -144,6 +144,6 @@ BagState Solve(unsigned int n, double limit, object* thing)
 	}
 	//std::cout << count << std::endl;
 	one.keepSolution();
-	delete m_thing;
+	delete[] m_thing;
 	return one;
 }
