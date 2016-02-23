@@ -21,9 +21,10 @@
 ##线段树的离散化##
 前提：
 - 插入的线段已知。
-- 无需再插入或删除未知的线段。
-构造方法
->`DiscreteSegTree Tree(Segment[],SegmentNumber);`
+- 无需再插入或删除未知的线段。  
+
+构造方法：  
+> `DiscreteSegTree Tree(Segment[],SegmentNumber);`
 
 用的是**AVLtree**进行检索。
 接口：  
