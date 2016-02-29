@@ -6,6 +6,10 @@
 //只需要定义>
 
 const int OriginalHeapSize = 100;
+TEMP class Heap;
+TEMP class MaxHeap;
+TEMP class MinHeap;
+TEMP void Swap(Heap<T>* a, Heap<T>* b);
 TEMP
 class Heap
 {
@@ -45,6 +49,7 @@ public:
 	//弹出节点。即删除
 	T pop();
 	bool isEmpty()const{ return Current < 0; }
+	TEMP friend void Swap(Heap<T>* a, Heap<T>* b);
 };
 //////////////////////////////////////////////////////////////////////////
 TEMP

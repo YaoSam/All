@@ -1,9 +1,14 @@
 #pragma once
 #include <iostream>
 #include <time.h>
+#undef  TEMP
 #define TEMP template <class T>
+#undef re
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 
+TEMP struct node;
+TEMP class list;
+TEMP void Swap(list<T>& a, list<T>&b);
 TEMP 
 struct node
 {
@@ -30,6 +35,7 @@ public:
 	node<T>* find(T const &x);
 	void delNode(T const &x);//删除一个x的点
 	void erase(T const & x);//删除所有为x的点。
+	TEMP friend void Swap(list<T>& a, list<T>&b);
 	friend std::ostream& operator<<(std::ostream& out, list<T> const & other)
 	{
 		node<T>* temp = other.head->next;

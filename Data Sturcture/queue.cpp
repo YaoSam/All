@@ -57,3 +57,12 @@ T queue<T>::pop()
 	front = (front + 1) % size;
 	return data[tempfront];
 }
+
+TEMP void Swap(queue<T> &a, queue<T>& b)
+{
+	Swap(a.front, b.front);
+	Swap(a.rear, b.rear);
+	Swap(a.size, b.size);
+	Swap(a.data, b.data);
+	return;
+}

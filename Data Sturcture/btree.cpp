@@ -89,6 +89,8 @@ TEMP void treeNode<T>::rightlink(treeNode<T>* other)
 		other->parent = this;
 }
 
+//////////////////////////////////////////////////////////////////////////
+
 TEMP NormalTree<T>& NormalTree<T>::operator=(NormalTree<T> const & other)
 {
 	if (this == &other)return *this;
@@ -243,4 +245,9 @@ TEMP treeNode<T>* NormalTree<T>::find(T const & x)const
 		}
 	}
 	return NULL;
+}
+
+TEMP void Swap(NormalTree<T>* a, NormalTree<T>* b)
+{
+	Swap(a->root,b->root);
 }

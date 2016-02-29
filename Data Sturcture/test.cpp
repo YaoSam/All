@@ -1,5 +1,9 @@
 #pragma  once
+#include "btree.h"
 #include "ALL.h"
+#include "normal.h"
+#include "normal.cpp"
+#include "normal2.h"
 #include "normal2.cpp"
 #include <algorithm>
 #include <math.h>
@@ -88,9 +92,12 @@ void TestOfBstree()
 	re(i, SizeOfTest)
 		a[i] = rand() % 100000;
 	bstree<int> one(a, SizeOfTest);
-	//one.pre();
-	//one.mid();
-	//one.post();
+	bstree<int> two;
+	Swap(&one, &two);
+	Swap(&two, &one);
+	one.pre();
+	one.mid();
+	one.post();
 	//bstree<int> another = one;
 	//another.mid();
 	//one = another;

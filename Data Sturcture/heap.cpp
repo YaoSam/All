@@ -63,6 +63,15 @@ TEMP Heap<T>& Heap<T>::operator=(Heap<T> const & other)
 	return *this;
 }
 
+TEMP void Swap(Heap<T>* a, Heap<T>* b)
+{
+	Swap(a->Current, b->Current);
+	Swap(a->compare, b->compare);
+	Swap(a->size, b->size);
+	Swap(a->Data, b->Data);
+	return;
+}
+
 TEMP void Heap<T>::push(T const &X)
 {
 	if (Current >= int(size - 1))

@@ -156,6 +156,8 @@ namespace UnitTest
 				re(i, SizeOfTest)
 					one.push(rand() % SizeOfTest);
 				two = one;
+				Swap(one, two);
+				Swap(one, two);
 				re(i, SizeOfTest)
 					a[i] = one.pop();
 				re(i, SizeOfTest)
@@ -181,6 +183,8 @@ namespace UnitTest
 					while (!b.isEmpty())
 						a.push(b.pop());
 				}
+				Swap(a, b);
+				Swap(a, b);
 				re(i, SizeOfTest)
 					if (a.pop() != c.pop())
 						debug("对不上了");
@@ -206,6 +210,8 @@ namespace UnitTest
 					one.HeadInsert(a[i]);
 				list<int> two = one;
 				one = two;
+				Swap(one, two);
+				Swap(one, two);
 				one.resetPointer();
 				std::stringstream ss;
 				std::string str;
@@ -234,6 +240,8 @@ namespace UnitTest
 				MaxHeap<int> one(abc, SizeOfTest);
 				MaxHeap<int> two = one;
 				one = two;
+				Swap(&one, &two);
+				Swap(&two, &one);
 				memcpy(bcd, abc, SizeOfTest*sizeof(int));
 				heapSort(abc, SizeOfTest);
 				Qsort_MaxToMin(bcd, 0, SizeOfTest - 1);

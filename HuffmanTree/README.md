@@ -11,4 +11,4 @@
 > `HuffmanTree<int> tree(Data, DataNumber);`>
 
 这样就可以用`Data`生成的哈夫曼树。  
-**注意：请务必实现数据类型的operator>。
+**注意：请务必实现数据类型的operator>。**

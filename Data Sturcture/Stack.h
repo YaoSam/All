@@ -5,7 +5,10 @@
 #undef TEMP
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
-const int OriginSize = 90;
+const int OriginSize = 50;
+
+TEMP class stack;
+TEMP void Swap(stack<T> &a, stack<T> &b);
 TEMP
 class stack//不能用于动态分配内存的元素。
 {
@@ -31,4 +34,5 @@ public:
 			out << other.data[i] << " ";
 		return out << std::endl;
 	}
+	TEMP friend void Swap(stack<T> &a, stack<T> &b);
 };

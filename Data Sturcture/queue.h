@@ -4,7 +4,8 @@
 #define TEMP template <class T>
 #define re(i,n) for(unsigned int i=0;i<n;i++)
 const int OriginQueueSize = 20;
-
+TEMP class queue;
+TEMP void Swap(queue<T> &a, queue<T>& b);
 TEMP
 class queue//不能用动态分配内存的元素
 {
@@ -20,4 +21,5 @@ public:
 	T pop();
 	void clear(){ front = rear = 0; }
 	bool isEmpty()const{ return front == rear; }
+	TEMP friend void Swap(queue<T> &a, queue<T>& b);
 };

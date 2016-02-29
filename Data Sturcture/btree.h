@@ -45,7 +45,7 @@ public:
 	treeNode<T>* Parent()const{ return parent; }
 	unsigned int Height()const{ return height; }
 };
-
+TEMP void Swap(NormalTree<T>* a, NormalTree<T>* b);
 TEMP
 class NormalTree//这东西用来继承吧！
 {
@@ -66,4 +66,5 @@ public:
 	virtual treeNode<T>* find(T const & x)const;
 	virtual void insert(T const & x) = 0;
 	treeNode<T>* Root()const{ return root; }
+	TEMP friend void Swap(NormalTree<T>* a, NormalTree<T>* b);
 };
